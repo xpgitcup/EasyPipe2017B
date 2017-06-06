@@ -10,7 +10,7 @@
 
     <!--asset:stylesheet src="application.css"/-->
 
-    <%@include file="common.html"%>
+    <g:render template="layouts/common"/>
 
     <g:layoutHead/>
 </head>
