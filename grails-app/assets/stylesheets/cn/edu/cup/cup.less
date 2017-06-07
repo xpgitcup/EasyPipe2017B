@@ -1,9 +1,35 @@
-//先定义背景
 
 body {
-  background: url("../cn/edu/cup/img_bg_haven.jpg");
+
+  //先定义背景
+  background: url("../../../cn/edu/cup/img_bg_haven.jpg"); //这个是正确的
   background-position: center;
   background-size: cover; /*这个是正确的*/
+
+  //轮播图片的居中...
+  .carousel-inner {
+    .item {
+      img {
+        display: block;
+        line-height: 1;
+        background: yellow;
+        /*width: 100%;  /* 20170523 李晓平增加*/
+        margin: auto;
+      }
+    }
+  }
+
+  //标题字体
+  .navbar {
+    .applicationTitle {
+      float: left;
+      font-size: 1.4em;
+      margin: auto;
+      a{
+        color: white;
+      }
+    }
+  }
 
   .home-title {
     color: white;
@@ -25,7 +51,7 @@ body {
     border-radius: 6px;
     border: 1px;
 
-    .applicationTitle{
+    .applicationTitle {
       margin-top: auto;
     }
 
@@ -44,11 +70,11 @@ body {
       margin-top: 35px;
 
       ul {
-        li{
+        li {
           padding: 10px;
           list-style: none;
 
-          a{
+          a {
             color: white;
           }
         }

@@ -12,7 +12,8 @@
 <!--asset:stylesheet src="jqpagination/jqpagination.css"/-->
 
 <!--引入CUP的相关内容-->
-<asset:stylesheet src="cn/edu/cup/cupEasyUi.css"/>
+<!--asset:stylesheet src="cn/edu/cup/cupEasyUi.css"/-->
+<asset:stylesheet src="cn/edu/cup/cup.css"/>
 
 <!--JS加载-->
 <asset:javascript src="jquery-2.2.0.min.js"/>

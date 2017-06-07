@@ -48,12 +48,6 @@
         <g:each in="${cn.edu.cup.system.SystemTitle.last().systemCarousel}" var="item" status="i">
             <g:if test="${i == 0}">
                 <div class="item active">
-                    <!--
-                    <div class="carousel-image" style="background-image: image('cn/edu/cup/'${item.imageName})">
-                        <!--asset:image alt="loading..." src="cn/edu/cup/${item.imageName}"/-->
-                    <!-- 响应太慢
-                    </div>
-                    -->
 
                     <asset:image alt="loading..." src="cn/edu/cup/${item.imageName}"/>
 
