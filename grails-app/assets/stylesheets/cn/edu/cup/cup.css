@@ -12,12 +12,13 @@ body .carousel-inner .item img {
   /*width: 100%;  /* 20170523 李晓平增加*/
   margin: auto;
 }
-body .navbar .applicationTitle {
-  float: left;
-  font-size: 1.4em;
-  margin: auto;
+body .applicationTitle {
+  display: inline-block;
+  vertical-align: text-top;
+  padding-top: 20px;
 }
-body .navbar .applicationTitle a {
+body .applicationTitle a {
+  font-size: 2.1em;
   color: white;
 }
 body .home-title {

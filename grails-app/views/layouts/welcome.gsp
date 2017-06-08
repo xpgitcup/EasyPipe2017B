@@ -18,15 +18,18 @@
 <body>
 <div class="container">
 
-    %{--标题--}%
-    <div class="applicationTitle">
+    %{--导航栏kq--}%
+    <!--div class="navbar navbar-default navbar-static-top" role="navigation"-->
+    <div class="navbar navbar-static-top" role="navigation">
+
+        %{--标题--}%
         <span class="navbar-header">
             <a href="${createLink(uri: '/')}">
                 <asset:image src="cn/edu/cup/${cn.edu.cup.system.SystemTitle.last()?.applicationLogo}"
                              class="img-rounded"/>
             </a>
         </span>
-        <span id="applicationTitle">
+        <span class="applicationTitle">
             <g:if test="${cn.edu.cup.system.SystemTitle.last()}">
                 <a href="${createLink(uri: '/home')}">
                     ${cn.edu.cup.system.SystemTitle.last()?.applicationTitle}
@@ -36,11 +39,9 @@
                 替换成应用程序的标题
             </g:else>
         </span>
-    </div>
-    %{--导航栏kq--}%
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <span class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
-            <ul class="nav navbar-nav navbar-right">
+
+        <span class="navbar-collapse collapse  navbar-right" aria-expanded="false" style="height: 0.8px;">
+            <ul class="nav navbar-nav">
                 <g:pageProperty name="page.nav"/>
                 %{--每页的nav可以不同--}%
             </ul>

@@ -105,28 +105,14 @@
     <!--登录信息统计 -->
     <div class="col-md-4 column">
         <h1 class="home-title">最近登陆的有：</h1>
-        <table class="home-title">
-            <g:each in="${cn.edu.cup.system.SystemLog.findAll(max: 5)}" var="item">
-                <tr>
-                    <td>${item.userName}</td>
-                    <td>${item.hostIP}</td>
-                    <td>${item.actionDate}</td>
-                </tr>
-            </g:each>
-        </table>
+        <div id="listSystemLogDiv"></div>
+        <div id="paginationListSystemLogDiv" class="easyui-pagination"></div>
     </div>
 
     <div class="col-md-4 column">
         <h1 class="home-title">最近的交流信息：</h1>
-        <table class="home-title">
-            <g:each in="${cn.edu.cup.system.SystemChat.findAll(max: 5)}" var="item">
-                <tr>
-                    <td>${item.speaker}</td>
-                    <td>${item.speakTo}</td>
-                    <td>${item.getMessage()}</td>
-                </tr>
-            </g:each>
-        </table>
+        <div id="listSystemChatDiv"></div>
+        <div id="paginationListSystemChatDiv" class="easyui-pagination"></div>
     </div>
 </div>
 
