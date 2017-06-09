@@ -11,6 +11,19 @@ class HomeController {
     def systemCommonService
     def systemLogService
 
+    /*
+    * 列出对象
+    * */
+    def listSystemChat() {
+        def systemChatList = SystemChat.list(params)
+        println("${systemChatList}")
+        if (request.xhr) {
+            render(template: 'listSystemChat', model: [systemChatList: systemChatList])
+        } else {
+            respond systemChatList
+        }
+    }
+
     private void listSystemMenu() {
         //根据用户的属性，设置菜单
         params.user = session.systemUser

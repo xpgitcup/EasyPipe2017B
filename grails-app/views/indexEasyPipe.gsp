@@ -106,13 +106,17 @@
     <div class="col-md-4 column">
         <h1 class="home-title">最近登陆的有：</h1>
         <div id="listSystemLogDiv"></div>
-        <div id="paginationListSystemLogDiv" class="easyui-pagination"></div>
+        <div id="paginationListSystemLogDiv" class="easyui-pagination" data-options="total: ${cn.edu.cup.system.SystemLog.count()}">
+
+        </div>
     </div>
 
     <div class="col-md-4 column">
         <h1 class="home-title">最近的交流信息：</h1>
         <div id="listSystemChatDiv"></div>
-        <div id="paginationListSystemChatDiv" class="easyui-pagination"></div>
+        <div id="paginationListSystemChatDiv" class="easyui-pagination" data-options="total: ${cn.edu.cup.system.SystemChat.count()}">
+
+        </div>
     </div>
 </div>
 

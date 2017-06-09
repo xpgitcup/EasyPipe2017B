@@ -16,9 +16,9 @@ $(function() {
 
     //获取当前页
     var currentPgaeSystemLog = readCookie("currentPgaeSystemLog", 1);
-    var pageSizeSystemLog = readCookie("pageSizeSystemLog", pageSize);
-    var totalSystemLog = countSystemLog();
-    console.info("记录总数：" + totalSystemLog);
+    var pageSizeSystemLog = readCookie("pageSizeSystemLog", 5);
+    //var totalSystemLog = countSystemLog();
+    //console.info("记录总数：" + totalSystemLog);
 
     //加载数据
     listSystemLog(currentPgaeSystemLog, pageSizeSystemLog);
@@ -26,7 +26,7 @@ $(function() {
     //分页
     paginationListSystemLogDiv.pagination({
         pageSize: pageSizeSystemLog,
-        total: totalSystemLog,
+        //total: totalSystemLog,
         showPageList: true,
         displayMsg: '',
         layout: ['first', 'prev', 'links', 'next', 'last'],
@@ -42,9 +42,9 @@ $(function() {
 
     //获取当前页
     var currentPgaeSystemChat = readCookie("currentPgaeSystemChat", 1);
-    var pageSizeSystemChat = readCookie("pageSizeSystemChat", pageSize);
-    var totalSystemChat = countSystemChat();
-    console.info("记录总数：" + totalSystemChat);
+    var pageSizeSystemChat = readCookie("pageSizeSystemChat", 5);
+    //var totalSystemChat = countSystemChat();
+    //console.info("记录总数：" + totalSystemChat);
 
     //加载数据
     listSystemChat(currentPgaeSystemChat, pageSizeSystemChat);
@@ -52,7 +52,7 @@ $(function() {
     //分页显示
     paginationListSystemChatDiv.pagination({
         pageSize: pageSizeSystemChat,
-        total: totalSystemChat,
+        //total: totalSystemChat,
         showPageList: true,
         displayMsg: '',
         layout: ['first', 'prev', 'links', 'next', 'last'],
@@ -64,18 +64,16 @@ $(function() {
 
 });
 
-function countSystemLog() {
-    return 10;
+
+/*
+ * 列表显示当前所有对象
+ * */
+function listSystemLog(pageNumber, pageSize) {
+    console.info("列表显示对象：");
+    //ajaxRun("listSystemLog" + getParams(pageNumber, pageSize), 0, "listSystemLogDiv");
 }
 
-function listSystemLog(currentPgaeSystemLog, pageSizeSystemLog) {
-
-}
-
-function countSystemChat() {
-    return 10;
-}
-
-function listSystemChat(currentPgaeSystemChat, pageSizeSystemChat) {
+function listSystemChat(pageNumber, pageSize) {
     console.info("list systemChat ...");
+    ajaxRun("home/listSystemChat" + getParams(pageNumber, pageSize), 0, "listSystemChatDiv");
 }
