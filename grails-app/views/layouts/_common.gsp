@@ -27,6 +27,7 @@
 <!--asset:javascript src="jqpagination/jquery.jqpagination.min.js"/-->
 <!--用户自定义的-->
 <asset:javascript src="cn/edu/cup/common/common.js"/>
-<asset:javascript src="cn/edu/cup/common/mainEasyUI.js"/>
+<!-- 这个不用包含， 这是用户界面所需要的 -->
+<!--asset:javascript src="cn/edu/cup/common/mainEasyUI.js"/-->
 
 <!-- 界面设置结束 -->

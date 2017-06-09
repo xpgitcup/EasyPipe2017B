@@ -3,7 +3,7 @@
  */
 
 var listSystemLogDiv;
-var paginationListSystemLog;
+var paginationListSystemLogDiv;
 var listSystemChatDiv;
 var paginationListSystemChatDiv;
 
@@ -13,8 +13,6 @@ $(function() {
     //获取当前页面的div
     listSystemLogDiv = $("#listSystemLogDiv");
     paginationListSystemLogDiv = $("#paginationListSystemLogDiv")
-    listSystemChatDiv = $("#listSystemChatDiv");
-    paginationSystemChatDiv = $("#paginationSystemChatDiv");
 
     //获取当前页
     var currentPgaeSystemLog = readCookie("currentPgaeSystemLog", 1);
@@ -38,6 +36,20 @@ $(function() {
         }
     });
 
+    //获取Div
+    listSystemChatDiv = $("#listSystemChatDiv");
+    paginationListSystemChatDiv = $("#paginationListSystemChatDiv");
+
+    //获取当前页
+    var currentPgaeSystemChat = readCookie("currentPgaeSystemChat", 1);
+    var pageSizeSystemChat = readCookie("pageSizeSystemChat", pageSize);
+    var totalSystemChat = countSystemChat();
+    console.info("记录总数：" + totalSystemChat);
+
+    //加载数据
+    listSystemChat(currentPgaeSystemChat, pageSizeSystemChat);
+
+    //分页显示
     paginationListSystemChatDiv.pagination({
         pageSize: pageSizeSystemChat,
         total: totalSystemChat,
@@ -52,5 +64,18 @@ $(function() {
 
 });
 
+function countSystemLog() {
+    return 10;
+}
 
+function listSystemLog(currentPgaeSystemLog, pageSizeSystemLog) {
 
+}
+
+function countSystemChat() {
+    return 10;
+}
+
+function listSystemChat(currentPgaeSystemChat, pageSizeSystemChat) {
+    console.info("list systemChat ...");
+}
