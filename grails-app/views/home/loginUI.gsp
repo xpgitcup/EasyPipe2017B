@@ -10,7 +10,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="layout" content="welcome"/>
-    <title>退出</title>
+    <title>登录</title>
 </head>
 
 <body>
