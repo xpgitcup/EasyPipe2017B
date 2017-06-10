@@ -1,5 +1,6 @@
 package cn.edu.cup.os
 
+import cn.edu.cup.dictionary.JsFrame
 import cn.edu.cup.system.SystemChat
 import cn.edu.cup.system.SystemTitle
 import cn.edu.cup.system.SystemUser
@@ -10,6 +11,7 @@ class HomeController {
 
     def systemCommonService
     def systemLogService
+    def treeViewService
 
     /*
     * 列出对象
@@ -42,7 +44,18 @@ class HomeController {
         //在会话中保存第一级菜单
         session.systemMenuList = systemMenuList
         println("${systemMenuList}")
-
+        //保存三级菜单
+        systemMenuList.each { item->
+            def itemName = "systemMenuTree${item.id}"
+            def data = item.menuItems
+            println("查询---菜单${data}")
+            params.context = "hrefContext"
+            params.subItems = "menuItems"
+            params.attributes = "id"    //
+            params.useMethod = true
+            def result = treeViewService.generateNodesString(data, params, JsFrame.EasyUI)
+            session.putAt(itemName, result)
+        }
     }
 
     /*

@@ -75,7 +75,7 @@
             <g:each in="${session.systemMenuList}" var="menuItem" status="i">
                 <div title="${menuItem.menuContext}" data-options="iconCls:'icon-ok'" style="overflow:auto">
                     <ul id="systemMenuTree${menuItem.id}" class="easyui-tree"
-                        url="/operation4SystemMenu/getSystemMenuTree/${menuItem.id}"></ul>
+                        url="${session.systemMenuTree${menuItem.id}}"></ul>
                 </div>
             </g:each>
 
