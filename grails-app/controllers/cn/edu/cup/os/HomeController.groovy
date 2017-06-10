@@ -82,7 +82,7 @@ class HomeController {
             if (layout) {
                 session.layout = layout
             }
-            redirect(uri: "/home")
+            redirect(uri: "${createLink(uri: '/home')}")
         } else {
             flash.message = "用户名或密码错误！"
             redirect(uri: "${createLink(uri: '/')}")

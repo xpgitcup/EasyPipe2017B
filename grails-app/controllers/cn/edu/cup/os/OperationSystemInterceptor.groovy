@@ -1,5 +1,7 @@
 package cn.edu.cup.os
 
+import easypipe2017b.Application
+
 
 class OperationSystemInterceptor {
 
@@ -10,7 +12,8 @@ class OperationSystemInterceptor {
         def m = matchAll().excludes(controller: "home")
         m.excludes(controller: "systemLog")
         //m.excludes(controller: "operation4SystemLog")
-        m.excludes(uri: "/")
+        m.excludes(uri: "/EasyPipe2017B/")  //这一句是关键。发布后显示主页的关键
+        m.excludes(uri: "/")                    //开发期间显示主页
     }
 
     boolean before() {
