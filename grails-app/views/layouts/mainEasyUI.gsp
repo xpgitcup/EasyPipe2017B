@@ -37,6 +37,19 @@
     <asset:javascript src="cn/edu/cup/common/common.js"/>
     <asset:javascript src="cn/edu/cup/common/mainEasyUI.js"/>
 
+    <g:javascript>
+    //显示系统菜单
+    function showSystemMenuAtLayout() {
+        console.info("显示系统菜单...");
+        var systemMenu = "<%=session.getAttribute('systemMenuListAtHome')%>";
+        console.info("对象列表：${systemMenu}");
+        console.info(systemMenu.length);
+        console.info(systemMenu);
+        var systemMenuList = $.parseJSON(systemMenu);
+        console.info(systemMenuList.length);
+    }
+    </g:javascript>
+
     <g:layoutHead/>
 </head>
 
@@ -74,11 +87,9 @@
         <div id="mainSystemMenuDiv" class="easyui-accordion" data-options="animate: false" style="width: auto">
             <g:each in="${session.systemMenuList}" var="menuItem" status="i">
                 <div title="${menuItem.menuContext}" data-options="iconCls:'icon-ok'" style="overflow:auto">
-                    <ul id="systemMenuTree${menuItem.id}" class="easyui-tree"
-                        url="${session.systemMenuTree${menuItem.id}}"></ul>
+                    <ul id="systemMenuTree${menuItem.id}" class="easyui-tree"></ul>
                 </div>
             </g:each>
-
         </div>
     </div>
     <!-- 主显示区 -->

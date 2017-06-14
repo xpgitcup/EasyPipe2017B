@@ -8,7 +8,7 @@ var listSystemChatDiv;
 var paginationListSystemChatDiv;
 
 $(function() {
-    console.info("这是首页...");
+    console.info("这是首页...${pageContext.request.contextPath}");
 
     //获取当前页面的div
     listSystemLogDiv = $("#listSystemLogDiv");
@@ -77,3 +77,4 @@ function listSystemChat(pageNumber, pageSize) {
     console.info("list systemChat ...");
     ajaxRun("home/listSystemChat" + getParams(pageNumber, pageSize), 0, "listSystemChatDiv");
 }
+
