@@ -2,6 +2,7 @@ package cn.edu.cup.os
 
 import cn.edu.cup.dictionary.JsFrame
 import cn.edu.cup.system.SystemChat
+import cn.edu.cup.system.SystemMenu
 import cn.edu.cup.system.SystemTitle
 import cn.edu.cup.system.SystemUser
 import grails.converters.JSON
@@ -26,6 +27,24 @@ class HomeController {
             render(template: 'listSystemChat', model: [systemChatList: systemChatList])
         } else {
             respond systemChatList
+        }
+    }
+
+    /*
+    * 获取系统菜单
+    * */
+    def getSystemMenuTree(SystemMenu systemMenu) {
+        def data = systemMenu.menuItems
+        println("查询---菜单${data}")
+        params.context = "hrefContext"
+        params.subItems = "menuItems"
+        params.attributes = "id"    //
+        params.useMethod = true
+        def result = treeViewService.generateNodesString(data, params, JsFrame.EasyUI)
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
         }
     }
 
@@ -56,19 +75,16 @@ class HomeController {
         systemMenuList.each { item->
             def arrayItem = [:]
 
+            //第一层
+            arrayItem.put("panelName", item.menuContext)
+
+            //第二层
             def itemName = "systemMenuTree${item.id}"
-            def data = item.menuItems
-            //println("查询---菜单${data}")
-            params.context = "hrefContext"
-            params.subItems = "menuItems"
-            params.attributes = "id"    //
-            params.useMethod = true
-            def result = treeViewService.generateNodesString(data, params, JsFrame.EasyUI)
+            arrayItem.put("treeDivName", itemName)
 
-            arrayItem.put(itemName, result)
-
+            //具体的树内容
+            arrayItem.put("treeData", item.id)
             systemMenuListAtHome.add(arrayItem)
-
             //println("${arrayItem}")
         }
         //--------------------------------------------------------------------------------------------------------------

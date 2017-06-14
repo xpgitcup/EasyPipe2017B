@@ -10,9 +10,6 @@ var mainPanel;
 $(function () {
     console.info("这是整体布局...");
 
-    //显示菜单
-    showSystemMenuAtLayout();
-
     mainPanel = $("#mainPanel");
     mainSystemMenuDiv = $("#mainSystemMenuDiv");
 

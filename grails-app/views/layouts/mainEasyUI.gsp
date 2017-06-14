@@ -37,22 +37,6 @@
     <asset:javascript src="cn/edu/cup/common/common.js"/>
     <asset:javascript src="cn/edu/cup/common/mainEasyUI.js"/>
 
-    <g:javascript>
-    //显示系统菜单
-    function showSystemMenuAtLayout() {
-        console.info("显示系统菜单...");
-        var systemMenu = "<%=session.getAttribute('systemMenuListAtHome')%>";
-        //console.info("对象列表：${systemMenu}");   //没有效果
-        console.info(systemMenu.length);
-        console.info(typeof(systemMenu));
-        var systemMenuList = eval ("(" + systemMenu + ")"); //eval(systemMenu);  //失败
-        //var systemMenuList = systemMenu.parseJSON();    //没有这个函数
-        //var systemMenuList = $.parseJSON(systemMenu);
-        //var systemMenuList = JSON.parse("${systemMenu}");    //报错，第二个字符就不认识了。
-        console.info(systemMenuList.length);
-    }
-    </g:javascript>
-
     <g:layoutHead/>
 </head>
 
@@ -88,9 +72,9 @@
     <!-- 左边的菜单-->
     <div data-options="region:'west', split: true" style="width: 20%">
         <div id="mainSystemMenuDiv" class="easyui-accordion" data-options="animate: false" style="width: auto">
-            <g:each in="${session.systemMenuList}" var="menuItem" status="i">
-                <div title="${menuItem.menuContext}" data-options="iconCls:'icon-ok'" style="overflow:auto">
-                    <ul id="systemMenuTree${menuItem.id}" class="easyui-tree"></ul>
+            <g:each in="${session.systemMenuListAtHome}" var="menuItem" status="i">
+                <div title="${menuItem.panelName}" data-options="iconCls:'icon-ok'" style="overflow:auto">
+                    <ul id="${menuItem.treeDivName}" class="easyui-tree" url="home/getSystemMenuTree/${menuItem.treeData}" ></ul>
                 </div>
             </g:each>
         </div>
