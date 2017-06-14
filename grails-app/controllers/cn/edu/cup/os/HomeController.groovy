@@ -6,6 +6,7 @@ import cn.edu.cup.system.SystemTitle
 import cn.edu.cup.system.SystemUser
 import grails.converters.JSON
 import grails.web.JSONBuilder
+import groovy.json.JsonBuilder
 
 import static cn.edu.cup.system.SystemChat.*
 
@@ -71,9 +72,8 @@ class HomeController {
             //println("${arrayItem}")
         }
         //--------------------------------------------------------------------------------------------------------------
-        def jsonStr = render systemMenuListAtHome as JSON
-        def json = new JSONBuilder().build(jsonFormat)
-        session.systemMenuListAtHome = jsonStr //"${systemMenuListAtHome}"
+        def json = new JsonBuilder().call(systemMenuListAtHome)
+        session.systemMenuListAtHome = json //.encodeAsHTML() //"${systemMenuListAtHome}"
         println("session: ${session.systemMenuListAtHome}")
     }
 

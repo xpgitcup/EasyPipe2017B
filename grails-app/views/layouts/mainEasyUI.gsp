@@ -42,10 +42,13 @@
     function showSystemMenuAtLayout() {
         console.info("显示系统菜单...");
         var systemMenu = "<%=session.getAttribute('systemMenuListAtHome')%>";
-        console.info("对象列表：${systemMenu}");
+        //console.info("对象列表：${systemMenu}");   //没有效果
         console.info(systemMenu.length);
-        console.info(systemMenu);
-        var systemMenuList = $.parseJSON(systemMenu);
+        console.info(typeof(systemMenu));
+        var systemMenuList = eval ("(" + systemMenu + ")"); //eval(systemMenu);  //失败
+        //var systemMenuList = systemMenu.parseJSON();    //没有这个函数
+        //var systemMenuList = $.parseJSON(systemMenu);
+        //var systemMenuList = JSON.parse("${systemMenu}");    //报错，第二个字符就不认识了。
         console.info(systemMenuList.length);
     }
     </g:javascript>
