@@ -84,20 +84,6 @@ class HomeController {
         //根据用户的属性，设置菜单
         params.user = session.systemUser
         def systemMenuList = systemCommonService.getAllTopLevelMenus(params)
-        println("${systemMenuList}")
-        def subMenuItems = []
-        systemMenuList.eachWithIndex { Object entry, int i ->
-            def ms = []
-            entry.menuItems.each() { e ->
-                ms.add(e)
-            }
-            subMenuItems.add(ms)
-        }
-        //在会话中保存第二级菜单
-        session.subMenuItems = subMenuItems
-        //在会话中保存第一级菜单
-        session.systemMenuList = systemMenuList
-        println("第一次： ${systemMenuList}")
 
         //新思路
         def systemMenuListAtHome = []

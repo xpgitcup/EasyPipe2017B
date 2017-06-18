@@ -89,7 +89,7 @@
         <h1>
             Easypipe
             <g:if test="${flash.message}">
-                <div class="message" role="status">${flash.message}</div>
+                <div class="home-message" role="status">${flash.message}</div>
             </g:if>
         </h1>
 

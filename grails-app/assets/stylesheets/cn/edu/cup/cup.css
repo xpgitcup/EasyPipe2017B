@@ -21,6 +21,9 @@ body .applicationTitle a {
   font-size: 2.1em;
   color: white;
 }
+body .home-message {
+  color: red;
+}
 body .home-chat {
   color: white;
 }
