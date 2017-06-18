@@ -46,11 +46,6 @@ function showSytemMenu() {
     console.info(systemMenuList);
     for(var item in systemMenuList) {
         console.info(systemMenuList[item].panelName);
-        /**
-        mainSystemMenuDiv.append(" <div title=\"" + systemMenuList[item].panelName + "\" data-options=\"iconCls:\'icon-ok\'\" style=\"overflow:auto\">");
-        mainSystemMenuDiv.append("<ul id=\"" + systemMenuList[item].treeDivName + "\" class=\"easyui-tree\" url=\"home/getSystemMenuTree/${menuItem.treeData}\" ></ul>");
-        mainSystemMenuDiv.append("</div>")
-         **/  //显示不出来
         var ul = $("<ul></ul>")
         ul.id = systemMenuList[item].treeDivName;
         console.info(ul);
@@ -58,9 +53,9 @@ function showSytemMenu() {
             data:systemMenuList[item].treeData
         });
         mainSystemMenuDiv.accordion('add',{
-            titel: systemMenuList[item].panelName,
+            title: systemMenuList[item].panelName,
             content: ul,
-            select: false
+            select: true
         })
     }
 }
