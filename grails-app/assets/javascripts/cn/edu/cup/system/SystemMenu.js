@@ -22,7 +22,7 @@ $(function(){
     displayTreeSystemMenuDiv.tree({
         //url: "/operation4SystemMenu/getTreeSystemMenu" + getParams(currentPgaeSystemMenu, pageSizeSystemMenu),
         //url: "operation4SystemMenu/getTreeSystemMenu" + getParams(currentPgaeSystemMenu, pageSizeSystemMenu),
-        url: "getTreeSystemMenu" + getParams(currentPgaeSystemMenu, pageSizeSystemMenu),
+        url: "operation4SystemMenu/getTreeSystemMenu" + getParams(currentPgaeSystemMenu, pageSizeSystemMenu),
         onSelect: function (node) {
             showSystemMenu(node);
             $("#createSystemMenu").attr('href', 'javascript: createSystemMenu(' + node.attributes[0] + ')');
@@ -60,7 +60,7 @@ $(function(){
  * */
 function createSystemMenu(id) {
     console.info("创建SystemMenu. 上级节点：" + id);
-    ajaxRun("createSystemMenu", id, "showSystemMenuDiv");
+    ajaxRun("operation4SystemMenu/createSystemMenu", id, "showSystemMenuDiv");
 }
 
 /*
@@ -68,7 +68,7 @@ function createSystemMenu(id) {
  * */
 function editSystemMenu(id) {
     console.info("编辑SystemMenu." + id);
-    ajaxRun("editSystemMenu", id, "showSystemMenuDiv");
+    ajaxRun("operation4SystemMenu/editSystemMenu", id, "showSystemMenuDiv");
 }
 
 /*
@@ -76,7 +76,7 @@ function editSystemMenu(id) {
  * */
 function countSystemMenu() {
     console.info("开始统计...")
-    var total = ajaxCalculate("countSystemMenu");
+    var total = ajaxCalculate("operation4SystemMenu/countSystemMenu");
     console.info("统计结果：" + total);
     return total;
 }
@@ -88,6 +88,6 @@ function showSystemMenu(node) {
     console.info("显示当前系统属性" + node);
     if (node) {
         var id = node.attributes[0];
-        ajaxRun("getSystemMenu", id, "showSystemMenuDiv");
+        ajaxRun("operation4SystemMenu/getSystemMenu", id, "showSystemMenuDiv");
     }
 }

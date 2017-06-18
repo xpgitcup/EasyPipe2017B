@@ -43,7 +43,7 @@ $(function(){
  * */
 function createSystemLog(id) {
     console.info("创建SystemLog. 上级节点：" + id);
-    ajaxRun("createSystemLog", id, "showSystemLogDiv");
+    ajaxRun("operation4SystemLog/createSystemLog", id, "showSystemLogDiv");
 }
 
 /*
@@ -51,7 +51,7 @@ function createSystemLog(id) {
  * */
 function editSystemLog(id) {
     console.info("编辑SystemLog." + id);
-    ajaxRun("editSystemLog", id, "showSystemLogDiv");
+    ajaxRun("operation4SystemLog/editSystemLog", id, "showSystemLogDiv");
 }
 
 /*
@@ -59,7 +59,7 @@ function editSystemLog(id) {
  * */
 function countSystemLog() {
     console.info("开始统计...")
-    var total = ajaxCalculate("countSystemLog");
+    var total = ajaxCalculate("operation4SystemLog/countSystemLog");
     console.info("统计结果：" + total);
     return total;
 }
@@ -70,7 +70,7 @@ function countSystemLog() {
 function showSystemLog(id) {
     console.info("显示当前" + id);
     if (id) {
-        ajaxRun("getSystemLog", id, "showSystemLogDiv");
+        ajaxRun("operation4SystemLog/getSystemLog", id, "showSystemLogDiv");
     }
 }
 
@@ -79,5 +79,5 @@ function showSystemLog(id) {
  * */
 function listSystemLog(pageNumber, pageSize) {
     console.info("列表显示对象：");
-    ajaxRun("listSystemLog" + getParams(pageNumber, pageSize), 0, "listSystemLogDiv");
+    ajaxRun("operation4SystemLog/listSystemLog" + getParams(pageNumber, pageSize), 0, "listSystemLogDiv");
 }

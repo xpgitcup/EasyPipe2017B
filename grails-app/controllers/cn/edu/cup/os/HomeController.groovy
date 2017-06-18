@@ -2,6 +2,7 @@ package cn.edu.cup.os
 
 import cn.edu.cup.dictionary.JsFrame
 import cn.edu.cup.system.SystemChat
+import cn.edu.cup.system.SystemLog
 import cn.edu.cup.system.SystemMenu
 import cn.edu.cup.system.SystemTitle
 import cn.edu.cup.system.SystemUser
@@ -17,6 +18,19 @@ class HomeController {
     def systemCommonService
     def systemLogService
     def treeViewService
+
+    /*
+    * 列出日志对象
+    * */
+    def listSystemLog() {
+        def systemLogList = SystemLog.list(params)
+        println("${systemLogList}")
+        if (request.xhr) {
+            render(template: 'listSystemLog', model: [systemLogList: systemLogList])
+        } else {
+            respond systemLogList
+        }
+    }
 
     /*
     * 列出会话对象

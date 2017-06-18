@@ -39,7 +39,8 @@ class SystemMenu {
 
     //------------------------------------------------------------------------------------------------------------------
     String hrefContext() {
-        return "<a href=\'/${menuAction}\'>${menuContext}</a>"
+        //return "<a href=\'/${menuAction}\'>${menuContext}</a>"      //这是绝对路径
+        return "<a href=\'${menuAction}\'>${menuContext}</a>"      //这是相对路径
     }
 
     String menuItemRole() {

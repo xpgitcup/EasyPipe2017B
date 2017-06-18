@@ -20,7 +20,7 @@ $(function(){
 
     //加载数据
     displayTreeSystemAttributeDiv.tree({
-        url: "getTreeSystemAttribute" + getParams(currentPgaeSystemAttribute, pageSizeSystemAttribute),
+        url: "operation4SystemAttribute/getTreeSystemAttribute" + getParams(currentPgaeSystemAttribute, pageSizeSystemAttribute),
         onSelect: function (node) {
             showSystemAttribute(node);
             $("#createSystemAttribute").attr('href', 'javascript: createSystemAttribute(' + node.attributes[0] + ')');
@@ -47,7 +47,7 @@ $(function(){
         //翻页函数
         onSelectPage:function(pageNumber, pageSize){
             displayTreeSystemAttributeDiv.tree({
-                url: "getTreeSystemAttribute" + getParams(pageNumber, pageSize)
+                url: "operation4SystemAttribute/getTreeSystemAttribute" + getParams(pageNumber, pageSize)
             })
         }
     });
@@ -58,7 +58,7 @@ $(function(){
 * */
 function createSystemAttribute(id) {
     console.info("创建SystemAttribute. 上级节点：" + id);
-    ajaxRun("createSystemAttribute", id, "showSystemAttributeDiv");
+    ajaxRun("operation4SystemAttribute/createSystemAttribute", id, "showSystemAttributeDiv");
 }
 
 /*
@@ -66,7 +66,7 @@ function createSystemAttribute(id) {
 * */
 function editSystemAttribute(id) {
     console.info("编辑SystemAttribute." + id);
-    ajaxRun("editSystemAttribute", id, "showSystemAttributeDiv");
+    ajaxRun("operation4SystemAttribute/editSystemAttribute", id, "showSystemAttributeDiv");
 }
 
 /*
@@ -74,7 +74,7 @@ function editSystemAttribute(id) {
 * */
 function countSystemAttribute() {
     console.info("开始统计...")
-    var total = ajaxCalculate("countSystemAttribute");
+    var total = ajaxCalculate("operation4SystemAttribute/countSystemAttribute");
     console.info("统计结果：" + total);
     return total;
 }
@@ -86,6 +86,6 @@ function showSystemAttribute(node) {
     console.info("显示当前系统属性" + node);
     if (node) {
         var id = node.attributes[0];
-        ajaxRun("getSystemAttribute", id, "showSystemAttributeDiv");
+        ajaxRun("operation4SystemAttribute/getSystemAttribute", id, "showSystemAttributeDiv");
     }
 }

@@ -39,7 +39,7 @@ $(function(){
  * */
 function createSystemUser(id) {
     console.info("创建SystemUser. 上级节点：" + id);
-    ajaxRun("createSystemUser", id, "showSystemUserDiv");
+    ajaxRun("operation4SystemUser/createSystemUser", id, "showSystemUserDiv");
 }
 
 /*
@@ -47,7 +47,7 @@ function createSystemUser(id) {
  * */
 function editSystemUser(id) {
     console.info("编辑SystemUser." + id);
-    ajaxRun("editSystemUser", id, "showSystemUserDiv");
+    ajaxRun("operation4SystemUser/editSystemUser", id, "showSystemUserDiv");
 }
 
 /*
@@ -55,7 +55,7 @@ function editSystemUser(id) {
  * */
 function countSystemUser() {
     console.info("开始统计...")
-    var total = ajaxCalculate("countSystemUser");
+    var total = ajaxCalculate("operation4SystemUser/countSystemUser");
     console.info("统计结果：" + total);
     return total;
 }
@@ -66,7 +66,7 @@ function countSystemUser() {
 function showSystemUser(id) {
     console.info("显示当前" + id);
     if (id) {
-        ajaxRun("getSystemUser", id, "showSystemUserDiv");
+        ajaxRun("operation4SystemUser/getSystemUser", id, "showSystemUserDiv");
     }
 }
 
@@ -75,5 +75,5 @@ function showSystemUser(id) {
 * */
 function listSystemUser(pageNumber, pageSize) {
     console.info("列表显示对象：");
-    ajaxRun("listSystemUser" + getParams(pageNumber, pageSize), 0, "listSystemUserDiv");
+    ajaxRun("operation4SystemUser/listSystemUser" + getParams(pageNumber, pageSize), 0, "listSystemUserDiv");
 }

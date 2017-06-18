@@ -1,4 +1,8 @@
 <!doctype html>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -7,6 +11,9 @@
         <g:layoutTitle default="Grails"/>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--设置Base-->
+    <base href="<%=basePath%>"/>
 
     <asset:stylesheet src="application.css"/>
 
@@ -35,8 +42,8 @@
     <!--asset:javascript src="jqpagination/jquery.jqpagination.min.js"/-->
     <!--用户自定义的-->
     <asset:javascript src="cn/edu/cup/common/common.js"/>
-    <asset:javascript src="cn/edu/cup/common/mainEasyUI.js"/>
 
+    <!-- 用于与session交换数据的代码  -->
     <g:javascript>
     function getSystemMenuList() {
         var systemMenuList = <%=session.getAttribute("systemMenuListAtHome")%>
@@ -45,6 +52,10 @@
         return systemMenuList;
     }
     </g:javascript>
+
+    <asset:javascript src="cn/edu/cup/common/mainEasyUI.js"/>
+
+    <!-- 界面设置结束 -->
 
     <g:layoutHead/>
 </head>
