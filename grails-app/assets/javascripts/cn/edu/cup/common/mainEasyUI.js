@@ -13,6 +13,9 @@ $(function () {
     mainPanel = $("#mainPanel");
     mainSystemMenuDiv = $("#mainSystemMenuDiv");
 
+    //显示系统菜单
+    showSytemMenu();
+
     //读取当前的Panel
     //currentAccordion = readCookie("currentAccordion", "底层管理");
     currentPanel = readCookie("mainPanel", "底层管理");
@@ -37,3 +40,21 @@ $(function () {
 
 });
 
+function showSytemMenu() {
+    var systemMenuList = getSystemMenuList();
+    console.info("获取的菜单：");
+    console.info(systemMenuList);
+    for(var item in systemMenuList) {
+        console.info(systemMenuList[item].panelName);
+        /**
+        mainSystemMenuDiv.append(" <div title=\"" + systemMenuList[item].panelName + "\" data-options=\"iconCls:\'icon-ok\'\" style=\"overflow:auto\">");
+        mainSystemMenuDiv.append("<ul id=\"" + systemMenuList[item].treeDivName + "\" class=\"easyui-tree\" url=\"home/getSystemMenuTree/${menuItem.treeData}\" ></ul>");
+        mainSystemMenuDiv.append("</div>")
+         **/  //显示不出来
+        mainSystemMenuDiv.accordion('add',{
+            titel: systemMenuList[item].panelName,
+            content: '新增加的',
+            select: false
+        })
+    }
+}

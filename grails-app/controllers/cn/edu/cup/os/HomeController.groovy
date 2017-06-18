@@ -8,6 +8,7 @@ import cn.edu.cup.system.SystemUser
 import grails.converters.JSON
 import grails.web.JSONBuilder
 import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
 
 import static cn.edu.cup.system.SystemChat.*
 
@@ -49,6 +50,20 @@ class HomeController {
     }
 
     /*
+    * 获取系统菜单
+    * */
+    def private getSystemMenuTreeMap(SystemMenu systemMenu) {
+        def data = systemMenu.menuItems
+        println("查询---菜单${data}")
+        params.context = "hrefContext"
+        params.subItems = "menuItems"
+        params.attributes = "id"    //
+        params.useMethod = true
+        def result = treeViewService.generateNodesString(data, params, JsFrame.EasyUI)
+        return result
+    }
+
+    /*
     * 列出系统菜单
     * */
     private void listSystemMenu() {
@@ -83,12 +98,15 @@ class HomeController {
             arrayItem.put("treeDivName", itemName)
 
             //具体的树内容
-            arrayItem.put("treeData", item.id)
+            //arrayItem.put("treeData", item.id)
+            arrayItem.put("treeData", getSystemMenuTreeMap(item))
             systemMenuListAtHome.add(arrayItem)
             //println("${arrayItem}")
         }
         //--------------------------------------------------------------------------------------------------------------
-        def json = new JsonBuilder().call(systemMenuListAtHome)
+        def jsonOutput = new JsonOutput()
+        def json = jsonOutput.toJson(systemMenuListAtHome)
+        //def json = new JsonBuilder().call(systemMenuListAtHome)
         session.systemMenuListAtHome = json //.encodeAsHTML() //"${systemMenuListAtHome}"
         println("session: ${session.systemMenuListAtHome}")
     }

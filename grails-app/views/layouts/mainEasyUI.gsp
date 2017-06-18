@@ -37,6 +37,15 @@
     <asset:javascript src="cn/edu/cup/common/common.js"/>
     <asset:javascript src="cn/edu/cup/common/mainEasyUI.js"/>
 
+    <g:javascript>
+    function getSystemMenuList() {
+        var systemMenuList = <%=session.getAttribute("systemMenuListAtHome")%>
+        //console.info("获取系统菜单：");
+        //console.info(typeof systemMenuList);
+        return systemMenuList;
+    }
+    </g:javascript>
+
     <g:layoutHead/>
 </head>
 
@@ -72,11 +81,6 @@
     <!-- 左边的菜单-->
     <div data-options="region:'west', split: true" style="width: 20%">
         <div id="mainSystemMenuDiv" class="easyui-accordion" data-options="animate: false" style="width: auto">
-            <g:each in="${session.systemMenuListAtHome}" var="menuItem" status="i">
-                <div title="${menuItem.panelName}" data-options="iconCls:'icon-ok'" style="overflow:auto">
-                    <ul id="${menuItem.treeDivName}" class="easyui-tree" url="home/getSystemMenuTree/${menuItem.treeData}" ></ul>
-                </div>
-            </g:each>
         </div>
     </div>
     <!-- 主显示区 -->
