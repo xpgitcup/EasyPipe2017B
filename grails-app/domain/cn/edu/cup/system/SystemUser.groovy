@@ -16,16 +16,18 @@ class SystemUser {
     }
  
     def beforeInsert() {
+        println("insert  -- ${password}")
         password = password.encodeAsMD5()
-        //println "before Insert ${password}"
+        println "before Insert ${password}"
     }
     
     def beforeUpdate() {
         //如果密码有更新，就重新计算
+        println("update -- ${password}")
         if (isDirty('password')) {
             password = password.encodeAsMD5()
         }
-        //println "before Update ${this.password}"
+        println "before Update ${this.password}"
     }
     
     String toString() {

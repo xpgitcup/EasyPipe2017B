@@ -26,7 +26,7 @@ class Operation4SystemUserController extends SystemUserController{
     def createSystemUser(SystemUser systemUser) {
         def newSystemUser = new SystemUser()
         if (request.xhr) {
-            render(template: 'editSystemUser', model: [SystemUser: newSystemUser])
+            render(template: 'editSystemUser', model: [systemUser: newSystemUser])
         } else {
             respond newSystemUser
         }

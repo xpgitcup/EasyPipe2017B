@@ -23,10 +23,6 @@ class OperationSystemInterceptor {
             redirect(controller: "home", action: "loginUI")
         } else {
             systemCommonService.updateSystemUserList(request)
-            if (params.size()>0) {
-                println("记录日志...")
-                systemLogService.recordLog(session, request, params)
-            }
         }
         //继续执行原来的命令
         true
@@ -34,6 +30,10 @@ class OperationSystemInterceptor {
 
     boolean after() {
         println("控制器：${controllerName}，动作：${actionName}.之后...")
+        if (params.size()>0) {
+            println("记录日志...")
+            systemLogService.recordLog(session, request, params)
+        }
         true
     }
 
