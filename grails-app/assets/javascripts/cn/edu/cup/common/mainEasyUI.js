@@ -51,9 +51,15 @@ function showSytemMenu() {
         mainSystemMenuDiv.append("<ul id=\"" + systemMenuList[item].treeDivName + "\" class=\"easyui-tree\" url=\"home/getSystemMenuTree/${menuItem.treeData}\" ></ul>");
         mainSystemMenuDiv.append("</div>")
          **/  //显示不出来
+        var ul = $("<ul></ul>")
+        ul.id = systemMenuList[item].treeDivName;
+        console.info(ul);
+        ul.tree({
+            data:systemMenuList[item].treeData
+        });
         mainSystemMenuDiv.accordion('add',{
             titel: systemMenuList[item].panelName,
-            content: '新增加的',
+            content: ul,
             select: false
         })
     }
