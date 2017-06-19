@@ -29,37 +29,49 @@
 </head>
 
 <body>
-<div class="container">
-    <div class="row-fluid">
-        <div class="col-md-6 column">
-            <div class="panel panel-default">
-                <div class="nav">
-                    <ul>
-                        <li>
-                            <a class="list">
-                                系统用户维护——(重新登录后，更新)
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<div class="easyui-tabs">
+    <div title="我的发言">
+        <div id="listSystemChatISayDiv"></div>
+        <div id="paginationListSystemChatISayDiv" class="easyui-pagination"></div>
+    </div>
 
-                <div class="easyui-panel">
-                    <div id="listSystemChatDiv" class="easyui-tree"></div>
+    <div title="我在听">
+        <div id="listSystemChatListeningDiv"></div>
+        <div id="paginationListSystemChatListeningDiv" class="easyui-pagination"></div>
+    </div>
 
-                    <div id="paginationSystemChatDiv" class="easyui-pagination"></div>
+    <div title="整体显示" class="container">
+        <div class="row-fluid">
+            <div class="col-md-6 column">
+                <div class="panel panel-default">
+                    <div class="nav">
+                        <ul>
+                            <li>
+                                <a class="list">
+                                    系统用户维护——(重新登录后，更新)
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="easyui-panel">
+                        <div id="listSystemChatDiv" class="easyui-tree"></div>
+
+                        <div id="paginationSystemChatDiv" class="easyui-pagination"></div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-6 column">
-            <div class="panel panel-default">
-                <div class="nav" role="navigation">
-                    <ul>
-                    </ul>
-                </div>
+            <div class="col-md-6 column">
+                <div class="panel panel-default">
+                    <div class="nav" role="navigation">
+                        <ul>
+                        </ul>
+                    </div>
 
-                <div class="easyui-panel">
-                    <div id="showSystemChatDiv"></div>
+                    <div class="easyui-panel">
+                        <div id="showSystemChatDiv"></div>
+                    </div>
                 </div>
             </div>
         </div>

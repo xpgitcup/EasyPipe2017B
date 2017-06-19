@@ -1,11 +1,54 @@
 package cn.edu.cup.os
 
 import cn.edu.cup.system.SystemChat
+import cn.edu.cup.system.SystemChatController
 import grails.converters.JSON
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-class Operation4SystemChatController {
+class Operation4SystemChatController extends SystemChatController{
+
+    /*
+    * 统计属性
+    * */
+    def countSystemChatISay() {
+        def user = session.systemUser.userName
+        def count = SystemChat.countBySpeakerAndHaveRead(user, false)
+        println("统计结果：${count} ${user}")
+        def result = [count: count]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
+    }
+
+    /*
+    * 列出我的发言
+    * */
+    def listSystemChatISay() {
+        def user = session.systemUser.userName
+        def systemChatList = SystemChat.findAllBySpeaker(user, params)
+        if (request.xhr) {
+            render(template: 'listSystemChat', model: [systemChatList: systemChatList])
+        } else {
+            respond systemChatList
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /*
+    * 列出我在听
+    * */
+    def listSystemChatListening() {
+        def systemChatList = SystemChat.list(params)
+        if (request.xhr) {
+            render(template: 'listSystemChat', model: [systemChatList: systemChatList])
+        } else {
+            respond newSystemChat
+        }
+    }
 
     /*
     * 列出对象
@@ -15,7 +58,7 @@ class Operation4SystemChatController {
         if (request.xhr) {
             render(template: 'listSystemChat', model: [systemChatList: systemChatList])
         } else {
-            respond systemChatList
+            respond newSystemChat
         }
     }
 
@@ -25,7 +68,7 @@ class Operation4SystemChatController {
     def createSystemChat(SystemChat systemChat) {
         def newSystemChat = new SystemChat()
         if (request.xhr) {
-            render(template: 'editSystemChat', model: [SystemChat: newSystemChat])
+            render(template: 'editSystemChat', model: [systemChat: newSystemChat])
         } else {
             respond newSystemChat
         }
@@ -46,14 +89,15 @@ class Operation4SystemChatController {
     * */
     def editSystemChat(SystemChat systemChat) {
         if (request.xhr) {
-            render(template: 'editSystemChat', model: [SystemChat: systemChat])
+            render(template: 'editSystemChat', model: [systemChat: systemChat])
         } else {
-            respond systemChat
+            respond SystemChat
         }
     }
 
+
     /*
-    * 统计根属性
+    * 统计属性
     * */
     def countSystemChat() {
         def count = SystemChat.count()    //这是必须调整的
@@ -71,7 +115,7 @@ class Operation4SystemChatController {
     * 获取当前id对应的对象
     * */
     def getSystemChat(SystemChat systemChat) {
-        def theModel = [SystemChat: systemChat]
+        def theModel = [systemChat: systemChat]
         println("${systemChat}")
         if (request.xhr) {
             render(template: "showSystemChat", model:theModel)
