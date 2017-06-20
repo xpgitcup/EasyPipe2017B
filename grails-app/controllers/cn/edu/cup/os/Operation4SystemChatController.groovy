@@ -9,6 +9,16 @@ import grails.transaction.Transactional
 class Operation4SystemChatController extends SystemChatController{
 
     /*
+    * 标记已读
+    * */
+    @Transactional
+    def checkIt(SystemChat systemChat) {
+        systemChat.haveRead = true
+        systemChat.save(true)
+        redirect(action: "index")
+    }
+
+    /*
     * 统计属性
     * */
     def countSystemChatISay() {
