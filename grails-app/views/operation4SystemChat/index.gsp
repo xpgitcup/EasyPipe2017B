@@ -30,14 +30,14 @@
 
 <body>
 <div class="easyui-tabs">
+    <div title="我在听">
+        <div id="listSystemChatListeningDiv">??????</div>
+        <div id="paginationListSystemChatListeningDiv" class="easyui-pagination"></div>
+    </div>
+
     <div title="我的发言">
         <div id="listSystemChatISayDiv"></div>
         <div id="paginationListSystemChatISayDiv" class="easyui-pagination"></div>
-    </div>
-
-    <div title="我在听">
-        <div id="listSystemChatListeningDiv"></div>
-        <div id="paginationListSystemChatListeningDiv" class="easyui-pagination"></div>
     </div>
 
     <div title="整体显示" class="container">

@@ -17,9 +17,39 @@ class Operation4SystemChatController extends SystemChatController{
         systemChat.save(true)
         redirect(action: "index")
     }
+    
+    /*
+    * 统计记录个数
+    * */
+    def countSystemChat() {
+        def count = SystemChat.count()    //这是必须调整的
+        println("统计结果：${count}")
+        def result = [count: count]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
+        //return count //就是不行
+    }
 
     /*
-    * 统计属性
+    * 统计记录个数
+    * */
+    def countSystemChatListening() {
+        def user = session.systemUser.userName
+        def count = SystemChat.countBySpeakToAndHaveRead(user, false)
+        println("正在听统计结果：${count} ${user}")
+        def result = [count: count]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
+    }
+    
+    /*
+    * 统计记录个数
     * */
     def countSystemChatISay() {
         def user = session.systemUser.userName
@@ -40,7 +70,7 @@ class Operation4SystemChatController extends SystemChatController{
         def user = session.systemUser.userName
         def systemChatList = SystemChat.findAllBySpeaker(user, params)
         if (request.xhr) {
-            render(template: 'listSystemChat', model: [systemChatList: systemChatList])
+            render(template: 'listSystemChatISay', model: [systemChatList: systemChatList])
         } else {
             respond systemChatList
         }
@@ -52,11 +82,12 @@ class Operation4SystemChatController extends SystemChatController{
     * 列出我在听
     * */
     def listSystemChatListening() {
-        def systemChatList = SystemChat.list(params)
+        def user = session.systemUser.userName
+        def systemChatList = SystemChat.findAllBySpeakToAndHaveRead(user, false)
         if (request.xhr) {
-            render(template: 'listSystemChat', model: [systemChatList: systemChatList])
+            render(template: 'listSystemChatListening', model: [systemChatList: systemChatList])
         } else {
-            respond newSystemChat
+            respond systemChatList
         }
     }
 
@@ -68,7 +99,7 @@ class Operation4SystemChatController extends SystemChatController{
         if (request.xhr) {
             render(template: 'listSystemChat', model: [systemChatList: systemChatList])
         } else {
-            respond newSystemChat
+            respond systemChatList
         }
     }
 
@@ -105,21 +136,6 @@ class Operation4SystemChatController extends SystemChatController{
         }
     }
 
-
-    /*
-    * 统计属性
-    * */
-    def countSystemChat() {
-        def count = SystemChat.count()    //这是必须调整的
-        println("统计结果：${count}")
-        def result = [count: count]
-        if (request.xhr) {
-            render result as JSON
-        } else {
-            result
-        }
-        //return count //就是不行
-    }
 
     /*
     * 获取当前id对应的对象

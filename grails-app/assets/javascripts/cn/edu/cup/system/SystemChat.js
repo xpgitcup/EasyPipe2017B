@@ -7,9 +7,40 @@ var paginationSystemChatDiv;
 var listSystemChatISayDiv
 var paginationListSystemChatISayDiv
 
+var listSystemChatListeningDiv
+var paginationListSystemChatListeningDiv
+
 $(function(){
     console.info($("title").text() + "加载成功...");
 
+    //------------------------------------------------------------------------------------------------------------------
+    //获取当前页面的div
+    listSystemChatListeningDiv = $("#listSystemChatListeningDiv");
+    paginationListSystemChatListeningDiv = $("#paginationListSystemChatListeningDiv");
+
+    //获取当前页
+    var currentPgaeSystemChatListening = readCookie("currentPgaeSystemChatListening", 1);
+    var pageSizeSystemChatListening = readCookie("pageSizeSystemChatListening", pageSize);
+    var totalSystemChatListening = countSystemChatListening();
+    console.info("记录总数Listening：" + totalSystemChatListening);
+
+    //加载数据
+    listSystemChatListening(currentPgaeSystemChatListening, pageSizeSystemChatListening);
+
+    //分页
+    paginationListSystemChatListeningDiv.pagination({
+        pageSize: pageSizeSystemChatListening,
+        total: totalSystemChatListening,
+        showPageList: true,
+        displayMsg: '',
+        layout: ['first', 'prev', 'links', 'next', 'last'],
+        //翻页函数
+        onSelectPage:function(pageNumber, pageSize){
+            listSystemChatListening(pageNumber, pageSize);
+        }
+    });
+
+    //------------------------------------------------------------------------------------------------------------------
     //获取当前页面的div
     listSystemChatISayDiv = $("#listSystemChatISayDiv");
     paginationListSystemChatISayDiv = $("#paginationListSystemChatISayDiv");
@@ -35,6 +66,7 @@ $(function(){
             listSystemChatISay(pageNumber, pageSize);
         }
     });
+
 
     //------------------------------------------------------------------------------------------------------------------
     //获取当前页面的div
@@ -66,6 +98,25 @@ $(function(){
 
 });
 
+/*
+ * 统计记录总数
+ * */
+function countSystemChatListening() {
+    console.info("开始统计...")
+    var total = ajaxCalculate("operation4SystemChat/countSystemChatListening");
+    console.info("正在听统计结果：" + total);
+    return total;
+}
+
+/*
+* 列表显示当前所有对象
+* */
+function listSystemChatListening(pageNumber, pageSize) {
+    console.info("列表显示对象：");
+    ajaxRun("operation4SystemChat/listSystemChatListening" + getParams(pageNumber, pageSize), 0, "listSystemChatListeningDiv");
+}
+
+//----------------------------------------------------------------------------------------------------------------------
 /*
  * 统计记录总数
  * */
@@ -137,10 +188,3 @@ function listSystemChatIsay(pageNumber, pageSize) {
     ajaxRun("operation4SystemChat/listSystemChatISay" + getParams(pageNumber, pageSize), 0, "listSystemChatDiv");
 }
 
-/*
-* 列表显示当前所有对象
-* */
-function listSystemChatListening(pageNumber, pageSize) {
-    console.info("列表显示对象：");
-    ajaxRun("operation4SystemChat/listSystemChatListening" + getParams(pageNumber, pageSize), 0, "listSystemChatDiv");
-}
