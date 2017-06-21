@@ -14,12 +14,7 @@
             <td>${item.speakTo}</td>
             <td>${item.message}</td>
             <td>
-                <g:if test="${!item.haveRead}">
-                    <a href="operation4SystemChat/checkIt/${item.id}">标记已读</a>
-                </g:if>
-                <g:else>
-                    ${item.haveRead}
-                </g:else>
+                ${item.haveRead}
             </td>
             <td>${item.id}</td>
         </tr>

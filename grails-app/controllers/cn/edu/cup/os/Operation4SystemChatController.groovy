@@ -68,7 +68,7 @@ class Operation4SystemChatController extends SystemChatController{
     * */
     def listSystemChatISay() {
         def user = session.systemUser.userName
-        def systemChatList = SystemChat.findAllBySpeaker(user, params)
+        def systemChatList = SystemChat.findAllBySpeakerAndHaveRead(user, false, params)
         if (request.xhr) {
             render(template: 'listSystemChatISay', model: [systemChatList: systemChatList])
         } else {
@@ -82,8 +82,9 @@ class Operation4SystemChatController extends SystemChatController{
     * 列出我在听
     * */
     def listSystemChatListening() {
+        println("我在听：${params}")
         def user = session.systemUser.userName
-        def systemChatList = SystemChat.findAllBySpeakToAndHaveRead(user, false)
+        def systemChatList = SystemChat.findAllBySpeakToAndHaveRead(user, false, params)
         if (request.xhr) {
             render(template: 'listSystemChatListening', model: [systemChatList: systemChatList])
         } else {
@@ -107,7 +108,8 @@ class Operation4SystemChatController extends SystemChatController{
     * 创建对象
     * */
     def createSystemChat(SystemChat systemChat) {
-        def newSystemChat = new SystemChat()
+        def user = session.systemUser.userName
+        def newSystemChat = new SystemChat(speaker: user)
         if (request.xhr) {
             render(template: 'editSystemChat', model: [systemChat: newSystemChat])
         } else {

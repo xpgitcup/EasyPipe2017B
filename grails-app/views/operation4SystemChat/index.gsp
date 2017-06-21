@@ -47,9 +47,7 @@
                     <div class="nav">
                         <ul>
                             <li>
-                                <a class="list">
-                                    系统用户维护——(重新登录后，更新)
-                                </a>
+                                <a href="javascript: createSystemChat(0)">发言</a>
                             </li>
                         </ul>
                     </div>
