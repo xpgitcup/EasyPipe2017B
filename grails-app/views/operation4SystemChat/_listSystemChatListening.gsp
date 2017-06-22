@@ -11,7 +11,7 @@
     <g:each in="${systemChatList}" var="item" status="i">
         <tr>
             <td>${item.speaker}</td>
-            <td>${item.speakTo}</td>
+            <td>${item.subTopics}</td>
             <td>${item.message}</td>
             <td>
                 <g:if test="${!item.haveRead}">
