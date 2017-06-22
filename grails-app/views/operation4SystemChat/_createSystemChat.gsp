@@ -8,7 +8,7 @@
 <body>
 <a href="#edit-systemChat" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div id="edit-systemChat" class="content scaffold-edit" role="main">
-    <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
+    <h1>新发言：<g:message code="default.edit.label" args="[entityName]" /></h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
@@ -25,7 +25,13 @@
         <g:hiddenField name="id" value="${this.systemChat?.id}" />
         <g:hiddenField name="version" value="${this.systemChat?.version}" />
         <fieldset class="form">
-            <f:all bean="systemChat"/>
+            <!--f:all bean="systemChat"/-->
+            <f:with bean="systemChat">
+                <f:field property="speaker"/>
+                <f:field property="speakTo" optionValue="${userList}"/>
+                <f:field property="speaker"/>
+                <f:field property="speaker"/>
+            </f:with>
         </fieldset>
         <fieldset class="buttons">
             <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />

@@ -2,6 +2,7 @@ package cn.edu.cup.os
 
 import cn.edu.cup.system.SystemChat
 import cn.edu.cup.system.SystemChatController
+import cn.edu.cup.system.SystemUser
 import grails.converters.JSON
 import grails.transaction.Transactional
 
@@ -109,9 +110,13 @@ class Operation4SystemChatController extends SystemChatController{
     * */
     def createSystemChat(SystemChat systemChat) {
         def user = session.systemUser.userName
+        def userList = []
+        SystemUser.list().each {e->
+            userList.add(e.userName)
+        }
         def newSystemChat = new SystemChat(speaker: user)
         if (request.xhr) {
-            render(template: 'editSystemChat', model: [systemChat: newSystemChat])
+            render(template: 'createSystemChat', model: [systemChat: newSystemChat, userList: userList])
         } else {
             respond newSystemChat
         }
