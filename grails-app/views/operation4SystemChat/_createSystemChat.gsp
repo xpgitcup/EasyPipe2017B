@@ -28,9 +28,14 @@
             <!--f:all bean="systemChat"/-->
             <f:with bean="systemChat">
                 <f:field property="speaker"/>
-                <f:field property="speakTo" optionValue="${userList}"/>
-                <f:field property="speaker"/>
-                <f:field property="speaker"/>
+                <!--f:field property="speakTo" optionValue="${userList}"/-->
+                <div class="fieldcontain">
+                    <label>speakTo</label>
+                    <g:select name="speakTo" from="${userList}" value="${systemChat.speakTo}"></g:select>
+                </div>
+                <f:field property="message"/>
+                <f:field property="upTopic"/>
+                <f:field property="startTime"/>
             </f:with>
         </fieldset>
         <fieldset class="buttons">

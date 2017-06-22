@@ -70,6 +70,7 @@ class Operation4SystemChatController extends SystemChatController{
     def listSystemChatISay() {
         def user = session.systemUser.userName
         def systemChatList = SystemChat.findAllBySpeakerAndHaveRead(user, false, params)
+        systemChatList.sort({startTime: 'desc'})
         if (request.xhr) {
             render(template: 'listSystemChatISay', model: [systemChatList: systemChatList])
         } else {
@@ -114,7 +115,17 @@ class Operation4SystemChatController extends SystemChatController{
         SystemUser.list().each {e->
             userList.add(e.userName)
         }
+        def k = userList.indexOf(user)
+        println("查找...${k}")
+        if (k>-1) {
+            println("删除${k}")
+            userList.remove(k)
+        }
         def newSystemChat = new SystemChat(speaker: user)
+        if (systemChat) {
+            newSystemChat.upTopic = systemChat
+            newSystemChat.speakTo = systemChat.speaker
+        }
         if (request.xhr) {
             render(template: 'createSystemChat', model: [systemChat: newSystemChat, userList: userList])
         } else {

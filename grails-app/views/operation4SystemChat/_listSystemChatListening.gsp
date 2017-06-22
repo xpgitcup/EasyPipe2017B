@@ -6,7 +6,7 @@
     <th>speakTo</th>
     <th>message</th>
     <th>状态</th>
-    <th>删除</th>
+    <th>回复</th>
     </thead>
     <g:each in="${systemChatList}" var="item" status="i">
         <tr>
@@ -21,7 +21,9 @@
                     ${item.haveRead}
                 </g:else>
             </td>
-            <td>${item.id}</td>
+            <td>
+                <a href="javascript: createSystemChat(${item.id})">回复</a>
+            </td>
         </tr>
     </g:each>
 </table>

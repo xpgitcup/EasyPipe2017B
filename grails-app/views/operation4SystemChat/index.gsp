@@ -29,7 +29,7 @@
 </head>
 
 <body>
-<div class="easyui-tabs">
+<div id="operation4SystemChatDiv" class="easyui-tabs">
     <div title="我在听">
         <div id="listSystemChatListeningDiv">??????</div>
         <div id="paginationListSystemChatListeningDiv" class="easyui-pagination"></div>
@@ -42,7 +42,7 @@
 
     <div title="整体显示" class="container">
         <div class="row-fluid">
-            <div class="col-md-6 column">
+            <div class="col-md-12 column">
                 <div class="panel panel-default">
                     <div class="nav">
                         <ul>
@@ -59,19 +59,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="col-md-6 column">
-                <div class="panel panel-default">
-                    <div class="nav" role="navigation">
-                        <ul>
-                        </ul>
-                    </div>
-
-                    <div class="easyui-panel">
-                        <div id="showSystemChatDiv"></div>
-                    </div>
-                </div>
-            </div>
+    <div title="对话">
+        <div class="easyui-panel">
+            <div id="showSystemChatDiv"></div>
         </div>
     </div>
 </div>

@@ -1,6 +1,9 @@
 /**
  * Created by LiXiaoping on 2017/3/27.
  */
+
+var operation4SystemChatDiv
+
 var listSystemChatDiv;
 var paginationSystemChatDiv;
 
@@ -12,6 +15,19 @@ var paginationListSystemChatListeningDiv
 
 $(function(){
     console.info($("title").text() + "加载成功...");
+
+    operation4SystemChatDiv = $("#operation4SystemChatDiv");
+
+    var operation4SystemChatDivTab = readCookie("operation4SystemChatDivTab", "我在听")
+    operation4SystemChatDiv.tabs("select", operation4SystemChatDivTab);
+
+    operation4SystemChatDiv.tabs({
+        onSelect: function (title) {
+            if (title != "对话") {
+                $.cookie("operation4SystemChatDivTab", title);
+            }
+        }
+    })
 
     //------------------------------------------------------------------------------------------------------------------
     //获取当前页面的div
@@ -37,8 +53,10 @@ $(function(){
         //翻页函数
         onSelectPage:function(pageNumber, pageSize){
             listSystemChatListening(pageNumber, pageSize);
+            $.cookie("currentPgaeSystemChatListening", pageNumber);
         }
     });
+    paginationListSystemChatListeningDiv.pagination("select", currentPgaeSystemChatListening);
 
     //------------------------------------------------------------------------------------------------------------------
     //获取当前页面的div
@@ -64,9 +82,11 @@ $(function(){
         //翻页函数
         onSelectPage:function(pageNumber, pageSize){
             listSystemChatISay(pageNumber, pageSize);
+            $.cookie("currentPgaeSystemChatISay", pageNumber);
         }
     });
 
+    paginationListSystemChatISayDiv.pagination("select", currentPgaeSystemChatISay);
 
     //------------------------------------------------------------------------------------------------------------------
     //获取当前页面的div
@@ -92,9 +112,11 @@ $(function(){
         //翻页函数
         onSelectPage:function(pageNumber, pageSize){
             listSystemChat(pageNumber, pageSize);
+            $.cookie("currentPgaeSystemChat", pageNumber);
         }
     });
 
+    paginationSystemChatDiv.pagination("select", currentPgaeSystemChat);
 
 });
 
@@ -140,8 +162,15 @@ function listSystemChatISay(pageNumber, pageSize) {
  * 新建
  * */
 function createSystemChat(id) {
-    console.info("创建SystemChat. 上级节点：" + id);
+    operation4SystemChatDiv.tabs("select", "对话");
     ajaxRun("operation4SystemChat/createSystemChat", id, "showSystemChatDiv");
+    /**
+    if (id>0) {
+        operation4SystemChatDiv.tabs("select", "我在听");
+    } else {
+        operation4SystemChatDiv.tabs("select", "我的发言");
+    }
+     **/
 }
 
 /*
