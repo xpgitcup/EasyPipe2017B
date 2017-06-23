@@ -31,7 +31,7 @@
 <body>
 <div class="container">
     <div class="row-fluid">
-        <div class="col-md-8 column">
+        <div class="col-md-12 column">
             <div class="panel panel-default">
                 <div class="nav">
                     <ul>
@@ -39,6 +39,9 @@
                             <a class="list">
                                 系统用户维护——(重新登录后，更新)
                             </a>
+                        </li>
+                        <li>
+                            <a href="operation4SystemLog/clearSystemLog?clearType=keepLast&n=10">只保留最近的10条记录</a>
                         </li>
                     </ul>
                 </div>
@@ -51,18 +54,6 @@
             </div>
         </div>
 
-        <div class="col-md-4 column">
-            <div class="panel panel-default">
-                <div class="nav" role="navigation">
-                    <ul>
-                    </ul>
-                </div>
-
-                <div class="easyui-panel">
-                    <div id="showSystemLogDiv"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 </body>

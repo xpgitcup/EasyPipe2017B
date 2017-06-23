@@ -36,6 +36,13 @@
     </div>
 
     <div title="我的发言">
+        <div class="nav">
+            <ul>
+                <li>
+                    <a href="javascript: createSystemChat(0)">发言</a>
+                </li>
+            </ul>
+        </div>
         <div id="listSystemChatISayDiv"></div>
         <div id="paginationListSystemChatISayDiv" class="easyui-pagination"></div>
     </div>

@@ -7,11 +7,33 @@ import grails.transaction.Transactional
 import org.omg.CORBA.Environment
 
 @Transactional(readOnly = true)
-class Operation4SystemLogController extends SystemLogController{
+class Operation4SystemLogController extends SystemLogController {
+
+    /*
+    * 清理日志
+    * */
+    @Transactional
+    def clearSystemLog(params) {
+        println("${params}")
+        def clearType = params.clearType
+        def k = params.n
+        println(clearType)
+        switch (clearType) {
+            case "keepLast":
+                def maxId = SystemLog.last().id
+                println("---清理日志：  ${maxId}")
+                break;
+            default:
+                println("清理日志。。。。")
+                break
+        }
+        redirect(action: 'index')
+    }
 
     /*
     * 删除超过某个时间的日志
     * */
+
     def deleteSystemLogOldThan() {
         println("${params}")
         Calendar rightNow = Calendar.getInstance();
@@ -28,20 +50,20 @@ class Operation4SystemLogController extends SystemLogController{
         def v
         switch (timeUnit) {
             case "second":
-                rightNow.add(Calendar.SECOND, - timeNumber)
+                rightNow.add(Calendar.SECOND, -timeNumber)
                 break
             case "minute":
-                rightNow.add(Calendar.MINUTE, - timeNumber)
+                rightNow.add(Calendar.MINUTE, -timeNumber)
                 break
             case "hour":
-                rightNow.add(Calendar.HOUR, - timeNumber)
+                rightNow.add(Calendar.HOUR, -timeNumber)
                 break
             case "day":
-                rightNow.add(Calendar.DATE, - timeNumber)
+                rightNow.add(Calendar.DATE, -timeNumber)
                 now.set(day: v)
                 break
             case "month":
-                rightNow.add(Calendar.MONTH, - timeNumber)
+                rightNow.add(Calendar.MONTH, -timeNumber)
                 break
         }
         SystemLog.executeQuery("delete where actionDate > ?", rightNow)
@@ -51,6 +73,7 @@ class Operation4SystemLogController extends SystemLogController{
     /*
     * 列出对象
     * */
+
     def listSystemLog() {
         def systemLogList = SystemLog.list(params)
         if (request.xhr) {
@@ -63,6 +86,7 @@ class Operation4SystemLogController extends SystemLogController{
     /*
     * 创建对象
     * */
+
     def createSystemLog(SystemLog systemLog) {
         def newSystemLog = new SystemLog()
         if (request.xhr) {
@@ -75,16 +99,18 @@ class Operation4SystemLogController extends SystemLogController{
     /*
     * 保存对象
     * */
+
     @Transactional
     def updateSystemLog(SystemLog systemLog) {
         println("准备更新：${systemLog}")
-        systemLog.save flush:true
+        systemLog.save flush: true
         redirect(action: 'index')
     }
 
     /*
     * 编辑对象
     * */
+
     def editSystemLog(SystemLog systemLog) {
         if (request.xhr) {
             render(template: 'editSystemLog', model: [systemLog: systemLog])
@@ -96,6 +122,7 @@ class Operation4SystemLogController extends SystemLogController{
     /*
     * 统计根属性
     * */
+
     def countSystemLog() {
         def count = SystemLog.count()    //这是必须调整的
         println("统计结果：${count}")
@@ -111,15 +138,16 @@ class Operation4SystemLogController extends SystemLogController{
     /*
     * 获取当前id对应的对象
     * */
+
     def getSystemLog(SystemLog systemLog) {
         def theModel = [systemLog: systemLog]
         println("${systemLog}")
         if (request.xhr) {
-            render(template: "showSystemLog", model:theModel)
+            render(template: "showSystemLog", model: theModel)
         } else {
             theModel
         }
     }
 
-    def index() { }
+    def index() {}
 }

@@ -16,15 +16,18 @@ var paginationListSystemChatListeningDiv
 $(function(){
     console.info($("title").text() + "加载成功...");
 
+    //获取当前tabs的变量
     operation4SystemChatDiv = $("#operation4SystemChatDiv");
 
-    var operation4SystemChatDivTab = readCookie("operation4SystemChatDivTab", "我在听")
-    operation4SystemChatDiv.tabs("select", operation4SystemChatDivTab);
+    //读取上次所停留的页面
+    var currentTabOperation4SystemChatDiv = readCookie("currentTabOperation4SystemChatDiv", "我在听");
+    //页面跳转
+    operation4SystemChatDiv.tabs("select", currentTabOperation4SystemChatDiv);
 
     operation4SystemChatDiv.tabs({
         onSelect: function (title) {
             if (title != "对话") {
-                $.cookie("operation4SystemChatDivTab", title);
+                $.cookie("currentTabOperation4SystemChatDiv", title);
             }
         }
     })

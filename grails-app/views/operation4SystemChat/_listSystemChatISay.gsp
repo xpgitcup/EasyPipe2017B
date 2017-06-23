@@ -6,7 +6,7 @@
     <th>speakTo</th>
     <th>message</th>
     <th>状态</th>
-    <th>删除</th>
+    <th>反馈</th>
     </thead>
     <g:each in="${systemChatList}" var="item" status="i">
         <tr>
@@ -16,7 +16,7 @@
             <td>
                 ${item.haveRead}
             </td>
-            <td>${item.id}</td>
+            <td>${item.subTopics}</td>
         </tr>
     </g:each>
 </table>
