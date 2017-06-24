@@ -16,12 +16,16 @@ class Operation4SystemLogController extends SystemLogController {
     def clearSystemLog(params) {
         println("${params}")
         def clearType = params.clearType
-        def k = params.n
-        println(clearType)
+        def k = Integer.parseInt(params.n)
+        //println(clearType)
         switch (clearType) {
             case "keepLast":
                 def maxId = SystemLog.last().id
                 println("---清理日志：  ${maxId}")
+                def kk = maxId - k
+                def sqlResult = SystemLog.executeUpdate("delete SystemLog s where s.id < ${kk}")
+
+                println("sql 执行结果： ${sqlResult}")
                 break;
             default:
                 println("清理日志。。。。")
