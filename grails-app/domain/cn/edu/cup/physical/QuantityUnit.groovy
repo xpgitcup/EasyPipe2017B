@@ -15,7 +15,9 @@ class QuantityUnit {
 
     UnitSystem unitSystem;                  //所属单位制
 
-    static belongsTo = [physicalQuantity: PhysicalQuantity]
+    static belongsTo = PhysicalQuantity
+
+    static hasMany = [physicalQuantity: PhysicalQuantity]
 
     static constraints = {
         unitName(unique: true);

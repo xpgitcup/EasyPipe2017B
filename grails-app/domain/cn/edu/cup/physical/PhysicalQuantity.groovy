@@ -17,7 +17,7 @@ class PhysicalQuantity {
         isoUnit(nullable: true);
     }
 
-    //1对多关系定义
+    //应该是多对多关系定义
     static hasMany = [quantityUnits: QuantityUnit]
 
     static mapping = {
