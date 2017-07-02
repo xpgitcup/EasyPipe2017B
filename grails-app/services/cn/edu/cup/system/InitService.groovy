@@ -2,6 +2,9 @@ package cn.edu.cup.system
 
 import cn.edu.cup.dictionary.BaseDataType
 import cn.edu.cup.dictionary.DataKey
+import cn.edu.cup.physical.PhysicalQuantity
+import cn.edu.cup.physical.QuantityUnit
+import cn.edu.cup.physical.UnitSystem
 import grails.core.GrailsApplication
 import grails.transaction.Transactional
 
@@ -46,10 +49,102 @@ class InitService {
     }
 
     /*
+    * 初始化物理量
+    * */
+    def initBasicPhysicalQuantity() {
+        insertPhysicalQuantity("长度", "length", "L", "米", "m", true)
+        insertPhysicalQuantity("质量", "mass", "M", "千克", "kg", true)
+        insertPhysicalQuantity("时间", "time", "T", "秒", "s", true)
+        insertPhysicalQuantity("电流", "current", "I", "安培", "A", true)
+        insertPhysicalQuantity("热力学温度", "temperature", "K", "开尔文", "K", true)
+        insertPhysicalQuantity("物质的量", "amount of substance", "n(v)", "摩尔", "mol", true)
+        insertPhysicalQuantity("发光强度", "luminous intensity", "I(Iv)", "坎德拉", "cd", true)
+        //初始化量纲
+        PhysicalQuantity.list().each { e->
+            e.dimension = "${e.initDimension()}"
+            e.save()
+        }
+    }
+
+    /*
+    * 插入物理量
+    * */
+    def insertPhysicalQuantity(quantityName, englishName, symbol, unitName, unitSymbol, basic) {
+        if (PhysicalQuantity.countByQuantityName(quantityName) == 0) {
+            def pq = new PhysicalQuantity(
+                    quantityName: quantityName,
+                    englishName: englishName,
+                    symbol: symbol,
+                    unitName: unitName,
+                    unitSymbol: unitSymbol,
+                    basic: basic
+            )
+            pq.save()
+        }
+    }
+
+    /*
+    * 初始化系统单位制
+    * */
+    def initUnitSystem() {
+        def si = [
+                "L":"m",
+                "M":"kg",
+                "T":"s",
+                "I":"A",
+                "K":"K",
+                "n(v)":"mol",
+                "I(Iv)":"cd"
+        ]
+        def u = []
+        if (UnitSystem.count()<1) {
+            u.add(new UnitSystem(systemName: "SI", description: "国际单位制"))
+            u.add(new UnitSystem(systemName: "English", description: "英制"))
+            u.add(new UnitSystem(systemName: "自定义A", description: "自定义"))
+            u.each {e->
+                e.save()
+            }
+            println("初始化单位制系统...ok")
+            if (QuantityUnit.count()<1) {
+                PhysicalQuantity.findAllByBasic(true).each {e->
+                    def qu = new QuantityUnit(
+                            unitName: e.unitName,
+                            symbol: si.get(e.symbol),
+                            dimension: e.dimension,
+                            factorA: 1,
+                            factorB: 0,
+                            unitSystem: u[0]
+                    )
+                    qu.save()
+                }
+                println("初始化物理量单位...ok")
+            }
+        }
+    }
+
+    /*
+    * 插入物理量单位
+    * */
+    def insertQuantityUnit(unitName, englishName, symbol, dimension, factorA, factorB, unitSystem) {
+        if (QuantityUnit.countByUnitName(unitName)<1) {
+            def u = new QuantityUnit(unitName: unitName,
+                    englishName: englishName,
+                    symbol: symbol,
+                    dimension: dimension,
+                    factorA: factorA,
+                    factorB: factorB,
+                    unitSystem: unitSystem)
+            u.save()
+        }
+    }
+
+    /*
     * 初始化系统数据
     * */
     def initSystemData(domains) {
         println("初始化系统数据......")
+        initBasicPhysicalQuantity()
+        initUnitSystem()
         initSystemUsers()
         initSystemMenuItems(domains)
     }

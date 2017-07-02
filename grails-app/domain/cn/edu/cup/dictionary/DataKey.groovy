@@ -6,12 +6,12 @@ class DataKey {
 
     String keyContext                //标题
     String description               //说明
-    QuantityUnit quantityUnit        //单位
+    String quantityUnit              //单位
     Boolean isNullable               //是否可以为空
-    DataKey upKey                     //上级关键字
+    DataKey upKey                    //上级关键字
     BaseDataType dataValueType       //数据类型
     String appendValue               //附加数据
-    Boolean importFromFile          //从文件中导入
+    Boolean importFromFile           //从文件中导入
 
     static hasMany = [subKey: DataKey]
 

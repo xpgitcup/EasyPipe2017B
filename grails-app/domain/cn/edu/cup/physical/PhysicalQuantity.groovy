@@ -1,34 +1,65 @@
 package cn.edu.cup.physical
 
+import groovy.json.JsonOutput
+
 /***
  * 物理量
  * */
 class PhysicalQuantity {
 
     //字段定义
-    String quantityName;
-    String description;
-    QuantityUnit isoUnit;
+    String quantityName
+    String englishName
+    String symbol
+    String unitName
+    String unitSymbol
+    String dimension
+    Boolean basic = false
+
 
     //定义字段的顺序
     static constraints = {
-        quantityName(unique: true);
-        description();
-        isoUnit(nullable: true);
+        quantityName(unique: true)
+        englishName(unique: true)
+        symbol()
+        unitName()
+        unitSymbol()
+        dimension(nullable: true)
+        basic()
     }
-
-    //应该是多对多关系定义
-    static hasMany = [quantityUnits: QuantityUnit]
 
     static mapping = {
-        sort('quantityName')
-        sort('description')
-        quantityUnits sort: 'factorA'
     }
 
-    //
     String toString() {
-        return "${quantityName}/${isoUnit}";
+        return "${quantityName}/(${unitSymbol})";
     }
+
+
+    def countSubUnits() {
+        def value = QuantityUnit.countByDimension(this.dimension)
+        return value
+    }
+
+    def initDimension() {
+        def basicQantityList = PhysicalQuantity.findAllByBasic(true)
+        def dim = [:]
+        basicQantityList.each {e->
+            if (quantityName.equals(e.quantityName)) {
+                dim.put(e.symbol, 1)
+            } else {
+                dim.put(e.symbol, 0)
+            }
+        }
+        def jsonOutput = new JsonOutput()
+        def json = jsonOutput.toJson(dim)
+        return json
+    }
+
+    /*
+    def beforeInsert() {
+        dimension = initDimension()
+    }
+    */
 
 }

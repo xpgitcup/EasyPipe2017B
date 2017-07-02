@@ -6,46 +6,30 @@ package cn.edu.cup.physical
 class QuantityUnit {
 
     //字段定义
-    String unitName;        //名称
-    String description;     //描述
-    String label;           //符号--英文符号
-    String name;            //英文名称
-    Double factorA;
-    Double factorB;
+    String unitName
+    String englishName
+    String symbol
+    String dimension
+    Double factorA = 1
+    Double factorB = 0
 
-    UnitSystem unitSystem;                  //所属单位制
-
-    static belongsTo = PhysicalQuantity
-
-    static hasMany = [physicalQuantity: PhysicalQuantity]
+    static belongsTo = [unitSystem: UnitSystem]
 
     static constraints = {
         unitName(unique: true);
-        name(nullable: true)
-        label()
-        description();
+        englishName(nullable: true)
+        symbol()
+        dimension(nullable: true)
         factorA();
         factorB();
-        physicalQuantity();
-        unitSystem();
     }
 
     //定义排序
     static mapping = {
-        sort('physicalQuantity')
-        sort('factorA')
     }
 
     String toString() {
-        return "${label}/${description}"
-    }
-
-    boolean isISOUnit() {
-        if (physicalQuantity.isoUnit) {
-            return physicalQuantity.isoUnit.unitName == unitName
-        } else {
-            return false
-        }
+        return "${symbol}"
     }
 
     def toIsoUnit(Double value) {
