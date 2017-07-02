@@ -32,6 +32,7 @@
     <asset:javascript src="cn/edu/cup/base/${entityName}.js"/>
 
 </head>
+
 <body>
 
 <div id="operation4PhysicalDiv" class="easyui-tabs">
@@ -48,6 +49,7 @@
         </div>
 
         <div id="listPhysicalQuantityDiv"></div>
+
         <div id="paginationListPhysicalQuantityDiv" class="easyui-pagination"></div>
     </div>
 
@@ -63,6 +65,7 @@
         </div>
 
         <div id="listQuantityUnitDiv"></div>
+
         <div id="paginationListQuantityUnitDiv" class="easyui-pagination"></div>
     </div>
 
@@ -78,9 +81,19 @@
         </div>
 
         <div id="listUnitSystemDiv"></div>
+
         <div id="paginationListUnitSystemDiv" class="easyui-pagination"></div>
     </div>
-    
+
+    <!--编辑页面-->
+    <div title="编辑">
+        <div class="easyui-tabs">
+            <div title="编辑物理量">
+                <div id="editPhysicalQuantityDiv"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>

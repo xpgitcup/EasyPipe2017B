@@ -3,9 +3,16 @@
  */
 
 //物理量维护--变量部分
+
+//物理量
 var PhysicalQuantityDiv;
 var listPhysicalQuantityDiv;
-var paginationPhysicalQuantityDiv;
+var paginationListPhysicalQuantityDiv;
+
+//物理量单位
+var QuantityUnitDiv;
+var listQuantityUnitDiv;
+var paginationListQuantityUnitDiv;
 
 $(function () {
     console.info("物理单位管理...");
@@ -20,7 +27,9 @@ $(function () {
     //设置页面跳转函数
     operation4PhysicalQuantityDiv.tabs({
         onSelect: function (title) {
-            $.cookie("currentTabPhysicalQuantityDiv", title);
+            if (title !== "编辑") {
+                $.cookie("currentTabPhysicalQuantityDiv", title);
+            }
         }
     })
     //------------------------------------------------------------------------------------------------------------------
@@ -54,6 +63,37 @@ $(function () {
     });
     paginationListPhysicalQuantityDiv.pagination("select", currentPgaePhysicalQuantity);
     //------------------------------------------------------------------------------------------------------------------
+
+    //物理量单位维护---------------------------------------------------------------------------------------------------------
+    //获取当前页面的div
+    listQuantityUnitDiv = $("#listQuantityUnitDiv");
+    paginationListQuantityUnitDiv = $("#paginationListQuantityUnitDiv");
+
+    //获取当前页
+    var currentPgaeQuantityUnit = readCookie("currentPgaeQuantityUnit", 1);
+    var pageSizeQuantityUnit = readCookie("pageSizeQuantityUnit", pageSize);
+    var totalQuantityUnit = countQuantityUnit();
+    console.info("记录总数：" + totalQuantityUnit);
+
+    //加载数据
+    listQuantityUnit(currentPgaeQuantityUnit, pageSizeQuantityUnit);
+
+    //分页
+    paginationListQuantityUnitDiv.pagination({
+        pageSize: pageSizeQuantityUnit,
+        total: totalQuantityUnit,
+        showPageList: true,
+        displayMsg: '',
+        layout: ['first', 'prev', 'links', 'next', 'last'],
+        //翻页函数
+        onSelectPage: function (pageNumber, pageSize) {
+            listQuantityUnit(pageNumber, pageSize);
+            $.cookie("currentPgaeQuantityUnit", pageNumber);
+        }
+    });
+    paginationListQuantityUnitDiv.pagination("select", currentPgaeQuantityUnit);
+    //------------------------------------------------------------------------------------------------------------------
+
 });
 
 /*
@@ -101,3 +141,47 @@ function showPhysicalQuantity(id) {
     }
 }
 
+/*
+ * 统计记录总数
+ * */
+function countQuantityUnit() {
+    console.info("开始统计...")
+    var total = ajaxCalculate("operation4Physical/countQuantityUnit");
+    console.info("正在听统计结果：" + total);
+    return total;
+}
+
+/*
+ * 列表显示当前所有对象
+ * */
+function listQuantityUnit(pageNumber, pageSize) {
+    console.info("列表显示对象：");
+    ajaxRun("operation4Physical/listQuantityUnit" + getParams(pageNumber, pageSize), 0, "listQuantityUnitDiv");
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+/*
+ * 新建
+ * */
+function createQuantityUnit(id) {
+    QuantityUnitDiv.tabs("select", "对话");
+    ajaxRun("operation4Physical/createQuantityUnit", id, "showQuantityUnitDiv");
+}
+
+/*
+ * 编辑
+ * */
+function editQuantityUnit(id) {
+    console.info("编辑QuantityUnit." + id);
+    ajaxRun("operation4Physical/editQuantityUnit", id, "showQuantityUnitDiv");
+}
+
+/*
+ * 显示当前
+ * */
+function showQuantityUnit(id) {
+    console.info("显示当前" + id);
+    if (id) {
+        ajaxRun("operation4QuantityUnit/getQuantityUnit", id, "showQuantityUnitDiv");
+    }
+}

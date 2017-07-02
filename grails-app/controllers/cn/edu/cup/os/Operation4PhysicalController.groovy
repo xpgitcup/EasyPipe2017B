@@ -1,6 +1,7 @@
 package cn.edu.cup.os
 
 import cn.edu.cup.physical.PhysicalQuantity
+import cn.edu.cup.physical.QuantityUnit
 import cn.edu.cup.system.SystemUser
 import grails.converters.JSON
 import grails.transaction.Transactional
@@ -8,6 +9,89 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class Operation4PhysicalController {
 
+    /*
+    * 统计记录个数
+    * */
+    def countQuantityUnit() {
+        def count = QuantityUnit.count()    //这是必须调整的
+        println("统计结果：${count}")
+        def result = [count: count]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
+    }
+
+    /*
+    * 列出对象
+    * */
+    def listQuantityUnit() {
+        def quantityUnitList = QuantityUnit.list(params)
+        if (request.xhr) {
+            render(template: 'listQuantityUnit', model: [quantityUnitList: quantityUnitList])
+        } else {
+            respond quantityUnitList
+        }
+    }
+
+    /*
+    * 创建对象
+    * */
+    def createQuantityUnit(QuantityUnit quantityUnit) {
+        def newQuantityUnit = new QuantityUnit()
+        if (request.xhr) {
+            render(template: 'createQuantityUnit', model: [quantityUnit: newQuantityUnit])
+        } else {
+            respond newQuantityUnit
+        }
+    }
+
+    /*
+    * 保存对象
+    * */
+    @Transactional
+    def deleteQuantityUnit(QuantityUnit quantityUnit) {
+        quantityUnit.delete()
+        redirect(action: 'index')
+    }
+
+    /*
+    * 保存对象
+    * */
+    @Transactional
+    def updateQuantityUnit(QuantityUnit quantityUnit) {
+        println("准备更新：${quantityUnit}")
+        quantityUnit.save flush:true
+        redirect(action: 'index')
+    }
+
+    /*
+    * 编辑对象
+    * */
+    def editQuantityUnit(QuantityUnit quantityUnit) {
+        if (request.xhr) {
+            render(template: 'editQuantityUnit', model: [QuantityUnit: quantityUnit])
+        } else {
+            respond quantityUnit
+        }
+    }
+
+
+    /*
+    * 获取当前id对应的对象
+    * */
+    def getQuantityUnit(QuantityUnit quantityUnit) {
+        def theModel = [QuantityUnit: quantityUnit]
+        println("${quantityUnit}")
+        if (request.xhr) {
+            render(template: "showQuantityUnit", model:theModel)
+        } else {
+            theModel
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
     /*
     * 统计记录个数
     * */
