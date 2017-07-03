@@ -18,8 +18,9 @@ class Operation4PhysicalController {
         session.currentPhysicalQuantity = physicalQuantity
         def tab = cookieService.getCookie("currentTabPhysicalDiv")
         println("当前-->" + tab)
-        response.setCookie('currentTabPhysicalDiv', "单位维护页面")
+        //response.setCookie('currentTabPhysicalDiv', "单位维护页面")
         cookieService.setCookie("currentTabPhysicalDiv", "单位维护页面")
+        //cookieService.setCookie([name: "currentTabPhysicalDiv", value: "单位维护页面", path:  '/'])
         redirect(action: "index")
     }
 
@@ -155,13 +156,15 @@ class Operation4PhysicalController {
     /*
     * 创建对象
     * */
-
-    def createQuantityUnit(QuantityUnit quantityUnit) {
+    def createQuantityUnit(PhysicalQuantity physicalQuantity) {
         def newQuantityUnit = new QuantityUnit()
+        /*
         if (session.currentPhysicalQuantity) {
             def cpq = session.currentPhysicalQuantity
             newQuantityUnit.dimension = cpq.dimension
         }
+        */
+        newQuantityUnit.dimension = physicalQuantity.dimension
         if (request.xhr) {
             render(template: 'createQuantityUnit', model: [quantityUnit: newQuantityUnit])
         } else {
@@ -172,7 +175,6 @@ class Operation4PhysicalController {
     /*
     * 保存对象
     * */
-
     @Transactional
     def deleteQuantityUnit(QuantityUnit quantityUnit) {
         quantityUnit.delete()
@@ -252,6 +254,7 @@ class Operation4PhysicalController {
 
     def createPhysicalQuantity(PhysicalQuantity physicalQuantity) {
         def newPhysicalQuantity = new PhysicalQuantity()
+        newPhysicalQuantity.initDimension()
         if (request.xhr) {
             render(template: 'createPhysicalQuantity', model: [physicalQuantity: newPhysicalQuantity])
         } else {

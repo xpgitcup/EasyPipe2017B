@@ -64,7 +64,12 @@
                 </li>
                 <li>
                     <!--各种工具的链接如下所示：-->
-                    <a class="create" href="javascript: createQuantityUnit()">新增QuantityUnit</a>
+                    <g:if test="${session.currentPhysicalQuantity}">
+                        <a class="create" href="javascript: createQuantityUnit(${session.currentPhysicalQuantity?.id})">新增QuantityUnit</a>
+                    </g:if>
+                    <g:else>
+                        请先选择一个物理量
+                    </g:else>
                 </li>
             </ul>
         </div>

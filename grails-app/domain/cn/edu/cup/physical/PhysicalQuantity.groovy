@@ -53,6 +53,7 @@ class PhysicalQuantity {
         }
         def jsonOutput = new JsonOutput()
         def json = jsonOutput.toJson(dim)
+        dimension = json
         return json
     }
 

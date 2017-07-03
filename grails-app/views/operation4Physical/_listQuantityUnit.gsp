@@ -36,9 +36,6 @@
                 <a href="operation4Physical/editQuantityUnit/${item.id}">编辑</a>
             </td>
             <td>
-                <a href="operation4Physcial/createQuantityUnit/${item.id}">新单位</a>
-            </td>
-            <td>
                 <a href="operation4Physical/deleteQuantityUnit/${item.id}">删除</a>
             </td>
         </tr>

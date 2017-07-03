@@ -23,6 +23,7 @@ $(function () {
     //获取当前tabs的变量
     operation4PhysicalDiv = $("#operation4PhysicalDiv");
     //读取上次所停留的页面
+    //currentTabPhysicalDiv = readCookie("currentTabPhysicalDiv", "编辑");//"物理量维护页面");
     currentTabPhysicalDiv = readCookie("currentTabPhysicalDiv", "物理量维护页面");
     console.info("上次停留标签..." + currentTabPhysicalDiv);
     //var currentTab = operation4PhysicalDiv.tabs("getSelected");  //这个得到的不是数值，是一个对象
@@ -34,7 +35,8 @@ $(function () {
         onSelect: function (title, index) {
             console.info("选择标签：" + title + "---" + index);
             if (title !== "编辑") {
-                $.cookie("currentTabPhysicalDiv", title, {path:'/'});
+                //$.cookie("currentTabPhysicalDiv", title, {path:'/'});
+                $.cookie("currentTabPhysicalDiv", title);
             }
             /*
             switch (index) {
