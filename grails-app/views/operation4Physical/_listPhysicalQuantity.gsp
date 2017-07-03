@@ -28,7 +28,11 @@
     <tbody>
     <g:each in="${physicalQuantityList}" var="item" status="i">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-            <td>${item.quantityName}</td>
+            <td>
+                <a href="operation4Physical/selectCurrentPhysicalQuantity/${item.id}">
+                    ${item.quantityName}
+                </a>
+            </td>
             <td>${item.englishName}</td>
             <td>${item.symbol}</td>
             <td>${item.unitName}</td>

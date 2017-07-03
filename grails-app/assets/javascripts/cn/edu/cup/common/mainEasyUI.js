@@ -19,7 +19,7 @@ $(function () {
     //读取当前的Panel
     //currentAccordion = readCookie("currentAccordion", "底层管理");
     currentPanel = readCookie("mainPanel", "底层管理");
-    console.info("上一次停留在：" + currentPanel);
+    //console.info("上一次停留在：" + currentPanel);
     mainPanel.panel('setTitle', "主功能区=>" + currentPanel);  //没有状态---没有状态
 
     mainSystemMenuDiv.accordion({
@@ -33,7 +33,7 @@ $(function () {
     });
     //mainSystemMenuDiv.accordion('select', currentAccordion);
     currentAccordion = mainSystemMenuDiv.accordion('getSelected');
-    console.info(currentAccordion.attr('title'));
+    //console.info(currentAccordion.attr('title'));
     if (currentAccordion !== currentPanel) {
         mainSystemMenuDiv.accordion('select', currentPanel);
     }
@@ -42,13 +42,13 @@ $(function () {
 
 function showSytemMenu() {
     var systemMenuList = getSystemMenuList();
-    console.info("获取的菜单：");
-    console.info(systemMenuList);
+    //console.info("获取的菜单：");
+    //console.info(systemMenuList);
     for(var item in systemMenuList) {
-        console.info(systemMenuList[item].panelName);
+        //console.info(systemMenuList[item].panelName);
         var ul = $("<ul></ul>")
         ul.id = systemMenuList[item].treeDivName;
-        console.info(ul);
+        //console.info(ul);
         ul.tree({
             data:systemMenuList[item].treeData
         });

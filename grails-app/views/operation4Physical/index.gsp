@@ -58,6 +58,11 @@
         <div class="nav" role="navigation">
             <ul>
                 <li>
+                    <a>
+                        当前物理量：${session.currentPhysicalQuantity}
+                    </a>
+                </li>
+                <li>
                     <!--各种工具的链接如下所示：-->
                     <a class="create" href="javascript: createQuantityUnit()">新增QuantityUnit</a>
                 </li>
@@ -87,11 +92,9 @@
 
     <!--编辑页面-->
     <div title="编辑">
-        <div class="easyui-tabs">
-            <div title="编辑物理量">
-                <div id="editPhysicalQuantityDiv"></div>
-            </div>
-        </div>
+        <div id="editPhysicalQuantityDiv"></div>
+
+        <div id="editQuantityUnitDiv"></div>
     </div>
 
 </div>

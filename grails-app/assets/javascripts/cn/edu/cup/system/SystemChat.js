@@ -127,9 +127,9 @@ $(function(){
  * 统计记录总数
  * */
 function countSystemChatListening() {
-    console.info("开始统计...")
+    //console.info("开始统计...")
     var total = ajaxCalculate("operation4SystemChat/countSystemChatListening");
-    console.info("正在听统计结果：" + total);
+    //console.info("正在听统计结果：" + total);
     return total;
 }
 
@@ -137,7 +137,7 @@ function countSystemChatListening() {
 * 列表显示当前所有对象
 * */
 function listSystemChatListening(pageNumber, pageSize) {
-    console.info("列表显示对象：");
+    //console.info("列表显示对象：");
     ajaxRun("operation4SystemChat/listSystemChatListening" + getParams(pageNumber, pageSize), 0, "listSystemChatListeningDiv");
 }
 
@@ -146,9 +146,9 @@ function listSystemChatListening(pageNumber, pageSize) {
  * 统计记录总数
  * */
 function countSystemChatISay() {
-    console.info("开始统计...")
+    //console.info("开始统计...")
     var total = ajaxCalculate("operation4SystemChat/countSystemChatISay");
-    console.info("统计结果：" + total);
+    //console.info("统计结果：" + total);
     return total;
 }
 
@@ -156,7 +156,7 @@ function countSystemChatISay() {
 * 列表显示当前所有对象
 * */
 function listSystemChatISay(pageNumber, pageSize) {
-    console.info("列表显示对象：");
+    //console.info("列表显示对象：");
     ajaxRun("operation4SystemChat/listSystemChatISay" + getParams(pageNumber, pageSize), 0, "listSystemChatISayDiv");
 }
 
@@ -180,7 +180,7 @@ function createSystemChat(id) {
  * 编辑
  * */
 function editSystemChat(id) {
-    console.info("编辑SystemChat." + id);
+    //console.info("编辑SystemChat." + id);
     ajaxRun("operation4SystemChat/editSystemChat", id, "showSystemChatDiv");
 }
 
@@ -188,7 +188,7 @@ function editSystemChat(id) {
  * 统计记录总数
  * */
 function countSystemChat() {
-    console.info("开始统计...")
+    //console.info("开始统计...")
     var total = ajaxCalculate("operation4SystemChat/countSystemChat");
     console.info("统计结果：" + total);
     return total;
@@ -198,7 +198,7 @@ function countSystemChat() {
  * 显示当前属性
  * */
 function showSystemChat(id) {
-    console.info("显示当前" + id);
+    //console.info("显示当前" + id);
     if (id) {
         ajaxRun("operation4SystemChat/getSystemChat", id, "showSystemChatDiv");
     }
@@ -208,7 +208,7 @@ function showSystemChat(id) {
 * 列表显示当前所有对象
 * */
 function listSystemChat(pageNumber, pageSize) {
-    console.info("列表显示对象：");
+    //console.info("列表显示对象：");
     ajaxRun("operation4SystemChat/listSystemChat" + getParams(pageNumber, pageSize), 0, "listSystemChatDiv");
 }
 
@@ -216,7 +216,7 @@ function listSystemChat(pageNumber, pageSize) {
 * 列表显示当前所有对象
 * */
 function listSystemChatIsay(pageNumber, pageSize) {
-    console.info("列表显示对象：");
+    //console.info("列表显示对象：");
     ajaxRun("operation4SystemChat/listSystemChatISay" + getParams(pageNumber, pageSize), 0, "listSystemChatDiv");
 }
 
