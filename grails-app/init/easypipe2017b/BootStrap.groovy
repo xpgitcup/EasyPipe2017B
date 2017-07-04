@@ -34,9 +34,11 @@ class BootStrap {
     def configureForDevelopment(servletContext) {
         println "这是开发环境..."
         def webRootDir = servletContext.getRealPath("/")
-        def scriptPath = "${webRootDir}scripts/system"
+        def scriptPaths = ["${webRootDir}scripts/system", "${webRootDir}scripts/physical"]
         println "BootStrap ${webRootDir}"
-        initService.loadScripts(scriptPath)
+        scriptPaths.each {e->
+            initService.loadScripts(e)
+        }
     }
 
     /**

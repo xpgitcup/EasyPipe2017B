@@ -29,20 +29,47 @@
     <g:set var="entityName" value="Physical"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>${entityName}维护</title>
+
+    <!--为了处理cookie工作不正常的问题-->
+    <g:javascript>
+    function checkSessionPhysicalQuantity(currentTab) {
+        console.info("处理前的：" + currentTab);
+        var tab = currentTab;
+        <% if (session.getAttribute("currentPhysicalQuantity") != null) { %>
+        tab = "单位维护页面";
+        <% } %>
+        console.info("处理后的：" + tab);
+        return tab;
+    }
+    </g:javascript>
+
     <asset:javascript src="cn/edu/cup/base/${entityName}.js"/>
 
 </head>
 
 <body>
+<div class="nav">
+    <ul>
+        <li>
+            <a href="#">
+                当前物理量：${session.currentPhysicalQuantity}
+            </a>
+        </li>
+        <li>
+            <a class="create" href="operation4Physical/clearCurrentPhysicalQuantity">清除当前物理量</a>
+        </li>
+    </ul>
+
+</div>
 
 <div id="operation4PhysicalDiv" class="easyui-tabs">
 
     <!--PhysicalQuantity维护页面-->
     <div title="物理量维护页面">
         <div class="nav" role="navigation">
+            <!--各种工具的链接如下所示：-->
             <ul>
                 <li>
-                    <!--各种工具的链接如下所示：-->
                     <a class="create" href="javascript: createPhysicalQuantity()">新增PhysicalQuantity</a>
                 </li>
             </ul>
@@ -58,14 +85,10 @@
         <div class="nav" role="navigation">
             <ul>
                 <li>
-                    <a>
-                        当前物理量：${session.currentPhysicalQuantity}
-                    </a>
-                </li>
-                <li>
-                    <!--各种工具的链接如下所示：-->
+                <!--各种工具的链接如下所示：-->
                     <g:if test="${session.currentPhysicalQuantity}">
-                        <a class="create" href="javascript: createQuantityUnit(${session.currentPhysicalQuantity?.id})">新增QuantityUnit</a>
+                        <a class="create"
+                           href="javascript: createQuantityUnit(${session.currentPhysicalQuantity?.id})">新增QuantityUnit</a>
                     </g:if>
                     <g:else>
                         请先选择一个物理量
@@ -100,6 +123,8 @@
         <div id="editPhysicalQuantityDiv"></div>
 
         <div id="editQuantityUnitDiv"></div>
+
+        <div id="editUnitSystemDiv"></div>
     </div>
 
 </div>

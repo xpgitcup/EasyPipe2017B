@@ -12,14 +12,18 @@ class Operation4PhysicalController {
 
     def cookieService
 
+    def clearCurrentPhysicalQuantity() {
+        session.removeAttribute("currentPhysicalQuantity")
+        redirect(action: "index")
+    }
     //------------------------------------------------------------------------------------------------------------------
     //整体逻辑关系维护
     def selectCurrentPhysicalQuantity(PhysicalQuantity physicalQuantity) {
         session.currentPhysicalQuantity = physicalQuantity
         def tab = cookieService.getCookie("currentTabPhysicalDiv")
         println("当前-->" + tab)
-        //response.setCookie('currentTabPhysicalDiv', "单位维护页面")
-        cookieService.setCookie("currentTabPhysicalDiv", "单位维护页面")
+        response.setCookie('currentTabPhysicalDiv', "单位维护页面")
+        //cookieService.setCookie("currentTabPhysicalDiv", "单位维护页面")
         //cookieService.setCookie([name: "currentTabPhysicalDiv", value: "单位维护页面", path:  '/'])
         redirect(action: "index")
     }

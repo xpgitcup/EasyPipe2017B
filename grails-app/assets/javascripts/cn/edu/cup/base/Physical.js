@@ -152,8 +152,10 @@ $(function () {
     paginationListUnitSystemDiv.pagination("select", currentPgaeUnitSystem);
     //------------------------------------------------------------------------------------------------------------------
 
+    var currentTab = checkSessionPhysicalQuantity(currentTabPhysicalDiv);
+    console.info("-->" + currentTab);
     //页面跳转--放到最后，试试看
-    operation4PhysicalDiv.tabs("select", currentTabPhysicalDiv);
+    operation4PhysicalDiv.tabs("select", currentTab);
 
 });
 
@@ -275,7 +277,8 @@ function listUnitSystem(pageNumber, pageSize) {
  * */
 function createUnitSystem(id) {
     //UnitSystemDiv.tabs("select", "对话");
-    ajaxRun("operation4Physical/createUnitSystem", id, "showUnitSystemDiv");
+    operation4PhysicalDiv.tabs("select", "编辑")
+    ajaxRun("operation4Physical/createUnitSystem", id, "editUnitSystemDiv");
 }
 
 /*

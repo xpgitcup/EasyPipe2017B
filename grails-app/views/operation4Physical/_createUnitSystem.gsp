@@ -2,41 +2,38 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: 'quantityUnit.label', default: 'QuantityUnit')}"/>
+    <g:set var="entityName" value="${message(code: 'unitSystem.label', default: 'UnitSystem')}"/>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
 </head>
 
 <body>
-<a href="#create-quantityUnit" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
-                                                                     default="Skip to content&hellip;"/></a>
+<a href="#create-unitSystem" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
+                                                                   default="Skip to content&hellip;"/></a>
 
 <div class="nav" role="navigation">
     <ul>
-        <li>
-            <a>
-                当前物理量：${session.currentPhysicalQuantity}
-            </a>
-        </li>
+        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]"/></g:link></li>
     </ul>
 </div>
 
-<div id="create-quantityUnit" class="content scaffold-create" role="main">
+<div id="create-unitSystem" class="content scaffold-create" role="main">
     <h1><g:message code="default.create.label" args="[entityName]"/></h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <g:hasErrors bean="${this.quantityUnit}">
+    <g:hasErrors bean="${this.unitSystem}">
         <ul class="errors" role="alert">
-            <g:eachError bean="${this.quantityUnit}" var="error">
+            <g:eachError bean="${this.unitSystem}" var="error">
                 <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
                         error="${error}"/></li>
             </g:eachError>
         </ul>
     </g:hasErrors>
-<!--g:form resource="${this.quantityUnit}" method="POST"-->
-    <g:form controller="operation4Physical" action="updateQuantityUnit">
+<!--g:form resource="${this.unitSystem}" method="POST"-->
+    <g:form controller="operation4Physical" action="updateUnitSystem">
         <fieldset class="form">
-            <f:all bean="quantityUnit"/>
+            <f:all bean="unitSystem"/>
         </fieldset>
         <fieldset class="buttons">
             <g:submitButton name="create" class="save"
