@@ -41,7 +41,7 @@
             <td>${item.basic}</td>
             <td>${item?.countSubUnits()}</td>
             <td>
-                <a href="operation4Physical/editPhysicalQuantity/${item.id}">编辑</a>
+                <a href="javascript: editPhysicalQuantity(${item.id})">编辑</a>
             </td>
             <td>
                 <a href="javascript: createQuantityUnit(${item.id})">新单位</a>

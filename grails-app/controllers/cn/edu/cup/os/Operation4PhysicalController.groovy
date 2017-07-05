@@ -12,10 +12,14 @@ class Operation4PhysicalController {
 
     def cookieService
 
+    /*
+    * 清除当前的物理量选择
+    * */
     def clearCurrentPhysicalQuantity() {
         session.removeAttribute("currentPhysicalQuantity")
         redirect(action: "index")
     }
+
     //------------------------------------------------------------------------------------------------------------------
     //整体逻辑关系维护
     def selectCurrentPhysicalQuantity(PhysicalQuantity physicalQuantity) {
@@ -33,7 +37,6 @@ class Operation4PhysicalController {
     /*
     * 统计记录个数
     * */
-
     def countUnitSystem() {
         def count = UnitSystem.count()    //这是必须调整的
         println("统计结果：${count}")
@@ -48,7 +51,6 @@ class Operation4PhysicalController {
     /*
     * 列出对象
     * */
-
     def listUnitSystem() {
         def unitSystemList = UnitSystem.list(params)
         if (request.xhr) {
@@ -98,7 +100,7 @@ class Operation4PhysicalController {
 
     def editUnitSystem(UnitSystem unitSystem) {
         if (request.xhr) {
-            render(template: 'editUnitSystem', model: [UnitSystem: unitSystem])
+            render(template: 'editUnitSystem', model: [unitSystem: unitSystem])
         } else {
             respond unitSystem
         }
@@ -169,6 +171,12 @@ class Operation4PhysicalController {
         }
         */
         newQuantityUnit.dimension = physicalQuantity.dimension
+        //如果没有标准单位，缺省地建立标准单位
+        if (QuantityUnit.countByDimension(physicalQuantity.dimension)<1) {
+            newQuantityUnit.symbol = physicalQuantity.unitSymbol
+            newQuantityUnit.unitName = physicalQuantity.unitName
+        }
+
         if (request.xhr) {
             render(template: 'createQuantityUnit', model: [quantityUnit: newQuantityUnit])
         } else {
@@ -202,7 +210,7 @@ class Operation4PhysicalController {
 
     def editQuantityUnit(QuantityUnit quantityUnit) {
         if (request.xhr) {
-            render(template: 'editQuantityUnit', model: [QuantityUnit: quantityUnit])
+            render(template: 'editQuantityUnit', model: [quantityUnit: quantityUnit])
         } else {
             respond quantityUnit
         }
@@ -293,7 +301,7 @@ class Operation4PhysicalController {
 
     def editPhysicalQuantity(PhysicalQuantity physicalQuantity) {
         if (request.xhr) {
-            render(template: 'editPhysicalQuantity', model: [PhysicalQuantity: physicalQuantity])
+            render(template: 'editPhysicalQuantity', model: [physicalQuantity: physicalQuantity])
         } else {
             respond physicalQuantity
         }

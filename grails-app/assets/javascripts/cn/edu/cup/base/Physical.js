@@ -35,8 +35,8 @@ $(function () {
         onSelect: function (title, index) {
             console.info("选择标签：" + title + "---" + index);
             if (title !== "编辑") {
-                //$.cookie("currentTabPhysicalDiv", title, {path:'/'});
-                $.cookie("currentTabPhysicalDiv", title);
+                $.cookie("currentTabPhysicalDiv", title, {path:'/'});
+                //$.cookie("currentTabPhysicalDiv", title);
             }
             /*
             switch (index) {
@@ -191,8 +191,9 @@ function createPhysicalQuantity(id) {
  * 编辑
  * */
 function editPhysicalQuantity(id) {
+    operation4PhysicalDiv.tabs("select", "编辑")
     //console.info("编辑PhysicalQuantity." + id);
-    ajaxRun("operation4Physical/editPhysicalQuantity", id, "showPhysicalQuantityDiv");
+    ajaxRun("operation4Physical/editPhysicalQuantity", id, "editPhysicalQuantityDiv");
 }
 
 /*
@@ -238,7 +239,8 @@ function createQuantityUnit(id) {
  * */
 function editQuantityUnit(id) {
     //console.info("编辑QuantityUnit." + id);
-    ajaxRun("operation4Physical/editQuantityUnit", id, "showQuantityUnitDiv");
+    operation4PhysicalDiv.tabs("select", "编辑")
+    ajaxRun("operation4Physical/editQuantityUnit", id, "editQuantityUnitDiv");
 }
 
 /*
@@ -286,7 +288,8 @@ function createUnitSystem(id) {
  * */
 function editUnitSystem(id) {
     //console.info("编辑UnitSystem." + id);
-    ajaxRun("operation4Physical/editUnitSystem", id, "showUnitSystemDiv");
+    operation4PhysicalDiv.tabs("select", "编辑")
+    ajaxRun("operation4Physical/editUnitSystem", id, "editUnitSystemDiv");
 }
 
 /*

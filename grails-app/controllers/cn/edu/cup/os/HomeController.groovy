@@ -104,11 +104,11 @@ class HomeController {
             //println("${arrayItem}")
         }
         //--------------------------------------------------------------------------------------------------------------
+        //输出json字符串
         def jsonOutput = new JsonOutput()
         def json = jsonOutput.toJson(systemMenuListAtHome)
-        //def json = new JsonBuilder().call(systemMenuListAtHome)
-        session.systemMenuListAtHome = json //.encodeAsHTML() //"${systemMenuListAtHome}"
-        println("session: ${session.systemMenuListAtHome}")
+        session.systemMenuListAtHome = json
+        //println("session: ${session.systemMenuListAtHome}")
     }
 
     /*
@@ -117,14 +117,16 @@ class HomeController {
     def logout() {
         def pscontext = request.session.servletContext
         Map serviceMap = pscontext.getAttribute("systemUserList")
-        if (session.user) {
+        if (session.systemUser) {
             systemLogService.recordLog(session, request, params)
-            serviceMap.remove(session.user.userName)
+            serviceMap.remove(session.systemUser.userName)
+            println("${session.systemUser.userName}退出...")
         }
         session.onlineCount = serviceMap.size()
-        def logoutUser = session.user
+        def logoutUser = session.systemUser.userName
         session.invalidate()
         //redirect(uri: "/")
+        println("拜拜...${logoutUser}")
         model: [logoutUser: logoutUser]
     }
 

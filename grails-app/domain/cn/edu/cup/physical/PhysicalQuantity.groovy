@@ -35,12 +35,17 @@ class PhysicalQuantity {
         return "${quantityName}/(${unitSymbol})";
     }
 
-
+    /*
+    * 统计所属单位数
+    * */
     def countSubUnits() {
         def value = QuantityUnit.countByDimension(this.dimension)
         return value
     }
 
+    /*
+    * 初始化量纲
+    * */
     def initDimension() {
         def basicQantityList = PhysicalQuantity.findAllByBasic(true)
         def dim = [:]

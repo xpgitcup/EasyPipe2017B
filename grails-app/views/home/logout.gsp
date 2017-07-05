@@ -22,7 +22,7 @@
     <div class="welcomeForm">
         <ul>
             <li>
-                <label>欢迎${logoutUser?.userName}再来!</label>
+                <label>欢迎：${logoutUser} 再来!</label>
             </li>
         </ul>
         <ul>

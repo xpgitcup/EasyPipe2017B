@@ -33,7 +33,7 @@
             <td>${item.factorA}</td>
             <td>${item.factorB}</td>
             <td>
-                <a href="operation4Physical/editQuantityUnit/${item.id}">编辑</a>
+                <a href="javascript: editQuantityUnit(${item.id})">编辑</a>
             </td>
             <td>
                 <a href="operation4Physical/deleteQuantityUnit/${item.id}">删除</a>

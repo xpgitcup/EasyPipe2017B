@@ -27,7 +27,7 @@
             <td>${item.description}</td>
             <td>${item?.quantityUnits.size()}</td>
             <td>
-                <a href="operation4Physical/editUnitSystem/${item.id}">编辑</a>
+                <a href="javascript: editUnitSystem(${item.id})">编辑</a>
             </td>
             <td>
                 <g:if test="${item?.quantityUnits.size()<1}">
