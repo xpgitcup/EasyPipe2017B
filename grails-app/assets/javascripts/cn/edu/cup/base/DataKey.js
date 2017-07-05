@@ -24,7 +24,7 @@ $(function(){
 
     //加载数据
     displayTreeDataKeyDiv.tree({
-        url: "getTreeDataKey" + getParams(currentPgaeDataKey, pageSizeDataKey),
+        url: "operation4DataKey/getTreeDataKey" + getParams(currentPgaeDataKey, pageSizeDataKey),
         onSelect: function (node) {
             showDataKey(node);
             $("#createDataKey").attr('href', 'javascript: createDataKey(' + node.attributes[0] + ')');
@@ -36,9 +36,11 @@ $(function(){
             displayTreeDataKeyDiv.tree("collapseAll");
             var nodeid = $.cookie("currentDataKey");
             console.info("当初扩展到" + nodeid);
-            var cNode = $("#" + nodeid);
-            displayTreeDataKeyDiv.tree("expandTo", cNode);
-            displayTreeDataKeyDiv.tree("select", cNode);
+            if (nodeid) {
+                var cNode = $("#" + nodeid);
+                displayTreeDataKeyDiv.tree("expandTo", cNode);
+                displayTreeDataKeyDiv.tree("select", cNode);
+            }
         }
     });
     //分页
@@ -51,10 +53,15 @@ $(function(){
         //翻页函数
         onSelectPage:function(pageNumber, pageSize){
             displayTreeDataKeyDiv.tree({
-                url: "getTreeDataKey" + getParams(pageNumber, pageSize)
-            })
+                url: "operation4DataKey/getTreeDataKey" + getParams(pageNumber, pageSize)
+            });
+            //记录当前页面
+            $.cookie("currentPgaeDataKey", pageNumber);
+            //应该清除掉当前扩展
+            //$.cookie("currentDataKey", '', { expires: -1 });
         }
     });
+    paginationDataKeyDiv.pagination("select", currentPgaeDataKey);
 });
 
 /*
@@ -62,7 +69,7 @@ $(function(){
  * */
 function createDataKey(id) {
     console.info("创建DataKey. 上级节点：" + id);
-    ajaxRun("createDataKey", id, "showDataKeyDiv");
+    ajaxRun("operation4DataKey/createDataKey", id, "showDataKeyDiv");
 }
 
 /*
@@ -70,7 +77,7 @@ function createDataKey(id) {
  * */
 function editDataKey(id) {
     console.info("编辑DataKey." + id);
-    ajaxRun("editDataKey", id, "showDataKeyDiv");
+    ajaxRun("operation4DataKey/editDataKey", id, "showDataKeyDiv");
 }
 
 /*
@@ -78,7 +85,7 @@ function editDataKey(id) {
  * */
 function countDataKey() {
     console.info("开始统计...")
-    var total = ajaxCalculate("countDataKey");
+    var total = ajaxCalculate("operation4DataKey/countDataKey");
     console.info("统计结果：" + total);
     return total;
 }
@@ -88,8 +95,11 @@ function countDataKey() {
  * */
 function showDataKey(node) {
     console.info("显示当前系统属性" + node);
-    if (node) {
+    if (node !== null) {
         var id = node.attributes[0];
-        ajaxRun("getDataKey", id, "showDataKeyDiv");
+        ajaxRun("operation4DataKey/getDataKey", id, "showDataKeyDiv");
+    }
+    else {
+        $("#showDataKeyDiv").html("");
     }
 }

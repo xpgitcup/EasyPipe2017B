@@ -38,7 +38,7 @@ class TreeViewService extends GenericService {
         def itemSubs = params.subItems
         def useMethod = params.useMethod
         def itemAttributes = analysisAttributes(params)
-        println("属性：${itemAttributes}")
+        //println("属性：${itemAttributes}")
 
         objects.each() { e ->
             def emap = [:]
