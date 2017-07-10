@@ -26,6 +26,12 @@ spring:
         template:
             check-template-location: false
 
+#设置会话超时时间
+server:
+
+   session:
+     timeout: 1800 #应该是分钟？
+
 # Spring Actuator Endpoints are Disabled by Default
 endpoints:
     enabled: false

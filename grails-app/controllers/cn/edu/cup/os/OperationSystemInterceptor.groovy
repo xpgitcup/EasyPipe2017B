@@ -30,9 +30,11 @@ class OperationSystemInterceptor {
 
     boolean after() {
         println("控制器：${controllerName}，动作：${actionName}.之后...")
-        if (params.size()>0) {
-            println("记录日志...")
-            systemLogService.recordLog(session, request, params)
+        if (session.systemUser) {
+            if (params.size()>0) {
+                println("记录日志...")
+                systemLogService.recordLog(session, request, params)
+            }
         }
         true
     }

@@ -272,7 +272,7 @@ class InitService {
             //----------------------------------------------------------------------------------------------------------
             def m32 = new SystemMenu(
                     menuContext: "数据维护",
-                    menuAction: "Operation4DataItem/index",
+                    menuAction: "Operation4Data/index",
                     menuDescription: "数据维护",
                     upMenuItem: m3,
                     menuOrder: 0
