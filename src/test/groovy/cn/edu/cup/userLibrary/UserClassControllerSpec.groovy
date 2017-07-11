@@ -1,11 +1,11 @@
-package cn.edu.cup.physical
+package cn.edu.cup.userLibrary
 
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(UnitSystemController)
-@Mock(UnitSystem)
-class UnitSystemControllerSpec extends Specification {
+@TestFor(UserClassController)
+@Mock(UserClass)
+class UserClassControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +21,8 @@ class UnitSystemControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.unitSystemList
-            model.unitSystemCount == 0
+            !model.userClassList
+            model.userClassCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class UnitSystemControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.unitSystem!= null
+            model.userClass!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -38,25 +38,25 @@ class UnitSystemControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def unitSystem = new UnitSystem()
-            unitSystem.validate()
-            controller.save(unitSystem)
+            def userClass = new UserClass()
+            userClass.validate()
+            controller.save(userClass)
 
         then:"The create view is rendered again with the correct model"
-            model.unitSystem!= null
+            model.userClass!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            unitSystem = new UnitSystem(params)
+            userClass = new UserClass(params)
 
-            controller.save(unitSystem)
+            controller.save(userClass)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/unitSystem/show/1'
+            response.redirectedUrl == '/userClass/show/1'
             controller.flash.message != null
-            UnitSystem.count() == 1
+            UserClass.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -68,11 +68,11 @@ class UnitSystemControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def unitSystem = new UnitSystem(params)
-            controller.show(unitSystem)
+            def userClass = new UserClass(params)
+            controller.show(userClass)
 
         then:"A model is populated containing the domain instance"
-            model.unitSystem == unitSystem
+            model.userClass == userClass
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -84,11 +84,11 @@ class UnitSystemControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def unitSystem = new UnitSystem(params)
-            controller.edit(unitSystem)
+            def userClass = new UserClass(params)
+            controller.edit(userClass)
 
         then:"A model is populated containing the domain instance"
-            model.unitSystem == unitSystem
+            model.userClass == userClass
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -98,28 +98,28 @@ class UnitSystemControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/unitSystem/index'
+            response.redirectedUrl == '/userClass/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def unitSystem = new UnitSystem()
-            unitSystem.validate()
-            controller.update(unitSystem)
+            def userClass = new UserClass()
+            userClass.validate()
+            controller.update(userClass)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.unitSystem == unitSystem
+            model.userClass == userClass
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            unitSystem = new UnitSystem(params).save(flush: true)
-            controller.update(unitSystem)
+            userClass = new UserClass(params).save(flush: true)
+            controller.update(userClass)
 
         then:"A redirect is issued to the show action"
-            unitSystem != null
-            response.redirectedUrl == "/unitSystem/show/$unitSystem.id"
+            userClass != null
+            response.redirectedUrl == "/userClass/show/$userClass.id"
             flash.message != null
     }
 
@@ -130,23 +130,23 @@ class UnitSystemControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/unitSystem/index'
+            response.redirectedUrl == '/userClass/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def unitSystem = new UnitSystem(params).save(flush: true)
+            def userClass = new UserClass(params).save(flush: true)
 
         then:"It exists"
-            UnitSystem.count() == 1
+            UserClass.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(unitSystem)
+            controller.delete(userClass)
 
         then:"The instance is deleted"
-            UnitSystem.count() == 0
-            response.redirectedUrl == '/unitSystem/index'
+            UserClass.count() == 0
+            response.redirectedUrl == '/userClass/index'
             flash.message != null
     }
 }
