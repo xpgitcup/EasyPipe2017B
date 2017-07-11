@@ -31,13 +31,55 @@
 </head>
 
 <body>
+<div class="nav">
+    <ul>
+        <li>
+            <a href="#">
+                当前项目：${session.currentProject}
+            </a>
+        </li>
+        <li>
+            <a class="create" href="operation4Data/clearDataKey/${session.currentProject?.id}">清除当前项目</a>
+        </li>
+        <g:if test="${session.currentProject}">
+            <li>
+                <a href="#">
+                    当前算例：${session.currentProjectCase}
+                </a>
+            </li>
+            <li>
+                <a class="create" href="operation4Data/clearDataKey/${session.currentProjectCase?.id}">清除当前算例</a>
+            </li>
+            <li>
+                <a href="#">
+                    当前模型：${session.currentDataModel}
+                </a>
+            </li>
+            <li>
+                <a class="create" href="operation4Data/clearDataKey/${session.currentDataModel?.id}">清除当前模型</a>
+            </li>
+        </g:if>
+    </ul>
+
+</div>
+
 <div class="easyui-tabs" id="operation4DataDiv">
     <div title="项目列表">
         <div id="listDataKey_ProjectDiv"></div>
         <div id="paginationListDataKey_ProjectDiv" class="easyui-pagination"></div>
     </div>
-    <div title="模型列表"></div>
-    <div title="数据列表"></div>
+    <div title="算例列表">
+        <div id="listDataKey_ProjectCaseDiv"></div>
+        <div id="paginationListDataKey_ProjectCaseDiv" class="easyui-pagination"></div>
+    </div>
+    <div title="模型列表">
+        <div id="listDataKey_DataModelDiv"></div>
+        <div id="paginationListDataKey_DataModelDiv" class="easyui-pagination"></div>
+    </div>
+    <div title="数据列表">
+        <div id="listDataKey_DataDiv"></div>
+        <div id="paginationListDataKey_DataDiv" class="easyui-pagination"></div>
+    </div>
     <div title="数据编辑"></div>
 
 </div>

@@ -5,6 +5,7 @@ import cn.edu.cup.dictionary.DataKey
 import cn.edu.cup.physical.PhysicalQuantity
 import cn.edu.cup.physical.QuantityUnit
 import cn.edu.cup.physical.UnitSystem
+import easypipe2017b.Application
 import grails.core.GrailsApplication
 import grails.transaction.Transactional
 
@@ -398,9 +399,17 @@ class InitService {
                     def ddd = new DataKey(
                             keyContext: "key${i},${j},${k}",
                             dataValueType: BaseDataType.dataModel,
-                            upKey: dd
+                            upKey: d
                     )
                     ddd.save(true)
+                    for (int l=0; l<5; l++) {
+                        def dddd = new DataKey(
+                                keyContext: "key${i},${j},${k},${l}",
+                                dataValueType: BaseDataType.simpleData,
+                                upKey: ddd
+                        )
+                        dddd.save(true)
+                    }
                 }
             }
         }

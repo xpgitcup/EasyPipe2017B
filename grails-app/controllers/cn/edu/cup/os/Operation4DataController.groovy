@@ -9,11 +9,79 @@ import javax.xml.crypto.Data
 class Operation4DataController {
 
     /*
+    * 释放
+    * */
+    def clearDataKey(DataKey dataKey) {
+        switch (dataKey.dataValueType) {
+            case BaseDataType.project:
+                session.removeAttribute("currentProject")
+                session.removeAttribute("currentProjectCase")
+                session.removeAttribute("currentDataModel")
+                break
+            case BaseDataType.projectCase:
+                session.removeAttribute("currentProjectCase")
+                break
+            case BaseDataType.dataModel:
+                session.removeAttribute("currentDataModel")
+                break
+        }
+        redirect(action: "index")
+    }
+
+    /*
+    * 选择
+    * */
+    def selectDataKey(DataKey dataKey) {
+        switch (dataKey.dataValueType) {
+            case BaseDataType.project:
+                session.currentProject = dataKey
+                session.removeAttribute("currentProjectCase")
+                session.removeAttribute("currentDataModel")
+                break
+            case BaseDataType.projectCase:
+                if (dataKey.upKey.dataValueType == BaseDataType.project) {
+                    session.currentProject = dataKey.upKey
+                    session.currentProjectCase = dataKey
+                }
+                break
+            case BaseDataType.dataModel:
+                if (dataKey.upKey.dataValueType == BaseDataType.project) {
+                    session.currentProject = dataKey.upKey
+                    session.currentDataModel = dataKey
+                }
+                break
+        }
+        redirect(action: "index")
+    }
+
+    /*
     * 统计
     * */
+
     def countDataKey() {
-        def baseDataType = BaseDataType.valueOf(params.dataType)
-        def value = DataKey.countByDataValueType(baseDataType)
+        def value = DataKey.count()
+
+        if (params.dataType) {
+            def baseDataType = BaseDataType.valueOf(params.dataType)
+            value = DataKey.countByDataValueType(baseDataType)
+
+            switch (baseDataType) {
+                case BaseDataType.project:
+                    break;
+                case BaseDataType.projectCase:
+                    if (session.currentProject) {
+                        value = DataKey.countByDataValueTypeAndUpKey(baseDataType, session.currentProject)
+                    }
+                    break;
+                case BaseDataType.dataModel:
+                    if (session.currentProject) {
+                        value = DataKey.countByDataValueTypeAndUpKey(baseDataType, session.currentProject)
+                    }
+                    break;
+            }
+        }
+
+
         def result = [count: value]
         if (request.xhr) {
             render result as JSON
@@ -25,9 +93,31 @@ class Operation4DataController {
     /*
     * 查询
     * */
+
     def listDataKey() {
-        def baseDataType = BaseDataType.valueOf(params.dataType)
-        def dataKeyList = DataKey.findAllByDataValueType(baseDataType, params)
+        //println("${params}")
+        def dataKeyList = DataKey.list(params)
+
+        if (params.dataType) {
+            def baseDataType = BaseDataType.valueOf(params.dataType)
+            dataKeyList = DataKey.findAllByDataValueType(baseDataType, params)
+
+            switch (baseDataType) {
+                case BaseDataType.project:
+                    break;
+                case BaseDataType.projectCase:
+                    if (session.currentProject) {
+                        dataKeyList = DataKey.findAllByDataValueTypeAndUpKey(baseDataType, session.currentProject)
+                    }
+                    break;
+                case BaseDataType.dataModel:
+                    if (session.currentProject) {
+                        dataKeyList = DataKey.findAllByDataValueTypeAndUpKey(baseDataType, session.currentProject)
+                    }
+                    break;
+            }
+        }
+
         def theModel = [dataKeyList: dataKeyList]
         if (request.xhr) {
             render(template: "listDataKey", model: theModel)
@@ -36,12 +126,5 @@ class Operation4DataController {
         }
     }
 
-    /*
-    * 第一
-    * 首先实现的是对DataKey的列表
-    *
-    * */
-
-
-    def index() { }
+    def index() {}
 }
