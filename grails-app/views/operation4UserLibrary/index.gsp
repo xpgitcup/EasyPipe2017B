@@ -23,7 +23,7 @@
     </g:else>
 <!-- end 实现可定制的布局 -->
 <!--针对域类的包含-->
-    <g:set var="entityName" value="Data"/>
+    <g:set var="entityName" value="UserLibrary"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>${entityName}维护</title>
     <asset:javascript src="cn/edu/cup/base/${entityName}.js"/>
@@ -81,7 +81,6 @@
         <div id="paginationListDataKey_DataDiv" class="easyui-pagination"></div>
     </div>
     <div title="数据编辑">
-        <div id="inputDataDiv"></div>
     </div>
 
 </div>

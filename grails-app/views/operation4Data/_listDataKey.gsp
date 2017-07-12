@@ -22,7 +22,7 @@
                 <td>${item.upKey}</td>
                 <td>
                     <g:if test="${item.dataValueType==cn.edu.cup.dictionary.BaseDataType.dataModel}">
-                        <a href="#">输入数据</a>
+                        <a href="javascript: inputData(${item.id})">输入数据</a>
                     </g:if>
                     <g:else>
                         非可输入项

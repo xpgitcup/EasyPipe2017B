@@ -155,6 +155,14 @@ $(function(){
 
 });
 
+/*
+* 数据输入
+* */
+function inputData(id) {
+    console.info("输入数据：" + id);
+    operation4DataDiv.tabs("select", "数据编辑")
+    ajaxRun("operation4Data/createDataItem4Key", id, "inputDataDiv");
+}
 
 /*
  * 统计记录总数

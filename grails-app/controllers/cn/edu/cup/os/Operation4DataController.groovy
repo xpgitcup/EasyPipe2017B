@@ -1,12 +1,36 @@
 package cn.edu.cup.os
 
 import cn.edu.cup.dictionary.BaseDataType
+import cn.edu.cup.dictionary.DataItem
 import cn.edu.cup.dictionary.DataKey
 import grails.converters.JSON
 
 import javax.xml.crypto.Data
 
 class Operation4DataController {
+
+    /*
+    * 创建数据项
+    * */
+    def createDataItem4Key(DataKey dataKey) {
+        params.labelKey = dataKey
+        def dataItem = new DataItem(params)
+        dataItem.subItems = []      //初始化子节点
+        //增加子节点
+        dataKey.subKey.each {e->
+            def subItem = new DataItem(labelKey: e, parentItem: dataItem)
+            dataItem.subItems.add(subItem)
+        }
+        //--------------------------------------------------------------------------------------------------------------
+        def theModel = [dataItem: dataItem]
+        def templateName = "createDataItem"
+        if (request.xhr) {
+            println("${dataItem}")
+            render(template: templateName, model: theModel)
+        } else {
+            theModel
+        }
+    }
 
     /*
     * 释放
