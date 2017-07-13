@@ -2,12 +2,101 @@ package cn.edu.cup.os
 
 import cn.edu.cup.dictionary.BaseDataType
 import cn.edu.cup.dictionary.DataItem
+import cn.edu.cup.dictionary.DataItemController
 import cn.edu.cup.dictionary.DataKey
 import grails.converters.JSON
+import grails.transaction.Transactional
 
 import javax.xml.crypto.Data
 
-class Operation4DataController {
+@Transactional(readOnly = true)
+class Operation4DataController extends DataItemController {
+
+    def excelService
+
+    /*
+    * 批量数据导入
+    * */
+    def prepareImportDataItem4Key(DataKey dataKey) {
+
+        def fileName = servletContext.getRealPath("/") + "templates/${dataKey.keyContext}.xls"
+        excelService.exportDataKey2Excel(dataKey, fileName)
+
+        def theModel = [dataKey: dataKey, fileName: fileName]
+        if (request.xhr) {
+            render(template: "prepareImportDataItem", model: theModel)
+        } else {
+            theModel
+        }
+    }
+
+    /*
+    * 统计数据
+    * */
+    def countDataItem() {
+        def value = DataItem.count()
+
+        if (session.currentDataModel) {
+            def dataModel = session.currentDataModel
+            value = DataItem.countByLabelKey(dataModel)
+        }
+
+        def result = [count: value]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
+    }
+
+
+    /*
+    * 显示数据
+    * */
+    def listDataItem() {
+        def dataItemList = DataItem.list(params)
+        if (session.currentDataModel) {
+            def dataModel = session.currentDataModel
+            dataItemList = DataItem.findAllByLabelKey(dataModel, params)
+        }
+
+        def theModel = [dataItemList: dataItemList]
+        if (request.xhr) {
+            render(template: "listDataItem", model: theModel)
+        } else {
+            theModel
+        }
+    }
+
+    /*
+    * 保存
+    * */
+    @Transactional
+    def updateDataItem(DataItem dataItem) {
+        println("${params}")
+        if (dataItem == null) {
+            notFound()
+            return
+        }
+        if (dataItem.hasErrors()) {
+            flash.message = message(code: 'default.created.message', args: [message(code: 'dataItem.label', default: 'DataItem'), dataItem.id])
+            def model = [dataItem: dataItem]
+            if (request.xhr) {
+                render(template: "createDataItem", model: model)
+            } else {
+                println("${flash.message}")
+                redirect(action: "index", model: model)
+            }
+        } else {
+            dataItem.save(flush: true)
+            dataItem.subItems.each {e->
+                e.save(flush: true)
+                println("subItem: ${e}")
+            }
+            println("svae ${dataItem} ok...")
+            redirect(action: "index")
+        }
+    }
 
     /*
     * 创建数据项
@@ -17,7 +106,7 @@ class Operation4DataController {
         def dataItem = new DataItem(params)
         dataItem.subItems = []      //初始化子节点
         //增加子节点
-        dataKey.subKey.each {e->
+        dataItem.labelKey.subKey.each {e->
             def subItem = new DataItem(labelKey: e, parentItem: dataItem)
             dataItem.subItems.add(subItem)
         }
@@ -25,6 +114,7 @@ class Operation4DataController {
         def theModel = [dataItem: dataItem]
         def templateName = "createDataItem"
         if (request.xhr) {
+            println("创建数据项...")
             println("${dataItem}")
             render(template: templateName, model: theModel)
         } else {

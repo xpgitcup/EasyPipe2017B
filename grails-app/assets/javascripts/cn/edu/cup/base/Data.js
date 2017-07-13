@@ -13,8 +13,8 @@ var listDataKey_DataModelDiv
 var paginationListDataKey_DataModelDiv
 
 
-var listDataKey_DataDiv
-var paginationListDataKey_DataDiv
+var listDataItem_DataDiv
+var paginationListDataItem_DataDiv
 
 $(function(){
     console.info($("title").text() + "加载成功...");
@@ -124,30 +124,30 @@ $(function(){
     //------------------------------------------------------------------------------------------------------------------
     //数据模型项
     //获取当前页面的div
-    listDataKey_DataDiv = $("#listDataKey_DataDiv");
-    paginationListDataKey_DataDiv = $("#paginationListDataKey_DataDiv");
+    listDataItem_DataDiv = $("#listDataItem_DataDiv");
+    paginationListDataItem_DataDiv = $("#paginationListDataItem_DataDiv");
 
     //获取当前页
-    var currentPgaeDataKey_Data = readCookie("currentPgaeDataKey_Data", 1);
-    var pageSizeDataKey_Data = readCookie("pageSizeDataKey_Data", pageSize);
-    var totalDataKey_Data = countDataKey_Data();
+    var currentPgaeDataItem_Data = readCookie("currentPgaeDataItem_Data", 1);
+    var pageSizeDataItem_Data = readCookie("pageSizeDataItem_Data", pageSize);
+    var totalDataItem_Data = countDataItem();
     //console.info("记录总数：" + totalDataKey);
 
 
     //分页
-    paginationListDataKey_DataDiv.pagination({
-        pageSize: pageSizeDataKey_Data,
-        total: totalDataKey_Data,
+    paginationListDataItem_DataDiv.pagination({
+        pageSize: pageSizeDataItem_Data,
+        total: totalDataItem_Data,
         showPageList: true,
         displayMsg: '',
         layout: ['first', 'prev', 'links', 'next', 'last'],
         //翻页函数
         onSelectPage: function (pageNumber, pageSize) {
-            listDataKey_Data(pageNumber, pageSize);
-            $.cookie("currentPgaeDataKey_Data", pageNumber);
+            listDataItem_Data(pageNumber, pageSize);
+            $.cookie("currentPgaeDataItem_Data", pageNumber);
         }
     });
-    paginationListDataKey_DataDiv.pagination("select", currentPgaeDataKey_Data);
+    paginationListDataItem_DataDiv.pagination("select", currentPgaeDataItem_Data);
     //------------------------------------------------------------------------------------------------------------------
 
     //这个放在最后
@@ -158,10 +158,37 @@ $(function(){
 /*
 * 数据输入
 * */
+function importData(id) {
+    console.info("批量导入数据：" + id);
+    operation4DataDiv.tabs("select", "批量数据编辑")
+    ajaxRun("operation4Data/prepareImportDataItem4Key", id, "importDataDiv");
+}
+
+/*
+* 数据输入
+* */
 function inputData(id) {
     console.info("输入数据：" + id);
     operation4DataDiv.tabs("select", "数据编辑")
     ajaxRun("operation4Data/createDataItem4Key", id, "inputDataDiv");
+}
+
+/*
+ * 统计记录总数
+ * */
+function countDataItem() {
+    //console.info("开始统计...")
+    var total = ajaxCalculate("operation4Data/countDataItem");
+    //console.info("正在听统计结果：" + total);
+    return total;
+}
+
+/*
+* 列表显示当前所有对象
+* */
+function listDataItem_Data(pageNumber, pageSize) {
+    //console.info("列表显示对象：");
+    ajaxRun("operation4Data/listDataItem/" + getParams(pageNumber, pageSize), 0, "listDataItem_DataDiv");
 }
 
 /*

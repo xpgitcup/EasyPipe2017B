@@ -32,6 +32,10 @@ class DataKey {
         subKey sort: 'keyContext', 'id'  //这是排序的标准做法
     }
 
+    def dataCount() {
+        return DataItem.countByLabelKey(this)
+    }
+
     def processAppendValue() {
 
     }

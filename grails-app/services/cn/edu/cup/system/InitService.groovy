@@ -382,6 +382,7 @@ class InitService {
 
     private void fillSampleDataKey() {
         println("测试数据字典的数据...")
+        def dw = ["kg", "m", "s", "MPa", "m^3/s", "kg/s"]
         for (int i=0; i<30; i++) {
             def d = new DataKey(
                     keyContext: "key${i}",
@@ -406,6 +407,7 @@ class InitService {
                         def dddd = new DataKey(
                                 keyContext: "key${i},${j},${k},${l}",
                                 dataValueType: BaseDataType.simpleData,
+                                quantityUnit: dw[(i+l)%6],
                                 upKey: ddd
                         )
                         dddd.save(true)

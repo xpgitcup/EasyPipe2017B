@@ -1,7 +1,5 @@
+<%@ page import="cn.edu.cup.dictionary.DataItem" %>
 <div id="list-dataKey" class="content scaffold-list" role="main">
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
     <table>
         <thead>
         <th>名称</th>
@@ -22,7 +20,19 @@
                 <td>${item.upKey}</td>
                 <td>
                     <g:if test="${item.dataValueType==cn.edu.cup.dictionary.BaseDataType.dataModel}">
-                        <a href="javascript: inputData(${item.id})">输入数据</a>
+                        <a href="javascript: inputData(${item.id})">
+                            输入数据("${item.dataCount()}")
+                        </a>
+                    </g:if>
+                    <g:else>
+                        非可输入项
+                    </g:else>
+                </td>
+                <td>
+                    <g:if test="${item.dataValueType==cn.edu.cup.dictionary.BaseDataType.dataModel}">
+                        <a href="javascript: importData(${item.id})">
+                            批量导入数据("${item.dataCount()}")
+                        </a>
                     </g:if>
                     <g:else>
                         非可输入项

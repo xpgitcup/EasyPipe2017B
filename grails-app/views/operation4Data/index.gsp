@@ -63,6 +63,9 @@
 
 </div>
 
+<g:if test="${flash.message}">
+    <div class="message" role="status">${flash.message}</div>
+</g:if>
 <div class="easyui-tabs" id="operation4DataDiv">
     <div title="项目列表">
         <div id="listDataKey_ProjectDiv"></div>
@@ -77,11 +80,14 @@
         <div id="paginationListDataKey_DataModelDiv" class="easyui-pagination"></div>
     </div>
     <div title="数据列表">
-        <div id="listDataKey_DataDiv"></div>
-        <div id="paginationListDataKey_DataDiv" class="easyui-pagination"></div>
+        <div id="listDataItem_DataDiv"></div>
+        <div id="paginationListDataItem_DataDiv" class="easyui-pagination"></div>
     </div>
     <div title="数据编辑">
         <div id="inputDataDiv"></div>
+    </div>
+    <div title="批量数据编辑">
+        <div id="importDataDiv"></div>
     </div>
 
 </div>

@@ -46,6 +46,12 @@ dependencies {
     //compile "org.grails.plugins:jxl:0.54" //--这个不行了
     compile "net.sourceforge.jexcelapi:jxl:2.6.12"
 
+    //excel输出 -- 安装失败
+    //compile 'pl.touk:excel-export:2.1'
+
+    //excel输入 --
+    //compile 'org.grails.plugins:excel-import:3.0.0.RC4'
+
     console "org.grails:grails-console"
 
     profile "org.grails.profiles:web"
