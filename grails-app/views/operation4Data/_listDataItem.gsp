@@ -12,11 +12,28 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${dataItemList}" />
-
-            <div class="paginationGrails">
-                <g:paginate total="${dataItemCount ?: 0}" />
-            </div>
+            <table>
+                <thead>
+                <th>模型标题</th>
+                <th>模型注释</th>
+                <th>数据列表</th>
+                </thead>
+                <tbody>
+                    <g:each in="${dataItemList}" var="item" status="i">
+                        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                            <td>${item.labelKey.keyContext}</td>
+                            <td>${item.value}</td>
+                        </tr>
+                        <tr>
+                            <g:each in="${item.subItems}" var="sItem" status="j">
+                                <td>
+                                    ${sItem.labelKey.keyContext}=${sItem.value}
+                                </td>
+                            </g:each>
+                        </tr>
+                    </g:each>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

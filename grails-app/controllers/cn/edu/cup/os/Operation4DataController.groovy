@@ -13,14 +13,44 @@ import javax.xml.crypto.Data
 class Operation4DataController extends DataItemController {
 
     def excelService
+    def commonService
+
+    /*
+    * 上传数据文件
+    * */
+    def importDataItem() {
+        //println("${params}")
+        def dataKey = DataKey.get(params.id)
+        def destDir = servletContext.getRealPath("/") + "uploads"
+        params.destDir = destDir
+        def sf = commonService.upload(params)
+        println("上传${sf}成功...")
+        excelService.importExcel2DataItem(dataKey, sf)
+        redirect(action: "index")
+    }
+
+
+    /*
+    * downLoadTemplate
+    * 下载数据模型的模板
+    * */
+    def downLoadTemplate(DataKey dataKey) {
+        def fileName = createTemplate(dataKey)
+        params.downLoadFileName = fileName
+        commonService.downLoad(params)
+    }
+
+    def downLoad(params) {
+        println("${params}")
+        commonService.downLoad(params)
+    }
 
     /*
     * 批量数据导入
     * */
     def prepareImportDataItem4Key(DataKey dataKey) {
 
-        def fileName = servletContext.getRealPath("/") + "templates/${dataKey.keyContext}.xls"
-        excelService.exportDataKey2Excel(dataKey, fileName)
+        String fileName = createTemplate(dataKey)
 
         def theModel = [dataKey: dataKey, fileName: fileName]
         if (request.xhr) {
@@ -28,6 +58,15 @@ class Operation4DataController extends DataItemController {
         } else {
             theModel
         }
+    }
+
+    private String createTemplate(DataKey dataKey) {
+        def fileName = servletContext.getRealPath("/") + "templates/${dataKey.keyContext}.xls"
+        def rf = new File(fileName)
+        if (!rf.exists()) {
+            excelService.exportDataKey2Excel(dataKey, fileName)
+        }
+        fileName
     }
 
     /*

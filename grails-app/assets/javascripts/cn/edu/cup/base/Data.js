@@ -28,7 +28,9 @@ $(function(){
     operation4DataDiv.tabs({
         onSelect: function (title, index) {
             console.info("选择标签：" + title + "---" + index);
-            if (title !== "数据编辑") {
+            var otabs = ["数据编辑", "批量数据编辑"]
+            var k = otabs.indexOf(title)
+            if (k === -1) {
                 $.cookie("currentPageOperation4DataDiv", title, {path:'/'});
             }
         }

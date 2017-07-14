@@ -1,5 +1,6 @@
 package cn.edu.cup.common
 
+import cn.edu.cup.dictionary.DataItem
 import cn.edu.cup.dictionary.DataKey
 import grails.transaction.Transactional
 import jxl.Cell
@@ -15,20 +16,49 @@ class ExcelService {
     /*
     * 导入数据
     * */
-    def importExcel2DataItem(DataKey dataKey, String fileName) {
-        def message = checkExcelFile(dataKey, fileName)
+
+    @Transactional
+    def importExcel2DataItem(DataKey dataKey, File excelFile) {
+        def message = checkExcelFile(dataKey, excelFile)
         if (message.hasError) {
 
         } else {
-
+            try {
+                println("开始导入...${excelFile}...")
+                Workbook book = Workbook.getWorkbook(excelFile)
+                Sheet sheet = book.getSheet(0)
+                //------------------------------------------------------------------------------------------------------
+                def m = sheet.rows
+                //------------------------------------------------------------------------------------------------------
+                for (int ii = 0; ii < m; ii++) {
+                    DataItem dataItem = new DataItem(labelKey: dataKey, value: "from ${excelFile.name}")
+                    dataItem.subItems = []
+                    dataKey.subKey.eachWithIndex { DataKey entry, int i ->
+                        Cell cell = sheet.getCell(i, ii + 2)
+                        def value = cell.getContents()
+                        def subItem = new DataItem(
+                                labelKey: entry,
+                                value: value,
+                                parentItem: dataItem
+                        )
+                        dataItem.subItems.add(subItem)
+                        subItem.save(true)
+                    }
+                    dataItem.save(true)
+                }
+                //------------------------------------------------------------------------------------------------------
+                book.close()
+            } catch (Exception e) {
+                println "importExcelFile error: ${e}";
+            }
         }
-
     }
 
     /*
     * excel文件验证
     * */
-    def checkExcelFile(DataKey dataKey, String fileName) {
+
+    def checkExcelFile(DataKey dataKey, File excelFile) {
         def message = [:]
         return message
     }

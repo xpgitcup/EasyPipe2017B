@@ -38,6 +38,16 @@
                         非可输入项
                     </g:else>
                 </td>
+                <td>
+                    <g:if test="${item.dataValueType==cn.edu.cup.dictionary.BaseDataType.dataModel}">
+                        <a href="operation4Data/downLoadTemplate/${item.id}">
+                            下载数据模板("${item.dataCount()}")
+                        </a>
+                    </g:if>
+                    <g:else>
+                        非可输入项
+                    </g:else>
+                </td>
             </tr>
         </g:each>
         </tbody>

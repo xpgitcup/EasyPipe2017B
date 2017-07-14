@@ -391,21 +391,21 @@ class InitService {
             d.save(true)
             for (int j=0; j<3; j++) {
                 def dd = new DataKey(
-                        keyContext: "key${i},${j}",
+                        keyContext: "key${i}_${j}",
                         dataValueType: BaseDataType.projectCase,
                         upKey: d
                 )
                 dd.save(true)
                 for (int k=0; k<3; k++) {
                     def ddd = new DataKey(
-                            keyContext: "key${i},${j},${k}",
+                            keyContext: "key${i}_${j}_${k}",
                             dataValueType: BaseDataType.dataModel,
                             upKey: d
                     )
                     ddd.save(true)
                     for (int l=0; l<5; l++) {
                         def dddd = new DataKey(
-                                keyContext: "key${i},${j},${k},${l}",
+                                keyContext: "key${i}_${j}_${k}_${l}",
                                 dataValueType: BaseDataType.simpleData,
                                 quantityUnit: dw[(i+l)%6],
                                 upKey: ddd
