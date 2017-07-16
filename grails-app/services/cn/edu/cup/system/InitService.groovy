@@ -5,6 +5,9 @@ import cn.edu.cup.dictionary.DataKey
 import cn.edu.cup.physical.PhysicalQuantity
 import cn.edu.cup.physical.QuantityUnit
 import cn.edu.cup.physical.UnitSystem
+import cn.edu.cup.userLibrary.UserClass
+import cn.edu.cup.userLibrary.UserLibrary
+import cn.edu.cup.userLibrary.UserLibraryClassify
 import easypipe2017b.Application
 import grails.core.GrailsApplication
 import grails.transaction.Transactional
@@ -342,8 +345,43 @@ class InitService {
         fillSampleChat()
         //数据字典
         fillSampleDataKey()
-        //
+        //程序标题
         fillSampleTitle()
+        //用户类库
+        fillSampleUserLibrary()
+    }
+
+    /*
+    * 用户类库
+    * */
+    def fillSampleUserLibrary() {
+        for (int i=0; i<15; i++) {
+            def u = new UserLibraryClassify(
+                    name: "测试${i}",
+                    path: "TestPath${i}",
+                    description: "这是测试${i}"
+            )
+            u.save()
+            for (int j=0; j<3; j++) {
+                def uu = new UserLibrary(
+                        name: "测试类${i}",
+                        description: "属于这是测试${i}",
+                        fileName: "测试类${i}文件",
+                        developer: "${i}",
+                        uploadDate: new Date(),
+                        userLibraryClassify: u
+                )
+                uu.save()
+                for (int k=0; k<3; k++) {
+                    def uuu = new UserClass(
+                            name: "用户类${i}",
+                            description: "用户类${i}--",
+                            userLibrary: uu
+                    )
+                    uuu.save()
+                }
+            }
+        }
     }
 
     def fillSampleTitle() {

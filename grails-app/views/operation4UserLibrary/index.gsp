@@ -65,16 +65,16 @@
 
 <div class="easyui-tabs" id="operation4UserLibraryDiv">
     <div title="用户库分类">
-        <div id="listDataKey_ProjectDiv"></div>
-        <div id="paginationListDataKey_ProjectDiv" class="easyui-pagination"></div>
+        <div id="listUserLibraryClassifyDiv"></div>
+        <div id="paginationListUserLibraryClassifyDiv" class="easyui-pagination"></div>
     </div>
     <div title="用户库">
-        <div id="listDataKey_ProjectCaseDiv"></div>
-        <div id="paginationListDataKey_ProjectCaseDiv" class="easyui-pagination"></div>
+        <div id="listUserLibraryDiv"></div>
+        <div id="paginationListUserLibraryDiv" class="easyui-pagination"></div>
     </div>
     <div title="类列表">
-        <div id="listDataKey_DataModelDiv"></div>
-        <div id="paginationListDataKey_DataModelDiv" class="easyui-pagination"></div>
+        <div id="listUserClassDiv"></div>
+        <div id="paginationListUserClassDiv" class="easyui-pagination"></div>
     </div>
     <div title="属性列表">
         <div id="listDataKey_DataDiv"></div>

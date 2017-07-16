@@ -10,6 +10,11 @@ class UserClass {
     static hasMany = [fields: UserClassField, methods: UserClassMethod]
 
     static constraints = {
+        name()
+        description()
+        userLibrary()
+        fields()
+        methods()
     }
 
     String toString() {
