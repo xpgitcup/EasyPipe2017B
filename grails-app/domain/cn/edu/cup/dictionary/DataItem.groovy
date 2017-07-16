@@ -3,17 +3,20 @@ package cn.edu.cup.dictionary
 class DataItem {
 
     DataKey labelKey
-    String  value
+    String value
+    //Integer dataId
 
     static belongsTo = [parentItem: DataItem]
 
     static hasMany = [subItems: DataItem]
 
     static mapping = {
-        sort "labelKey"
+        //sort('labelKey')
+        subItems sort: 'labelKey'
     }
 
     static constraints = {
+        //dataId(nullable: true)
         labelKey()
         value(nullable: true)
         parentItem(nullable: true)

@@ -22,9 +22,9 @@
                     <g:each in="${dataItemList}" var="item" status="i">
                         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                             <td>${item.labelKey.keyContext}</td>
-                            <td>${item.value}</td>
+                            <td colspan="${item.subItems?.size()}">${item.value}</td>
                         </tr>
-                        <tr>
+                        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                             <g:each in="${item.subItems}" var="sItem" status="j">
                                 <td>
                                     ${sItem.labelKey.keyContext}=${sItem.value}

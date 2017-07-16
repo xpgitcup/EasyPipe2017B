@@ -290,9 +290,9 @@ class InitService {
             m33.save(true)
             //----------------------------------------------------------------------------------------------------------
             def m34 = new SystemMenu(
-                    menuContext: "数据字典维护",
-                    menuAction: "maintain4Dictionary/index",
-                    menuDescription: "维护数据字典",
+                    menuContext: "用户库维护",
+                    menuAction: "operation4UserLibrary/index",
+                    menuDescription: "维护用户代码库",
                     upMenuItem: m3,
                     menuOrder: 0
             )

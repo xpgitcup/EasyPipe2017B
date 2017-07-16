@@ -35,7 +35,7 @@
     <ul>
         <li>
             <a href="#">
-                当前项目：${session.currentProject}
+                当前：${session.currentProject}
             </a>
         </li>
         <li>
@@ -63,24 +63,24 @@
 
 </div>
 
-<div class="easyui-tabs" id="operation4DataDiv">
-    <div title="项目列表">
+<div class="easyui-tabs" id="operation4UserLibraryDiv">
+    <div title="用户库分类">
         <div id="listDataKey_ProjectDiv"></div>
         <div id="paginationListDataKey_ProjectDiv" class="easyui-pagination"></div>
     </div>
-    <div title="算例列表">
+    <div title="用户库">
         <div id="listDataKey_ProjectCaseDiv"></div>
         <div id="paginationListDataKey_ProjectCaseDiv" class="easyui-pagination"></div>
     </div>
-    <div title="模型列表">
+    <div title="类列表">
         <div id="listDataKey_DataModelDiv"></div>
         <div id="paginationListDataKey_DataModelDiv" class="easyui-pagination"></div>
     </div>
-    <div title="数据列表">
+    <div title="属性列表">
         <div id="listDataKey_DataDiv"></div>
         <div id="paginationListDataKey_DataDiv" class="easyui-pagination"></div>
     </div>
-    <div title="数据编辑">
+    <div title="方法列表">
     </div>
 
 </div>

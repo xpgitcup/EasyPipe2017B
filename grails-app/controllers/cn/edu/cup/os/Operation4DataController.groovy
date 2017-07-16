@@ -18,6 +18,7 @@ class Operation4DataController extends DataItemController {
     /*
     * 上传数据文件
     * */
+    @Transactional
     def importDataItem() {
         //println("${params}")
         def dataKey = DataKey.get(params.id)
@@ -98,7 +99,9 @@ class Operation4DataController extends DataItemController {
             def dataModel = session.currentDataModel
             dataItemList = DataItem.findAllByLabelKey(dataModel, params)
         }
-
+        dataItemList.subItems.sort{
+            it.labelKey
+        }
         def theModel = [dataItemList: dataItemList]
         if (request.xhr) {
             render(template: "listDataItem", model: theModel)

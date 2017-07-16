@@ -42,9 +42,9 @@ class ExcelService {
                                 parentItem: dataItem
                         )
                         dataItem.subItems.add(subItem)
-                        subItem.save(true)
+                        subItem.save()
                     }
-                    dataItem.save(true)
+                    dataItem.save()
                 }
                 //------------------------------------------------------------------------------------------------------
                 book.close()
