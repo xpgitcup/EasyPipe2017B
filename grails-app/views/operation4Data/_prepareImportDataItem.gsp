@@ -20,7 +20,13 @@
             <tr>
                 <td>数据格式模板可以下载：</td>
                 <td>
-                    <a href="operation4Data/downLoad/?downLoadFileName=${fileName}">数据模板</a>
+                    <a href="${request.getContextPath()}operation4Data/localDownLoad?downLoadFileName=${fileName}">数据模板1</a>
+                    <a href="operation4Data/localDownLoad?downLoadFileName=${fileName}">数据模板2</a>
+                </td>
+                <td>
+                    <a href="operation4Data/downLoadTemplate/${dataKey.id}">
+                        下载数据模板("${dataKey.dataCount()}")
+                    </a>
                 </td>
             </tr>
         </table>

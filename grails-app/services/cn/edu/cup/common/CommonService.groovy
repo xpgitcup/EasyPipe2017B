@@ -12,9 +12,9 @@ class CommonService {
     * 上传文件
     * */
     File upload(params) {
-        println("service: ${params}")
-        println("service: ${params.uploadedFile}")
-        println("service: ${params.uploadedFile.originalFilename}")
+        //println("service: ${params}")
+        //println("service: ${params.uploadedFile}")
+        //println("service: ${params.uploadedFile.originalFilename}")
         if (params.uploadedFile && params.destDir) {
             def uploadedFile = params.uploadedFile
             def destDir = params.destDir
@@ -32,7 +32,7 @@ class CommonService {
     /*
     * 下载文件
     * */
-    def downLoad(params) {
+    def downLoadFile(params) {
         if (params.downLoadFileName) {
             def filename = params.downLoadFileName
             def sf = new File(filename)
@@ -66,6 +66,7 @@ class CommonService {
         def webUtils = WebUtils.retrieveGrailsWebRequest()
         webUtils.getCurrentRequest()
     }
+
     //Getting the Response object
     def getResponse() {
         def webUtils = WebUtils.retrieveGrailsWebRequest()

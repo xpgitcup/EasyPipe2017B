@@ -7,10 +7,8 @@ import cn.edu.cup.dictionary.DataKey
 import grails.converters.JSON
 import grails.transaction.Transactional
 
-import javax.xml.crypto.Data
-
 @Transactional(readOnly = true)
-class Operation4DataController extends DataItemController {
+class Operation4DataController {
 
     def excelService
     def commonService
@@ -38,12 +36,41 @@ class Operation4DataController extends DataItemController {
     def downLoadTemplate(DataKey dataKey) {
         def fileName = createTemplate(dataKey)
         params.downLoadFileName = fileName
-        commonService.downLoad(params)
+        commonService.downLoadFile(params)
     }
 
-    def downLoad(params) {
-        println("${params}")
-        commonService.downLoad(params)
+    def localDownLoad = {
+        println("开始局部下载.....${params}")
+        if (params.downLoadFileName) {
+            def filename = params.downLoadFileName
+            def sf = new File(filename)
+            println "download: ${sf} -- ${filename}"
+            if (sf.exists()) {
+                println "begin download......"
+                def fName = sf.getName()
+                // 处理中文乱码
+                def name = URLEncoder.encode(fName, "UTF-8");
+                //def response = getResponse()
+                response.setHeader("Content-disposition", "attachment; filename=" + name)
+                response.contentType = "application/x-rarx-rar-compressed"
+                //response.contentType = ""
+
+                def out = response.outputStream
+                def inputStream = new FileInputStream(sf)
+                byte[] buffer = new byte[1024]
+                int i = -1
+                while ((i = inputStream.read(buffer)) != -1) {
+                    out.write(buffer, 0, i)
+                }
+                out.flush()
+                out.close()
+                inputStream.close()
+            }
+        }
+    }
+
+    def getTemplate(params) {
+        commonService.downLoadFile(params)
     }
 
     /*
