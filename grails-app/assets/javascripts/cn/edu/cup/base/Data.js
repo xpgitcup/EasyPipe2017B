@@ -157,6 +157,11 @@ $(function(){
 
 });
 
+function testDownload(filename) {
+    console.info(filename);
+    ajaxRun("operation4Data/getTemplate?downLoadFileName="+filename, 0, "");
+}
+
 /*
 * 数据输入
 * */

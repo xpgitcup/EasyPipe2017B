@@ -21,7 +21,10 @@
                 <td>数据格式模板可以下载：</td>
                 <td>
                     <a href="${request.getContextPath()}operation4Data/localDownLoad?downLoadFileName=${fileName}">数据模板1</a>
-                    <a href="operation4Data/localDownLoad?downLoadFileName=${fileName}">数据模板2</a>
+                    <a href="operation4Data/getTemplate/?downLoadFileName=${fileName}">数据模板2</a>
+                    <a href="javascript: testDownload('yyy')">数据模板3</a>
+                    <a href="operation4Data/getTemplate/?downLoadFileName=templates/key000.xls">数据模板4</a>
+                    <a href="operation4Data/getTemplate?downLoadFileName=${request.getContextPath()}\templates/key000.xls">数据模板5</a>
                 </td>
                 <td>
                     <a href="operation4Data/downLoadTemplate/${dataKey.id}">
