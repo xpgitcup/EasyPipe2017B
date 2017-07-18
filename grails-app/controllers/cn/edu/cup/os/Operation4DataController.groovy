@@ -80,7 +80,15 @@ class Operation4DataController {
 
         String fileName = createTemplate(dataKey)
 
-        def theModel = [dataKey: dataKey, fileName: fileName]
+        //println("----文件名：${fileName}")
+        //fileName.replace('\\',"/")
+        //println("----新文件名：${fileName}")
+
+        def sf = new File(fileName)
+
+        def fn = sf.toURI().toString().substring(6)
+
+        def theModel = [dataKey: dataKey, fileName: fn] //sf.toPath()]
         if (request.xhr) {
             render(template: "prepareImportDataItem", model: theModel)
         } else {
