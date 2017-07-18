@@ -33,6 +33,7 @@ class CommonService {
     * 下载文件
     * */
     def downLoadFile(params) {
+        def hasError = []
         if (params.downLoadFileName) {
             def filename = params.downLoadFileName
             def sf = new File(filename)
@@ -57,7 +58,11 @@ class CommonService {
                 out.flush()
                 out.close()
                 inputStream.close()
+            } else {
+                hasError.add("文件不存在.")
             }
+        } else {
+            hasError.add("缺少downLoadFileName参数.")
         }
     }
 

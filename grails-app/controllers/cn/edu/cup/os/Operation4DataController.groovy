@@ -39,36 +39,10 @@ class Operation4DataController {
         commonService.downLoadFile(params)
     }
 
-    def localDownLoad = {
-        println("开始局部下载.....${params}")
-        if (params.downLoadFileName) {
-            def filename = params.downLoadFileName
-            def sf = new File(filename)
-            println "download: ${sf} -- ${filename}"
-            if (sf.exists()) {
-                println "begin download......"
-                def fName = sf.getName()
-                // 处理中文乱码
-                def name = URLEncoder.encode(fName, "UTF-8");
-                //def response = getResponse()
-                response.setHeader("Content-disposition", "attachment; filename=" + name)
-                response.contentType = "application/x-rarx-rar-compressed"
-                //response.contentType = ""
-
-                def out = response.outputStream
-                def inputStream = new FileInputStream(sf)
-                byte[] buffer = new byte[1024]
-                int i = -1
-                while ((i = inputStream.read(buffer)) != -1) {
-                    out.write(buffer, 0, i)
-                }
-                out.flush()
-                out.close()
-                inputStream.close()
-            }
-        }
-    }
-
+    /*
+    * 下载，关键参数是：
+    * downLoadFileName
+    * */
     def getTemplate(params) {
         commonService.downLoadFile(params)
     }
