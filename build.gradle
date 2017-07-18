@@ -20,6 +20,10 @@ apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
 
+war {
+    
+}
+
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
