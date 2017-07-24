@@ -344,7 +344,7 @@ class InitService {
         //对话
         fillSampleChat()
         //数据字典
-        fillSampleDataKey()
+        //fillSampleDataKey()
         //程序标题
         fillSampleTitle()
         //用户类库

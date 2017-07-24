@@ -157,6 +157,15 @@ $(function(){
 
 });
 
+/*
+* 创建数据模型
+* */
+function createDataKey_DataModel(id) {
+    console.info("创建数据模型...");
+    operation4DataDiv.tabs("select", "数据编辑")
+    ajaxRun("operation4Data/createDataKey/?type=dataModel", id, "editDataKeyDiv");
+}
+
 function testDownload(filename) {
     console.info(filename);
     ajaxRun("operation4Data/getTemplate?downLoadFileName="+filename, 0, "");

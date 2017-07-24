@@ -14,6 +14,30 @@ class Operation4DataController {
     def commonService
 
     /*
+    * 创建对象
+    * */
+    def createDataKey(DataKey dataKey) {
+        println("创建： ${params}")
+        def dataType = BaseDataType.valueOf(params.type)
+        def newDataKey = new DataKey(upKey: dataKey, dataValueType: dataType)
+        if (request.xhr) {
+            render(template: 'editDataKey', model: [dataKey: newDataKey])
+        } else {
+            respond newDataKey
+        }
+    }
+
+    /*
+    * 保存对象
+    * */
+    @Transactional
+    def updateDataKey(DataKey dataKey) {
+        println("准备更新：${dataKey}")
+        dataKey.save flush:true
+        redirect(action: 'index')
+    }
+
+    /*
     * 上传数据文件
     * */
     @Transactional
@@ -272,12 +296,12 @@ class Operation4DataController {
                     break;
                 case BaseDataType.projectCase:
                     if (session.currentProject) {
-                        dataKeyList = DataKey.findAllByDataValueTypeAndUpKey(baseDataType, session.currentProject)
+                        dataKeyList = DataKey.findAllByDataValueTypeAndUpKey(baseDataType, session.currentProject, params)
                     }
                     break;
                 case BaseDataType.dataModel:
                     if (session.currentProject) {
-                        dataKeyList = DataKey.findAllByDataValueTypeAndUpKey(baseDataType, session.currentProject)
+                        dataKeyList = DataKey.findAllByDataValueTypeAndUpKey(baseDataType, session.currentProject, params)
                     }
                     break;
             }

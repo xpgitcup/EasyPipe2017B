@@ -51,6 +51,11 @@
                 <a class="create" href="operation4Data/clearDataKey/${session.currentProjectCase?.id}">清除当前算例</a>
             </li>
             <li>
+                <a href="javascript: createDataKey_DataModel(${session.currentProject.id})">
+                    创建模型--（${session.currentProject}）
+                </a>
+            </li>
+            <li>
                 <a href="#">
                     当前模型：${session.currentDataModel}
                 </a>
@@ -84,6 +89,7 @@
         <div id="paginationListDataItem_DataDiv" class="easyui-pagination"></div>
     </div>
     <div title="数据编辑">
+        <div id="editDataKeyDiv"></div>
         <div id="inputDataDiv"></div>
     </div>
     <div title="批量数据编辑">

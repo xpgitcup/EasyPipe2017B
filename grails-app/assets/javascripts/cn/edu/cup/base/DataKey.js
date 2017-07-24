@@ -39,7 +39,7 @@ $(function(){
             if (nodeid) {
                 var cNode = $("#" + nodeid);
                 displayTreeDataKeyDiv.tree("expandTo", cNode);
-                displayTreeDataKeyDiv.tree("select", cNode);
+                //displayTreeDataKeyDiv.tree("select", cNode);
             }
         }
     });
