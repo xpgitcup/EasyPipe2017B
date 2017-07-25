@@ -28,6 +28,8 @@ $(function(){
         onSelect: function (node) {
             showDataKey(node);
             $("#createDataKey").attr('href', 'javascript: createDataKey(' + node.attributes[0] + ')');
+            $("#createDataKeyDataModel").attr('href', 'javascript: createDataKeyDataModel(' + node.attributes[0] + ')');
+            $("#createDataKeyDataItem").attr('href', 'javascript: createDataKeyDataItem(' + node.attributes[0] + ')');
             console.info(node);
             console.info("当前节点：" + node.target.id);
             $.cookie("currentDataKey", node.target.id);
@@ -70,6 +72,16 @@ $(function(){
 function createDataKey(id) {
     console.info("创建DataKey. 上级节点：" + id);
     ajaxRun("operation4DataKey/createDataKey", id, "showDataKeyDiv");
+}
+
+function createDataKeyDataModel(id) {
+    console.info("创建DataKey. 上级节点：" + id);
+    ajaxRun("operation4DataKey/createDataKey/?type=dataModel", id, "showDataKeyDiv");
+}
+
+function createDataKeyDataItem(id) {
+    console.info("创建DataKey. 上级节点：" + id);
+    ajaxRun("operation4DataKey/createDataKey/?type=dataModelRef", id, "showDataKeyDiv");
 }
 
 /*

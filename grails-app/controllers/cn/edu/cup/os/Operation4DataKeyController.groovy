@@ -1,5 +1,6 @@
 package cn.edu.cup.os
 
+import cn.edu.cup.dictionary.BaseDataType
 import cn.edu.cup.dictionary.DataKey
 import cn.edu.cup.dictionary.DataKeyController
 import cn.edu.cup.dictionary.JsFrame
@@ -16,6 +17,10 @@ class Operation4DataKeyController extends DataKeyController{
     * */
     def createDataKey(DataKey dataKey) {
         def newDataKey = new DataKey(upKey: dataKey)
+        if (params.type) {
+            def dataValueType = BaseDataType.valueOf(params.type)
+            newDataKey.dataValueType = dataValueType
+        }
         if (request.xhr) {
             render(template: 'editDataKey', model: [dataKey: newDataKey])
         } else {

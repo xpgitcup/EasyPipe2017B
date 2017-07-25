@@ -50,6 +50,8 @@
                     <ul>
                         <li><a class="create" href="javascript: createDataKey(0)">新建根节点</a></li>
                         <li><a id="createDataKey" class="create" href="#">新建子节点</a></li>
+                        <li><a id="createDataKeyDataModel" class="create" href="#">新建模型子节点</a></li>
+                        <li><a id="createDataKeyDataItem" class="create" href="#">新建数据子节点</a></li>
                     </ul>
                 </div>
 

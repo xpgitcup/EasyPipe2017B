@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50620
 File Encoding         : 65001
 
-Date: 2017-07-24 17:23:18
+Date: 2017-07-25 14:48:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `data_key` (
   PRIMARY KEY (`id`),
   KEY `FK2xfnhfia4b2aj067noxxpd2hk` (`up_key_id`),
   CONSTRAINT `FK2xfnhfia4b2aj067noxxpd2hk` FOREIGN KEY (`up_key_id`) REFERENCES `data_key` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of data_key
@@ -48,3 +48,5 @@ INSERT INTO `data_key` VALUES ('8', '0', null, 'dataModel', null, '\0', '\0', '�
 INSERT INTO `data_key` VALUES ('9', '0', null, 'dataModel', null, '\0', '\0', '调节阀', null, '1');
 INSERT INTO `data_key` VALUES ('10', '0', null, 'dataModel', null, '\0', '\0', '大罐', null, '1');
 INSERT INTO `data_key` VALUES ('11', '0', null, 'dataModel', null, '\0', '\0', '加热炉', null, '1');
+INSERT INTO `data_key` VALUES ('12', '0', null, 'dataModel', null, '\0', '', '泄压阀', null, '1');
+INSERT INTO `data_key` VALUES ('13', '0', null, 'dataModel', null, '\0', '\0', '截断阀', null, '1');
