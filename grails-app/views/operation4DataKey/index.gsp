@@ -23,20 +23,20 @@
 </head>
 
 <body>
+<div class="nav" role="navigation">
+    <ul>
+        <li><a class="create" href="javascript: createDataKey(0)">新建根节点</a></li>
+        <li><a id="createDataKey" class="create" href="#">新建子节点</a></li>
+        <li><a href="#">----</a></li>
+        <li><a id="createDataKeyProjectCase" class="create" href="#">projectCase子节点</a></li>
+        <li><a id="createDataKeyDataModel" class="create" href="#">dataModel子节点</a></li>
+    </ul>
+</div>
+
 <div class="container">
     <div class="row-fluid">
         <div class="col-md-4 column">
             <div class="panel panel-default">
-                <div class="nav">
-                    <ul>
-                        <li>
-                            <a class="list">
-                                数据字典维护
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
                 <div class="easyui-panel">
                     <div id="displayTreeDataKeyDiv" class="easyui-tree"></div>
                     <div id="paginationDataKeyDiv" class="easyui-pagination"></div>
@@ -46,15 +46,6 @@
 
         <div class="col-md-8 column">
             <div class="panel panel-default">
-                <div class="nav" role="navigation">
-                    <ul>
-                        <li><a class="create" href="javascript: createDataKey(0)">新建根节点</a></li>
-                        <li><a id="createDataKey" class="create" href="#">新建子节点</a></li>
-                        <li><a id="createDataKeyDataModel" class="create" href="#">新建模型子节点</a></li>
-                        <li><a id="createDataKeyDataItem" class="create" href="#">新建数据子节点</a></li>
-                    </ul>
-                </div>
-
                 <div class="easyui-panel">
                     <div id="showDataKeyDiv"></div>
                 </div>

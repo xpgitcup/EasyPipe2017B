@@ -12,8 +12,6 @@ enum BaseDataType {
     project,
     projectCase,
     dataModel,
-    dataModelRef,           //模型引用
-    enumData,
-    arrayData,
-    simpleData
+    dataModelRef,   //模型引用
+    basicType       //基本类型，就是Java支持的类型
 }
