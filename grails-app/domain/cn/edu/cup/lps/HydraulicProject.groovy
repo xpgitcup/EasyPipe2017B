@@ -16,6 +16,11 @@ class HydraulicProject {
     EventSequence eventSequence         //事件序列
 
     static constraints = {
+        name(unique: true)
+        pipeNetwork(nullable: true)
+        initialCondition(nullable: true)
+        boundaryCondition(nullable: true)
+        eventSequence(nullable: true)
     }
 
     String toString() {

@@ -2,6 +2,7 @@ package cn.edu.cup.system
 
 import cn.edu.cup.dictionary.BaseDataType
 import cn.edu.cup.dictionary.DataKey
+import cn.edu.cup.lps.HydraulicProject
 import cn.edu.cup.physical.PhysicalQuantity
 import cn.edu.cup.physical.QuantityUnit
 import cn.edu.cup.physical.UnitSystem
@@ -169,6 +170,7 @@ class InitService {
             m0.save(true)
             //----------------------------------------------------------------------------------------------------------
             //创建正对各个域类控制器的菜单
+            domains.sort()
             domains.each() { e ->
                 def m01 = new SystemMenu(
                         menuContext: "${e.name}",
@@ -368,6 +370,18 @@ class InitService {
         fillSampleTitle()
         //用户类库
         fillSampleUserLibrary()
+        //水力学模拟
+        fillSampleHydraulicSimulation()
+    }
+
+    /*
+    * 水力学模拟
+    * */
+    def fillSampleHydraulicSimulation() {
+        for (int i=0; i<15; i++) {
+            def h = new HydraulicProject(name: "管道${i}模拟工程")
+            h.save(true)
+        }
     }
 
     /*

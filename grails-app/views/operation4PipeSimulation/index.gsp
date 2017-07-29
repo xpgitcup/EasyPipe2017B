@@ -48,9 +48,27 @@
 <body>
 
 <div class="nav">
+    <ul>
+        <li>
+            <a href="#" class="create">新建工程</a>
+        </li>
+        <li>
+            <a href="#" class="create">新建管道</a>
+        </li>
+        <li>
+            <a href="#" class="create">新建初始条件</a>
+        </li>
+        <li>
+            <a href="#" class="create">新建边界条件</a>
+        </li>
+        <li>
+            <a href="#" class="create">事件序列</a>
+        </li>
+    </ul>
 </div>
 
-<div class="easyui-tabs">
+<div class="easyui-tabs" id="operation4PipeSimulationDiv">
+
     <div title="模拟工程"></div>
 
     <div title="管道">
