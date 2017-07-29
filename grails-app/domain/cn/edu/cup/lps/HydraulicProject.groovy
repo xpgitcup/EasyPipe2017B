@@ -1,5 +1,11 @@
 package cn.edu.cup.lps
 
+/*
+* 水力学工程
+* 就是程序中的工程，是整个计算的总领
+* 20170729
+* */
+
 class HydraulicProject {
 
     String name

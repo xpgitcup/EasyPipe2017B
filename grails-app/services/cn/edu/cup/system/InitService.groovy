@@ -301,6 +301,25 @@ class InitService {
             )
             m34.save(true)
             //----------------------------------------------------------------------------------------------------------
+            //----------------------------------------------------------------------------------------------------------
+            def m4 = new SystemMenu(
+                    menuContext: "管道模拟",
+                    menuAction: "#",
+                    menuDescription: "管道模拟",
+                    upMenuItem: null,
+                    roleAttribute: "系统维护",
+                    menuOrder: 0
+            )
+            m4.save(true)
+            //----------------------------------------------------------------------------------------------------------
+            def m41 = new SystemMenu(
+                    menuContext: "管道",
+                    menuAction: "Operation4PipeSimulation/index",
+                    menuDescription: "管道数据维护",
+                    upMenuItem: m4,
+                    menuOrder: 0
+            )
+            m41.save(true)
         }
     }
 
