@@ -3,6 +3,9 @@ package cn.edu.cup.system
 import cn.edu.cup.dictionary.BaseDataType
 import cn.edu.cup.dictionary.DataKey
 import cn.edu.cup.lps.HydraulicProject
+import cn.edu.cup.lps.PipeNetwork
+import cn.edu.cup.lps.hydraulic.HydraulicEdge
+import cn.edu.cup.lps.hydraulic.HydraulicVertex
 import cn.edu.cup.physical.PhysicalQuantity
 import cn.edu.cup.physical.QuantityUnit
 import cn.edu.cup.physical.UnitSystem
@@ -379,9 +382,55 @@ class InitService {
     * */
     def fillSampleHydraulicSimulation() {
         for (int i=0; i<15; i++) {
-            def h = new HydraulicProject(name: "管道${i}模拟工程")
+            def pn = new PipeNetwork(name: "管道${i}")
+            pn.save(true)
+
+            def hvs = []
+            for (int j=0; j<8; j++) {
+                def hv = new HydraulicVertex(name: "节点${i}-${j}", pipeNetwork: pn)
+                hv.save(true)
+                hvs.add(hv)
+            }
+
+            for (int ii=0; ii<hvs.size(); ii++) {
+                if (ii>0) {
+                    def he = new HydraulicEdge(start: hvs[ii-1], end: hvs[ii])
+                    he.save(true)
+                    println("${he}")
+                }
+            }
+
+            /*
+            def hes = pn.hydraulicVertexes
+            println("开始创建边...")
+            hes.eachWithIndex{ HydraulicVertex entry, int ii ->
+                if (ii>0) {
+                    def he = new HydraulicEdge(start: hes[ii-1], end: hes[ii])
+                    he.save(true)
+                    println("${he}")
+                }
+            }
+            */  // 这个不工作。。。
+
+            def h = new HydraulicProject(name: "管道${i}模拟工程", pipeNetwork: pn)
             h.save(true)
+
         }
+
+        /*
+        def pns = PipeNetwork.list()
+        pns.each {p->
+            def hes = p.hydraulicVertexes
+            hes.eachWithIndex{ HydraulicVertex entry, int ii ->
+                if (ii>0) {
+                    def he = new HydraulicEdge(start: hes[ii-1], end: hes[ii])
+                    he.save(true)
+                    println("${he}")
+                }
+            }
+        }
+        */ //不工作
+
     }
 
     /*

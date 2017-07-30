@@ -50,7 +50,7 @@
 <div class="nav">
     <ul>
         <li>
-            <a href="#" class="create">新建工程</a>
+            <a href="javascript: createHydraulicProject(0)" class="create">新建工程</a>
         </li>
         <li>
             <a href="#" class="create">新建管道</a>
@@ -71,11 +71,17 @@
 
     <div title="模拟工程">
         <div id="listHydraulicProjectDiv"></div>
+
         <div id="paginationListHydraulicProjectDiv"></div>
     </div>
 
     <div title="管道">
         <div class="easyui-tabs">
+            <div title="管道列表">
+                <div id="listPipeNetworkDiv"></div>
+                <div id="paginationListPipeNetworkDiv"></div>
+            </div>
+
             <div title="站点"></div>
 
             <div title="高程-里程"></div>
@@ -93,6 +99,10 @@
     <div title="边界条件"></div>
 
     <div title="事件序列"></div>
+
+    <div title="编辑">
+        <div id="editHydraulicProjectDiv"></div>
+    </div>
 </div>
 </body>
 </html>

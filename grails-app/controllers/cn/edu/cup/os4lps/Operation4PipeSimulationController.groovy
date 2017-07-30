@@ -1,10 +1,84 @@
 package cn.edu.cup.os4lps
 
 import cn.edu.cup.lps.HydraulicProject
+import cn.edu.cup.lps.PipeNetwork
 import grails.converters.JSON
 import grails.transaction.Transactional
 
 class Operation4PipeSimulationController {
+
+    //PipeNetwork-------------------------------------------------------------------------------------------------------
+    /*
+    * 统计记录个数
+    * */
+    def countPipeNetwork() {
+        def count = PipeNetwork.count()    //这是必须调整的
+        println("统计结果：${count}")
+        def result = [count: count]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
+    }
+
+    /*
+    * 列出对象
+    * */
+    def listPipeNetwork() {
+        def pipeNetworkList = PipeNetwork.list(params)
+        if (request.xhr) {
+            render(template: 'listPipeNetwork', model: [pipeNetworkList: pipeNetworkList])
+        } else {
+            respond pipeNetworkList
+        }
+    }
+
+    /*
+    * 创建对象
+    * */
+
+    def createPipeNetwork(PipeNetwork pipeNetwork) {
+        def newPipeNetwork = new PipeNetwork()
+        if (request.xhr) {
+            render(template: 'createPipeNetwork', model: [pipeNetwork: newPipeNetwork])
+        } else {
+            respond newPipeNetwork
+        }
+    }
+
+    /*
+    * 保存对象
+    * */
+
+    @Transactional
+    def deletePipeNetwork(PipeNetwork pipeNetwork) {
+        pipeNetwork.delete()
+        redirect(action: 'index')
+    }
+
+    /*
+    * 保存对象
+    * */
+
+    @Transactional
+    def updatePipeNetwork(PipeNetwork pipeNetwork) {
+        println("准备更新：${pipeNetwork}")
+        pipeNetwork.save flush: true
+        redirect(action: 'index')
+    }
+
+    /*
+    * 编辑对象
+    * */
+
+    def editPipeNetwork(PipeNetwork pipeNetwork) {
+        if (request.xhr) {
+            render(template: 'editPipeNetwork', model: [pipeNetwork: pipeNetwork])
+        } else {
+            respond pipeNetwork
+        }
+    }
 
     //HydrauliProject---------------------------------------------------------------------------------------------------
     /*

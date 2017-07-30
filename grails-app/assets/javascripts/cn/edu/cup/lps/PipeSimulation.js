@@ -4,6 +4,9 @@ var currentTabPipeSimulationDiv;
 var listHydraulicProjectDiv;
 var paginationListHydraulicProjectDiv;
 
+var listPipeNetworkDiv;
+var paginationListPipeNetworkDiv;
+
 $(function() {
     console.info("管道模拟...");
 
@@ -55,8 +58,37 @@ $(function() {
     paginationListHydraulicProjectDiv.pagination("select", currentPgaeHydraulicProject);
     //------------------------------------------------------------------------------------------------------------------
 
+    //----------------------------------------------------------------------------------------------------------------
+    //获取当前页面的div
+    listPipeNetworkDiv = $("#listPipeNetworkDiv");
+    paginationListPipeNetworkDiv = $("#paginationListPipeNetworkDiv");
+
+    //获取当前页
+    var currentPgaePipeNetwork = readCookie("currentPgaePipeNetwork", 1);
+    var pageSizePipeNetwork = readCookie("pageSizePipeNetwork", pageSize);
+    var totalPipeNetwork = countPipeNetwork();
+    //console.info("记录总数：" + totalPipeNetwork);
+
+
+    //分页
+    paginationListPipeNetworkDiv.pagination({
+        pageSize: pageSizePipeNetwork,
+        total: totalPipeNetwork,
+        showPageList: true,
+        displayMsg: '',
+        layout: ['first', 'prev', 'links', 'next', 'last'],
+        //翻页函数
+        onSelectPage: function (pageNumber, pageSize) {
+            listPipeNetwork(pageNumber, pageSize);
+            $.cookie("currentPgaePipeNetwork", pageNumber);
+        }
+    });
+    paginationListPipeNetworkDiv.pagination("select", currentPgaePipeNetwork);
+    //------------------------------------------------------------------------------------------------------------------
+
 });
 
+//----------------------------------------------------------------------------------------------------------------------
 /*
  * 统计记录总数
  * */
@@ -90,4 +122,40 @@ function editHydraulicProject(id) {
     operation4PipeSimulationDiv.tabs("select", "编辑")
     //console.info("编辑HydraulicProject." + id);
     ajaxRun("operation4PipeSimulation/editHydraulicProject", id, "editHydraulicProjectDiv");
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+/*
+ * 统计记录总数
+ * */
+function countPipeNetwork() {
+    //console.info("开始统计...")
+    var total = ajaxCalculate("operation4PipeSimulation/countPipeNetwork");
+    //console.info("正在听统计结果：" + total);
+    return total;
+}
+
+/*
+* 列表显示当前所有对象
+* */
+function listPipeNetwork(pageNumber, pageSize) {
+    //console.info("列表显示对象：");
+    ajaxRun("operation4PipeSimulation/listPipeNetwork" + getParams(pageNumber, pageSize), 0, "listPipeNetworkDiv");
+}
+
+/*
+ * 新建
+ * */
+function createPipeNetwork(id) {
+    operation4PipeSimulationDiv.tabs("select", "编辑")
+    ajaxRun("operation4PipeSimulation/createPipeNetwork", id, "editPipeNetworkDiv");
+}
+
+/*
+ * 编辑
+ * */
+function editPipeNetwork(id) {
+    operation4PipeSimulationDiv.tabs("select", "编辑")
+    //console.info("编辑PipeNetwork." + id);
+    ajaxRun("operation4PipeSimulation/editPipeNetwork", id, "editPipeNetworkDiv");
 }
