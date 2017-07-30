@@ -69,7 +69,10 @@
 
 <div class="easyui-tabs" id="operation4PipeSimulationDiv">
 
-    <div title="模拟工程"></div>
+    <div title="模拟工程">
+        <div id="listHydraulicProjectDiv"></div>
+        <div id="paginationListHydraulicProjectDiv"></div>
+    </div>
 
     <div title="管道">
         <div class="easyui-tabs">
