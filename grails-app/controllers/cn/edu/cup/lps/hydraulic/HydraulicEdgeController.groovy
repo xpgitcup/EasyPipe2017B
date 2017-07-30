@@ -18,7 +18,9 @@ class HydraulicEdgeController {
     }
 
     def create() {
-        respond new HydraulicEdge(params)
+        HydraulicVertex start = params.start
+        HydraulicVertex end = params.end
+        respond HydraulicEdge.create(start, end)
     }
 
     @Transactional
