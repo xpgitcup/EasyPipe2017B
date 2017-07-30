@@ -55,6 +55,7 @@ class InitService {
     /*
     * 初始化物理量
     * */
+
     def initBasicPhysicalQuantity() {
         insertPhysicalQuantity("长度", "length", "L", "米", "m", true)
         insertPhysicalQuantity("质量", "mass", "M", "千克", "kg", true)
@@ -64,7 +65,7 @@ class InitService {
         insertPhysicalQuantity("物质的量", "amount of substance", "n(v)", "摩尔", "mol", true)
         insertPhysicalQuantity("发光强度", "luminous intensity", "I(Iv)", "坎德拉", "cd", true)
         //初始化量纲
-        PhysicalQuantity.list().each { e->
+        PhysicalQuantity.list().each { e ->
             e.dimension = "${e.initDimension()}"
             e.save()
         }
@@ -73,6 +74,7 @@ class InitService {
     /*
     * 插入物理量
     * */
+
     def insertPhysicalQuantity(quantityName, englishName, symbol, unitName, unitSymbol, basic) {
         if (PhysicalQuantity.countByQuantityName(quantityName) == 0) {
             def pq = new PhysicalQuantity(
@@ -90,27 +92,28 @@ class InitService {
     /*
     * 初始化系统单位制
     * */
+
     def initUnitSystem() {
         def si = [
-                "L":"m",
-                "M":"kg",
-                "T":"s",
-                "I":"A",
-                "K":"K",
-                "n(v)":"mol",
-                "I(Iv)":"cd"
+                "L"    : "m",
+                "M"    : "kg",
+                "T"    : "s",
+                "I"    : "A",
+                "K"    : "K",
+                "n(v)" : "mol",
+                "I(Iv)": "cd"
         ]
         def u = []
-        if (UnitSystem.count()<1) {
+        if (UnitSystem.count() < 1) {
             u.add(new UnitSystem(systemName: "SI", description: "国际单位制"))
             u.add(new UnitSystem(systemName: "English", description: "英制"))
             u.add(new UnitSystem(systemName: "自定义A", description: "自定义"))
-            u.each {e->
+            u.each { e ->
                 e.save()
             }
             println("初始化单位制系统...ok")
-            if (QuantityUnit.count()<1) {
-                PhysicalQuantity.findAllByBasic(true).each {e->
+            if (QuantityUnit.count() < 1) {
+                PhysicalQuantity.findAllByBasic(true).each { e ->
                     def qu = new QuantityUnit(
                             unitName: e.unitName,
                             symbol: si.get(e.symbol),
@@ -129,8 +132,9 @@ class InitService {
     /*
     * 插入物理量单位
     * */
+
     def insertQuantityUnit(unitName, englishName, symbol, dimension, factorA, factorB, unitSystem) {
-        if (QuantityUnit.countByUnitName(unitName)<1) {
+        if (QuantityUnit.countByUnitName(unitName) < 1) {
             def u = new QuantityUnit(unitName: unitName,
                     englishName: englishName,
                     symbol: symbol,
@@ -145,6 +149,7 @@ class InitService {
     /*
     * 初始化系统数据
     * */
+
     def initSystemData(domains) {
         println("初始化系统数据......")
         initBasicPhysicalQuantity()
@@ -156,6 +161,7 @@ class InitService {
     /*
     * 初始化系统菜单
     * */
+
     def initSystemMenuItems(domains) {
         if (SystemMenu.count() < 1) {
             def m0 = new SystemMenu(
@@ -301,6 +307,24 @@ class InitService {
             )
             m34.save(true)
             //----------------------------------------------------------------------------------------------------------
+            def m4 = new SystemMenu(
+                    menuContext: "管道模拟",
+                    menuAction: "#",
+                    menuDescription: "管道模拟",
+                    upMenuItem: null,
+                    roleAttribute: "系统维护",
+                    menuOrder: 0
+            )
+            m4.save(true)
+            //----------------------------------------------------------------------------------------------------------
+            def m41 = new SystemMenu(
+                    menuContext: "管道",
+                    menuAction: "Operation4PipeSimulation/index",
+                    menuDescription: "管道数据维护",
+                    upMenuItem: m4,
+                    menuOrder: 0
+            )
+            m41.save(true)
         }
     }
 
@@ -354,15 +378,16 @@ class InitService {
     /*
     * 用户类库
     * */
+
     def fillSampleUserLibrary() {
-        for (int i=0; i<15; i++) {
+        for (int i = 0; i < 15; i++) {
             def u = new UserLibraryClassify(
                     name: "测试${i}",
                     path: "TestPath${i}",
                     description: "这是测试${i}"
             )
             u.save()
-            for (int j=0; j<3; j++) {
+            for (int j = 0; j < 3; j++) {
                 def uu = new UserLibrary(
                         name: "测试类${i}",
                         description: "属于这是测试${i}",
@@ -372,7 +397,7 @@ class InitService {
                         userLibraryClassify: u
                 )
                 uu.save()
-                for (int k=0; k<3; k++) {
+                for (int k = 0; k < 3; k++) {
                     def uuu = new UserClass(
                             name: "用户类${i}",
                             description: "用户类${i}--",
@@ -386,7 +411,7 @@ class InitService {
 
     def fillSampleTitle() {
         println("初始化系统标题......")
-        if (SystemTitle.count()<1) {
+        if (SystemTitle.count() < 1) {
             def systemTitle = new SystemTitle(
                     applicationTitle: "EasyPipeNetwork 管网模拟种子程序",
                     applicationLogo: "cuplogoA.png",
@@ -394,13 +419,13 @@ class InitService {
             )
             systemTitle.save(true)
             //----------------------------------------------------------------------------------------------------------
-            if (SystemSponser.countBySystemTitle(systemTitle)<1) {
+            if (SystemSponser.countBySystemTitle(systemTitle) < 1) {
                 newSponser(systemTitle, "中国石油大学", "cuplogoA.png")
                 newSponser(systemTitle, "中海油", "logo_cnooc.png")
                 newSponser(systemTitle, "中联煤", "logo_cbm.png")
             }
             //----------------------------------------------------------------------------------------------------------
-            if (SystemCarousel.countBySystemTitle(systemTitle)<1) {
+            if (SystemCarousel.countBySystemTitle(systemTitle) < 1) {
                 newCarousel(systemTitle, "课题组", "课题组.jpg")
                 newCarousel(systemTitle, "多相流", "多相流.png")
                 newCarousel(systemTitle, "抽油机", "u68.jpg")
@@ -421,31 +446,31 @@ class InitService {
     private void fillSampleDataKey() {
         println("测试数据字典的数据...")
         def dw = ["kg", "m", "s", "MPa", "m^3/s", "kg/s"]
-        for (int i=0; i<30; i++) {
+        for (int i = 0; i < 30; i++) {
             def d = new DataKey(
                     keyContext: "key${i}",
                     dataValueType: BaseDataType.project
             )
             d.save(true)
-            for (int j=0; j<3; j++) {
+            for (int j = 0; j < 3; j++) {
                 def dd = new DataKey(
                         keyContext: "key${i}_${j}",
                         dataValueType: BaseDataType.projectCase,
                         upKey: d
                 )
                 dd.save(true)
-                for (int k=0; k<3; k++) {
+                for (int k = 0; k < 3; k++) {
                     def ddd = new DataKey(
                             keyContext: "key${i}_${j}_${k}",
                             dataValueType: BaseDataType.dataModel,
                             upKey: d
                     )
                     ddd.save(true)
-                    for (int l=0; l<5; l++) {
+                    for (int l = 0; l < 5; l++) {
                         def dddd = new DataKey(
                                 keyContext: "key${i}_${j}_${k}_${l}",
                                 dataValueType: BaseDataType.simpleData,
-                                quantityUnit: dw[(i+l)%6],
+                                quantityUnit: dw[(i + l) % 6],
                                 upKey: ddd
                         )
                         dddd.save(true)
