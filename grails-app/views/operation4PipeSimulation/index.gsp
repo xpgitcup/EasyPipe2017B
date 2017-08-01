@@ -82,7 +82,10 @@
                 <div id="paginationListPipeNetworkDiv"></div>
             </div>
 
-            <div title="站点"></div>
+            <div title="站点/顶点">
+                <div id="listHydraulicVertexDiv"></div>
+                <div id="paginationListHydraulicVertexDiv"></div>
+            </div>
 
             <div title="高程-里程"></div>
 

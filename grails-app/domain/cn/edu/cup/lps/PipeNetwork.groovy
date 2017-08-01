@@ -13,6 +13,7 @@ class PipeNetwork {
         name(unique: true)
         //hydraulicVertexes(nullable: true)
         //hydraulicEdges(nullable: true)
+        hydraulicVertexes sort: "id"
     }
 
     String toString() {
@@ -32,10 +33,25 @@ class PipeNetwork {
     def edges() {
         def es = []
         hydraulicVertexes.each { e->
-            es.addAll(HydraulicEdge.findAllByStart(e))
+            //es.addAll(HydraulicEdge.findAllByStart(e))
             //es.addAll(HydraulicEdge.findAllByEnd(e))
+            def fes = HydraulicEdge.findAllByStart(e)
+            fes.each { ee->
+                addUp(es, ee)
+            }
+
+            def fee = HydraulicEdge.findAllByEnd(e)
+            fee.each { ee->
+                addUp(es, ee)
+            }
         }
         println("${es}")
         return es
+    }
+
+    private void addUp(List<HydraulicEdge> es, HydraulicEdge ee) {
+        if (!es.contains(ee)) {
+            es.add(ee)
+        }
     }
 }
