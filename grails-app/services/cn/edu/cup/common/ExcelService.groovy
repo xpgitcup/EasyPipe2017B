@@ -31,7 +31,7 @@ class ExcelService {
                 def m = sheet.rows
                 //------------------------------------------------------------------------------------------------------
                 for (int ii = 0; ii < m; ii++) {
-                    DataItem dataItem = new DataItem(labelKey: dataKey, value: "from ${excelFile.name}")
+                    DataItem dataItem = new DataItem(labelKey: dataKey, value: "start ${excelFile.name}")
                     dataItem.subItems = []
                     dataKey.subKey.eachWithIndex { DataKey entry, int i ->
                         Cell cell = sheet.getCell(i, ii + 2)

@@ -64,6 +64,7 @@ class HydraulicEdge implements Serializable {
 
     static mapping = {
         id composite: ['start', 'end']
+        version false
     }
 
     String toString() {

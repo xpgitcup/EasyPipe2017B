@@ -7,7 +7,7 @@ class PipeNetwork {
 
     String name
 
-    static hasMany = [hydraulicVertexes: HydraulicVertex, hydraulicEdges: HydraulicEdge]
+    static hasMany = [hydraulicVertexes: HydraulicVertex]
 
     static constraints = {
         name(unique: true)
@@ -17,5 +17,25 @@ class PipeNetwork {
 
     String toString() {
         return "${name}/(${hydraulicVertexes?.size()})"
+    }
+
+    //==================================================================================================================
+    def edgesCount() {
+        def c = 0
+        hydraulicVertexes.each { e->
+            c += HydraulicEdge.countByStart(e)
+            c += HydraulicEdge.countByEnd(e)
+        }
+        return c
+    }
+
+    def edges() {
+        def es = []
+        hydraulicVertexes.each { e->
+            es.addAll(HydraulicEdge.findAllByStart(e))
+            //es.addAll(HydraulicEdge.findAllByEnd(e))
+        }
+        println("${es}")
+        return es
     }
 }

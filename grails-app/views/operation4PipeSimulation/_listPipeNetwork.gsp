@@ -26,7 +26,8 @@
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                 <td>${item.name}</td>
                 <td>${item.hydraulicVertexes?.size()}</td>
-                <td>${item.hydraulicEdges?.size()}</td>
+                <td>${item.edgesCount()}</td>
+                <td>${item.edges()}</td>
             </tr>
         </g:each>
         </tbody>
