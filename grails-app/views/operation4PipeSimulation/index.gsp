@@ -106,6 +106,10 @@
     <div title="编辑">
         <div id="editHydraulicProjectDiv"></div>
     </div>
+
+    <div title="拓扑结构">
+        <canvas width="800" height="500" id="canvas" style="background-color: grey"></canvas>
+    </div>
 </div>
 </body>
 </html>

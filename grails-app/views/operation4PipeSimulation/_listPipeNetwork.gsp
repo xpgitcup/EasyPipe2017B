@@ -24,7 +24,11 @@
         <tbody>
         <g:each in="${pipeNetworkList}" var="item" status="i">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                <td>${item.name}</td>
+                <td>
+                    <a href="javascript: showPipeNetwork(${item.id})">
+                        ${item.name}
+                    </a>
+                </td>
                 <td>${item.hydraulicVertexes?.size()}</td>
                 <td>${item.edgesCount()}</td>
                 <td>${item.edges()}</td>

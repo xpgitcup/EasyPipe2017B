@@ -32,6 +32,33 @@ function getParams(pageNumber, pageSize) {
 /*
  * 通用ajax函数，统计某个数值
  * */
+function ajaxCall(url, data) {
+    //console.info("开始计算--" + url);
+    var result = 0;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: {data: data},
+        async: false,
+        success: function (data, textStatus) {
+            //console.info("ajax状态：" + textStatus);
+            //console.info("ajax结果：" + data);
+            //console.info("ajax结果：" + data.count);
+            result = data;
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.info(XMLHttpRequest);
+            console.info(textStatus);
+            console.info(errorThrown);
+        }
+    });
+    //console.info("返回的结果：" + result);
+    return result;
+}
+
+/*
+ * 通用ajax函数，统计某个数值
+ * */
 function ajaxCalculate(url) {
     //console.info("开始计算--" + url);
     var result = 0;
@@ -54,6 +81,7 @@ function ajaxCalculate(url) {
     //console.info("返回的结果：" + result);
     return result;
 }
+
 
 /*
  * 通用的ajax执行函数

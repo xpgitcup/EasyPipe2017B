@@ -150,7 +150,7 @@ function createHydraulicProject(id) {
  * 编辑
  * */
 function editHydraulicProject(id) {
-    operation4PipeSimulationDiv.tabs("select", "编辑")
+    operation4PipeSimulationDiv.tabs("select", "编辑");
     //console.info("编辑HydraulicProject." + id);
     ajaxRun("operation4PipeSimulation/editHydraulicProject", id, "editHydraulicProjectDiv");
 }
@@ -164,6 +164,45 @@ function countPipeNetwork() {
     var total = ajaxCalculate("operation4PipeSimulation/countPipeNetwork");
     //console.info("正在听统计结果：" + total);
     return total;
+}
+
+function showPipeNetwork(id) {
+    operation4PipeSimulationDiv.tabs("select", "拓扑结构");
+    var elements = ajaxCall("operation4PipeSimulation/showPipeNetworkAsJson/" + id, 0);
+
+    console.info(elements);
+
+    drawTopo(elements);
+}
+
+function drawTopo(items) {
+    console.info("开始绘图...");
+    var canvas = document.getElementById('canvas');
+    var stage = new JTopo.Stage(canvas); // 创建一个舞台对象
+    var scene = new JTopo.Scene(stage); // 创建一个场景对象
+
+    // 不指定布局的时候，容器的布局为自动(容器边界随元素变化）
+    var container = new JTopo.Container(items.name);
+    container.textPosition = 'Middle_Center';
+    container.fontColor = '100,255,0';
+    container.font = '18pt 微软雅黑';
+    container.borderColor = '255,0,0';
+    container.borderRadius = 30; // 圆角
+    scene.add(container);
+
+    var nodes =[];
+    var edgs = [];
+
+    for (var i=0; i<items.nodes.length; i++) {
+        var anode = new JTopo.Node(items.nodes[i].name)
+        anode.setLocation(i*150+50, 50);
+        scene.add(anode)
+        container.add(anode);
+    }
+
+    for (var i=0; i<edgs.length; i++) {
+        //var start = JTopo.
+    }
 }
 
 /*

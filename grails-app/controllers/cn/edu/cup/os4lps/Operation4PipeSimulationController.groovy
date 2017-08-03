@@ -82,6 +82,22 @@ class Operation4PipeSimulationController {
     }
 
     //PipeNetwork-------------------------------------------------------------------------------------------------------
+
+    /*
+    * 将管道显示为Json格式
+    * */
+    def showPipeNetworkAsJson(PipeNetwork pipeNetwork) {
+        def p = [:]
+        p.put("nanme", pipeNetwork.name)
+        p.put("nodes", pipeNetwork.hydraulicVertexes)
+        p.put("links", pipeNetwork.edges());
+        if (request.xhr) {
+            render p as JSON
+        } else {
+            model:[pipeNetwork: p]
+        }
+    }
+
     /*
     * 统计记录个数
     * */

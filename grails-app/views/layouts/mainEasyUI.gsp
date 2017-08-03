@@ -40,6 +40,10 @@
     <asset:javascript src="jquery/jquery.cookie.js"/>
     <!--引入jqpagination-->
     <!--asset:javascript src="jqpagination/jquery.jqpagination.min.js"/-->
+
+    <!--引入拓扑图工具 -->
+    <asset:javascript src="jtopo/jtopo-0.4.8-min.js"/>
+
     <!--用户自定义的-->
     <asset:javascript src="cn/edu/cup/common/common.js"/>
 
