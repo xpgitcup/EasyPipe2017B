@@ -10,7 +10,7 @@ var paginationListPipeNetworkDiv;
 var listHydraulicVertexDiv;
 var paginationListHydraulicVertexDiv;
 
-$(function() {
+$(function () {
     console.info("管道模拟...");
 
     //------------------------------------------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ $(function() {
         onSelect: function (title, index) {
             console.info("选择标签：" + title + "---" + index);
             if (title !== "编辑") {
-                $.cookie("currentTabPipeSimulationDiv", title, {path:'/'});
+                $.cookie("currentTabPipeSimulationDiv", title, {path: '/'});
                 //$.cookie("currentTabPhysicalDiv", title);
             }
         }
@@ -190,20 +190,41 @@ function drawTopo(items) {
     container.borderRadius = 30; // 圆角
     scene.add(container);
 
-    var nodes =[];
-    var edgs = [];
+    console.info("原始数据：");
+    console.info(items);
+    console.info(typeof items.nodes);
+    //var nodes = JSON.parse(items.nodes);
+    var nodes = new Map(items.nodes);
+    nodes.forEach(function(value, index, array){
+        console.inf(value);
+    });
 
-    for (var i=0; i<items.nodes.length; i++) {
+    for (var i = 0; i < items.nodes.length; i++) {
+        var key = items.nodes.key[i]
+        cnosole.info("节点：" + key);
         var anode = new JTopo.Node(items.nodes[i].name)
-        anode.setLocation(i*150+50, 50);
+        anode.setLocation(i * 80 + 50, 50);
+        //var item = {id: items.nodes[i].id, node: anode}
+        //nodes.push(item)
+        items.nodes[i].tnode = anode;
         scene.add(anode)
         container.add(anode);
     }
 
-    for (var i=0; i<edgs.length; i++) {
-        //var start = JTopo.
+    console.info("开始连线....")
+    for (var i = 0; i < items.links.length; i++) {
+        var from = items.links[i].start.id;
+        var toId = items.links[i].end.id;
+        console.info(i + ":" + from + '-' + toId);
+        var fromNode = items.nodes[from]
+        var toNode = items.nodes[toId];
+        console.info(fromNode);
+        console.info(toNode);
+        var alink = new JTopo.Link(fromNode, toNode);
+        scene.add(alink);
     }
 }
+
 
 /*
 * 列表显示当前所有对象

@@ -88,8 +88,12 @@ class Operation4PipeSimulationController {
     * */
     def showPipeNetworkAsJson(PipeNetwork pipeNetwork) {
         def p = [:]
+        def nodes = [:]
+        pipeNetwork.hydraulicVertexes.each { e->
+            nodes.put(e.id, e)
+        }
         p.put("nanme", pipeNetwork.name)
-        p.put("nodes", pipeNetwork.hydraulicVertexes)
+        p.put("nodes", nodes)
         p.put("links", pipeNetwork.edges());
         if (request.xhr) {
             render p as JSON
