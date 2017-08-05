@@ -29,10 +29,6 @@ $(function () {
         }
     })
 
-    //------------------------------------------------------------------------------------------------------------------
-    //页面跳转--放到最后，试试看
-    operation4PipeSimulationDiv.tabs("select", currentTabPipeSimulationDiv);
-
     //----------------------------------------------------------------------------------------------------------------
     //获取当前页面的div
     listHydraulicProjectDiv = $("#listHydraulicProjectDiv");
@@ -117,6 +113,10 @@ $(function () {
     paginationListHydraulicVertexDiv.pagination("select", currentPgaeHydraulicVertex);
     //------------------------------------------------------------------------------------------------------------------
 
+    //------------------------------------------------------------------------------------------------------------------
+    //页面跳转--放到最后，试试看
+    operation4PipeSimulationDiv.tabs("select", currentTabPipeSimulationDiv);
+
 });
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -190,18 +190,18 @@ function drawTopo(items) {
     container.borderRadius = 30; // 圆角
     scene.add(container);
 
-    console.info("原始数据：");
-    console.info(items);
-    console.info(typeof items.nodes);
+    //console.info("原始数据：");
+    //console.info(items);
+    //console.info(typeof items.nodes);
     //var nodes = JSON.parse(items.nodes);
-    var nodes = new Map(items.nodes);
-    nodes.forEach(function(value, index, array){
-        console.inf(value);
-    });
+    //var nodes = new Map(items.nodes);
+    //console.info("创建" + nodes);
+
+    //nodes.forEach(function(value, index, array){
+    //    console.inf(value);
+    //});
 
     for (var i = 0; i < items.nodes.length; i++) {
-        var key = items.nodes.key[i]
-        cnosole.info("节点：" + key);
         var anode = new JTopo.Node(items.nodes[i].name)
         anode.setLocation(i * 80 + 50, 50);
         //var item = {id: items.nodes[i].id, node: anode}
@@ -212,19 +212,23 @@ function drawTopo(items) {
     }
 
     console.info("开始连线....")
+
     for (var i = 0; i < items.links.length; i++) {
         var from = items.links[i].start.id;
         var toId = items.links[i].end.id;
         console.info(i + ":" + from + '-' + toId);
-        var fromNode = items.nodes[from]
-        var toNode = items.nodes[toId];
-        console.info(fromNode);
-        console.info(toNode);
-        var alink = new JTopo.Link(fromNode, toNode);
+
+        //var fromNode = items.nodes.filter(function(value, index, self) {
+        //    return value.id === from;
+        //});
+        var fromNode = arrayFind(items.nodes, 'id', from);
+        var toNode = arrayFind(items.nodes, 'id', toId);
+        console.info("发现：" + fromNode.id);
+        console.info("发现：" + toNode.id);
+        var alink = new JTopo.Link(fromNode.tnode, toNode.tnode);
         scene.add(alink);
     }
 }
-
 
 /*
 * 列表显示当前所有对象

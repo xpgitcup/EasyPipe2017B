@@ -53,7 +53,7 @@
             <a href="javascript: createHydraulicProject(0)" class="create">新建工程</a>
         </li>
         <li>
-            <a href="#" class="create">新建管道</a>
+            <a href="javascript: createPipeNetwork(0)" class="create">新建管道</a>
         </li>
         <li>
             <a href="#" class="create">新建初始条件</a>
@@ -104,6 +104,7 @@
     <div title="事件序列"></div>
 
     <div title="编辑">
+        <div id="editPipeNetworkDiv"></div>
         <div id="editHydraulicProjectDiv"></div>
     </div>
 

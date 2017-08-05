@@ -5,13 +5,21 @@ import cn.edu.cup.lps.PipeNetwork
 import cn.edu.cup.lps.hydraulic.HydraulicVertex
 import grails.converters.JSON
 import grails.transaction.Transactional
+import jxl.Workbook
+import jxl.write.Label
+import jxl.write.WritableSheet
+import jxl.write.WritableWorkbook
 
 class Operation4PipeSimulationController {
+
+    def excelService
+    def commonService
 
     //HydraulicVertex===================================================================================================
     /*
     * 统计记录个数
     * */
+
     def countHydraulicVertex() {
         def count = HydraulicVertex.count()    //这是必须调整的
         println("统计结果：${count}")
@@ -26,6 +34,7 @@ class Operation4PipeSimulationController {
     /*
     * 列出对象
     * */
+
     def listHydraulicVertex() {
         def hydraulicVertexList = HydraulicVertex.list(params)
         if (request.xhr) {
@@ -84,27 +93,67 @@ class Operation4PipeSimulationController {
     //PipeNetwork-------------------------------------------------------------------------------------------------------
 
     /*
+    * 导出管道
+    * */
+
+    def exportToExcel(PipeNetwork pipeNetwork) {
+        def excelName = exportPipeNetworkToExcel(pipeNetwork)
+        params.downLoadFileName = excelName
+        commonService.downLoadFile(params)
+    }
+
+    def exportPipeNetworkToExcel(PipeNetwork pipeNetwork) {
+        def fileName = servletContext.getRealPath("/") + "pipeNetworks/${pipeNetwork.name}.xls"
+        try {
+            //  打开文件
+            File file = new File(fileName)
+            WritableWorkbook book = Workbook.createWorkbook(file);
+            //  生成名为“第一页”的工作表，参数0表示这是第一页
+            WritableSheet sheet = book.createSheet("${pipeNetwork.name}", 0);
+
+            sheet.addCell(new Label(0, 0, "站点/节点"))
+            sheet.addCell(new Label(1, 1, "里程（km）"))
+            sheet.addCell(new Label(2, 2, "高程（m）"))
+
+            Label label
+            pipeNetwork.hydraulicVertexes.eachWithIndex() { e, i ->
+                sheet.addCell(new Label(0, i + 1, e.name));
+                sheet.addCell(new Label(1, i + 1, e.mileage));
+                sheet.addCell(new Label(2, i + 1, e.elevation));
+            }
+
+            //  写入数据并关闭文件
+            book.write();
+            book.close();
+
+        } catch (Exception e) {
+            println "exportExcelFile error: ${e}";
+        }
+        return fileName
+    }
+
+    /*
     * 将管道显示为Json格式
     * */
+
     def showPipeNetworkAsJson(PipeNetwork pipeNetwork) {
         def p = [:]
-        def nodes = [:]
-        pipeNetwork.hydraulicVertexes.each { e->
-            nodes.put(e.id, e)
-        }
         p.put("nanme", pipeNetwork.name)
-        p.put("nodes", nodes)
+        //p.put("nodes", nodes)
+        p.put("nodes", pipeNetwork.hydraulicVertexes)
         p.put("links", pipeNetwork.edges());
         if (request.xhr) {
             render p as JSON
         } else {
-            model:[pipeNetwork: p]
+            model:
+            [pipeNetwork: p]
         }
     }
 
     /*
     * 统计记录个数
     * */
+
     def countPipeNetwork() {
         def count = PipeNetwork.count()    //这是必须调整的
         println("统计结果：${count}")
@@ -119,6 +168,7 @@ class Operation4PipeSimulationController {
     /*
     * 列出对象
     * */
+
     def listPipeNetwork() {
         def pipeNetworkList = PipeNetwork.list(params)
         if (request.xhr) {
@@ -178,6 +228,7 @@ class Operation4PipeSimulationController {
     /*
     * 统计记录个数
     * */
+
     def countHydraulicProject() {
         def count = HydraulicProject.count()    //这是必须调整的
         println("统计结果：${count}")
@@ -192,6 +243,7 @@ class Operation4PipeSimulationController {
     /*
     * 列出对象
     * */
+
     def listHydraulicProject() {
         def hydraulicProjectList = HydraulicProject.list(params)
         if (request.xhr) {
@@ -247,5 +299,5 @@ class Operation4PipeSimulationController {
         }
     }
 
-    def index() { }
+    def index() {}
 }

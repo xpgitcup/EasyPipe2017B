@@ -19,7 +19,9 @@
         <thead>
         <th>管道名称</th>
         <th>节点数</th>
+        <th>操作</th>
         <th>连接关系数</th>
+        <th>连接关系</th>
         </thead>
         <tbody>
         <g:each in="${pipeNetworkList}" var="item" status="i">
@@ -30,6 +32,14 @@
                     </a>
                 </td>
                 <td>${item.hydraulicVertexes?.size()}</td>
+                <td>
+                    <g:if test="${item.edges().size()>0}">
+                        <a href="operation4PipeSimulation/exportToExcel/${item.id}">导出</a>
+                    </g:if>
+                    <g:else>
+                        <a href="javascript: prepareImportFromExcel(${item.id})">导入</a>
+                    </g:else>
+                </td>
                 <td>${item.edgesCount()}</td>
                 <td>${item.edges()}</td>
             </tr>

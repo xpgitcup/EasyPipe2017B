@@ -5,6 +5,27 @@
 var pageSize = 10
 
 /*
+* 对象数组查找
+* */
+function arrayFind(arrayToSearch, attr, value) {
+    for (var i = 0; i < arrayToSearch.length; i++) {
+        if (arrayToSearch[i][attr] == value) {
+            return arrayToSearch[i];
+        }
+    }
+    return null;
+}
+
+function arrayFindIndex(arrayToSearch, attr, value) {
+    for (var i = 0; i < arrayToSearch.length; i++) {
+        if (arrayToSearch[i][attr] == value) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+/*
  * Cookie读取，如果有，就读取；如果没有，赋值为1
  * */
 function readCookie(cName, defaultValue) {

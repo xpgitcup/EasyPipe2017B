@@ -22,12 +22,7 @@ class PipeNetwork {
 
     //==================================================================================================================
     def edgesCount() {
-        def c = 0
-        hydraulicVertexes.each { e->
-            c += HydraulicEdge.countByStart(e)
-            c += HydraulicEdge.countByEnd(e)
-        }
-        return c
+        return edges().size()
     }
 
     def edges() {
