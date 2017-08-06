@@ -5,10 +5,6 @@ import cn.edu.cup.lps.PipeNetwork
 import cn.edu.cup.lps.hydraulic.HydraulicVertex
 import grails.converters.JSON
 import grails.transaction.Transactional
-import jxl.Workbook
-import jxl.write.Label
-import jxl.write.WritableSheet
-import jxl.write.WritableWorkbook
 
 class Operation4PipeSimulationController {
 
@@ -92,6 +88,18 @@ class Operation4PipeSimulationController {
     //PipeNetwork-------------------------------------------------------------------------------------------------------
 
     /*
+    * downLoadTemplate
+    * 下载数据模型的模板
+    * */
+    def downLoadTemplate() {
+        def rootPath = servletContext.getRealPath("/")
+        def fileName = PipeNetwork.createTemplate(rootPath)
+        println("${fileName}")
+        params.downLoadFileName = fileName
+        commonService.downLoadFile(params)
+    }
+
+    /*
     * 导入管道
     * */
 
@@ -105,7 +113,11 @@ class Operation4PipeSimulationController {
     }
 
     def importFromExcel(PipeNetwork pipeNetwork) {
-        pipeNetwork.importFromExcel(params.fileName)
+        def destDir = servletContext.getRealPath("/") + "uploads"
+        params.destDir = destDir
+        def sf = commonService.upload(params)
+        println("上传${sf}成功...")
+        pipeNetwork.importFromExcel(sf)
         redirect(action: 'index')
     }
 

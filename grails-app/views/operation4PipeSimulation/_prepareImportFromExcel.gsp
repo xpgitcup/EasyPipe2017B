@@ -20,7 +20,7 @@
             <tr>
                 <td>数据格式模板可以下载：</td>
                 <td>
-                    <a href="operation4PipeSimulation/getTemplate/?downLoadFileName=${fileName}">数据模板</a>
+                    <a href="operation4PipeSimulation/downLoadTemplate">数据模板</a>
                 </td>
             </tr>
         </table>
