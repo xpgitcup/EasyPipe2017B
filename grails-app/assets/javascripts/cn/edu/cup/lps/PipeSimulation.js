@@ -190,6 +190,12 @@ function drawTopo(items) {
     var stage = new JTopo.Stage(canvas); // 创建一个舞台对象
     var scene = new JTopo.Scene(stage); // 创建一个场景对象
 
+    var cWidth = stage.width
+    var cHeight = stage.height
+
+    stage.frames = -24;
+    scene.clear();
+
     // 不指定布局的时候，容器的布局为自动(容器边界随元素变化）
     var container = new JTopo.Container(items.name);
     container.textPosition = 'Middle_Center';
@@ -199,14 +205,21 @@ function drawTopo(items) {
     container.borderRadius = 30; // 圆角
     scene.add(container);
 
-    for (var i = 0; i < items.nodes.length; i++) {
-        var anode = new JTopo.Node(items.nodes[i].name)
-        anode.setLocation(i * 80 + 50, 50);
-        //var item = {id: items.nodes[i].id, node: anode}
-        //nodes.push(item)
-        items.nodes[i].tnode = anode;
-        scene.add(anode)
+    function drawNode(node) {
+        var anode = new JTopo.CircleNode(node.name)
+        anode.setSize(10, 10);
+        var x = node.xLocation * cWidth;
+        var y = node.yLocation * cHeight;
+        anode.setLocation(x, y);
+        console.info("(" + x + "," + y + ")");
+        node.tnode = anode;
+        scene.add(anode);
         container.add(anode);
+        return anode;
+    }
+
+    for (var i = 0; i < items.nodes.length; i++) {
+        drawNode(items.nodes[i])
     }
 
     console.info("开始连线....")
@@ -214,13 +227,10 @@ function drawTopo(items) {
     for (var i = 0; i < items.links.length; i++) {
         var from = items.links[i].start.id;
         var toId = items.links[i].end.id;
-        console.info(i + ":" + from + '-' + toId);
+        //console.info(i + ":" + from + '-' + toId);
 
         var fromNode = arrayFind(items.nodes, 'id', from);
         var toNode = arrayFind(items.nodes, 'id', toId);
-
-        console.info("发现：" + fromNode.id);
-        console.info("发现：" + toNode.id);
 
         var alink = new JTopo.Link(fromNode.tnode, toNode.tnode);
 

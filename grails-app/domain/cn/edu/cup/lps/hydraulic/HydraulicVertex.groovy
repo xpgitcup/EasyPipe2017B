@@ -29,7 +29,7 @@ class HydraulicVertex {
     }
 
     static constraints = {
-        name(unique: true)
+        name()
         mileage(nullable: true)
         elevation(nullable: true)
         xLocation(nullable: true)

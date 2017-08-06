@@ -81,6 +81,10 @@ class PipeNetwork {
                 //------------------------------------------------------------------------------------------------------
                 def m = sheet.rows
                 def hvs = []
+                def minx = 0
+                def maxx = 0
+                def miny = 0
+                def maxy = 0
                 //------------------------------------------------------------------------------------------------------
                 Cell[] cells = new Cell[3]
                 for (int ii = 1; ii < m; ii++) {
@@ -91,9 +95,37 @@ class PipeNetwork {
                     def mi = Double.parseDouble(cells[1].getContents())
                     def ev = Double.parseDouble(cells[2].getContents())
                     def v = new HydraulicVertex(name: n, mileage: mi, elevation: ev, pipeNetwork: this)
-                    v.save(true)
+                    //v.save(true)
                     hvs.add(v)
+                    //--------------------------------------------------------------------------------------------------
+                    if (minx > v.mileage) {
+                        minx = v.mileage
+                    }
+                    if (maxx < v.mileage) {
+                        maxx = v.mileage
+                    }
+                    if (miny > v.elevation) {
+                        miny = v.elevation
+                    }
+                    if (maxy < v.elevation) {
+                        maxy = v.elevation
+                    }
                 }
+                //------------------------------------------------------------------------------------------------------
+                def xl = (maxx - minx) * 1.1
+                def yl = (maxy - miny) * 1.1
+                if (xl>0) {
+                    hvs.each { e->
+                        e.xLocation = (e.mileage - minx) / xl;
+                    }
+                }
+                if (yl>0) {
+                    hvs.each { e->
+                        e.yLocation = (e.elevation - miny) / yl;
+                    }
+                }
+                hvs.each {e-> e.save(true)}
+                //------------------------------------------------------------------------------------------------------
                 for (int i=1; i<hvs.size(); i++) {
                     def e = new HydraulicEdge(start: hvs[i-1], end: hvs[i])
                     e.save(true)
