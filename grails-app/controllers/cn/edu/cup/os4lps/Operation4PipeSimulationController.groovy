@@ -12,7 +12,6 @@ import jxl.write.WritableWorkbook
 
 class Operation4PipeSimulationController {
 
-    def excelService
     def commonService
 
     //HydraulicVertex===================================================================================================
@@ -93,43 +92,32 @@ class Operation4PipeSimulationController {
     //PipeNetwork-------------------------------------------------------------------------------------------------------
 
     /*
+    * 导入管道
+    * */
+
+    def prepareImportFromExcel(PipeNetwork pipeNetwork) {
+        if (request.xhr) {
+            render(template: "prepareImportFromExcel", model: [pipeNetwork: pipeNetwork])
+        } else {
+            model:
+            [pipeNetwork: pipeNetwork]
+        }
+    }
+
+    def importFromExcel(PipeNetwork pipeNetwork) {
+        pipeNetwork.importFromExcel(params.fileName)
+        redirect(action: 'index')
+    }
+
+    /*
     * 导出管道
     * */
 
     def exportToExcel(PipeNetwork pipeNetwork) {
-        def excelName = exportPipeNetworkToExcel(pipeNetwork)
+        def rootPath = servletContext.getRealPath("/")
+        def excelName = pipeNetwork.exportPipeNetworkToExcel(rootPath)
         params.downLoadFileName = excelName
         commonService.downLoadFile(params)
-    }
-
-    def exportPipeNetworkToExcel(PipeNetwork pipeNetwork) {
-        def fileName = servletContext.getRealPath("/") + "pipeNetworks/${pipeNetwork.name}.xls"
-        try {
-            //  打开文件
-            File file = new File(fileName)
-            WritableWorkbook book = Workbook.createWorkbook(file);
-            //  生成名为“第一页”的工作表，参数0表示这是第一页
-            WritableSheet sheet = book.createSheet("${pipeNetwork.name}", 0);
-
-            sheet.addCell(new Label(0, 0, "站点/节点"))
-            sheet.addCell(new Label(1, 1, "里程（km）"))
-            sheet.addCell(new Label(2, 2, "高程（m）"))
-
-            Label label
-            pipeNetwork.hydraulicVertexes.eachWithIndex() { e, i ->
-                sheet.addCell(new Label(0, i + 1, e.name));
-                sheet.addCell(new Label(1, i + 1, e.mileage));
-                sheet.addCell(new Label(2, i + 1, e.elevation));
-            }
-
-            //  写入数据并关闭文件
-            book.write();
-            book.close();
-
-        } catch (Exception e) {
-            println "exportExcelFile error: ${e}";
-        }
-        return fileName
     }
 
     /*

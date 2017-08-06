@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: 'dataItem.label', default: 'DataItem')}"/>
+    <g:set var="entityName" value="${message(code: 'dataItem.label', default: 'PipeNetwork')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
 </head>
 
@@ -11,7 +11,7 @@
                                                                default="Skip to content&hellip;"/></a>
 
 <div id="list-dataItem" class="content scaffold-list" role="main">
-    <h1>${dataKey}</h1>
+    <h1>${pipeNetwork}</h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
@@ -20,11 +20,11 @@
             <tr>
                 <td>数据格式模板可以下载：</td>
                 <td>
-                    <a href="operation4Data/getTemplate/?downLoadFileName=${fileName}">数据模板</a>
+                    <a href="operation4PipeSimulation/getTemplate/?downLoadFileName=${fileName}">数据模板</a>
                 </td>
             </tr>
         </table>
-        <g:uploadForm controller="operation4Data" action="importDataItem">
+        <g:uploadForm controller="operation4PipeSimulation" action="importFromExcel">
             <table>
                 <tr>
                     <td>
@@ -32,7 +32,7 @@
                     </td>
                     <td>
                         <input type="file" name="uploadedFile">
-                        <g:hiddenField name="id" value="${dataKey.id}"/>
+                        <g:hiddenField name="id" value="${pipeNetwork.id}"/>
                     </td>
                 </tr>
             </table>

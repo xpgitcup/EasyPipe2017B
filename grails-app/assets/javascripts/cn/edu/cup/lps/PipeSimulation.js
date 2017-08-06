@@ -175,6 +175,15 @@ function showPipeNetwork(id) {
     drawTopo(elements);
 }
 
+/**/
+function prepareImportFromExcel(id) {
+    operation4PipeSimulationDiv.tabs("select", "导入管道");
+    ajaxRun("operation4PipeSimulation/prepareImportFromExcel", id, "prepareImportFromExcelDiv");
+}
+
+/*
+* 管道绘图
+* */
 function drawTopo(items) {
     console.info("开始绘图...");
     var canvas = document.getElementById('canvas');
@@ -189,17 +198,6 @@ function drawTopo(items) {
     container.borderColor = '255,0,0';
     container.borderRadius = 30; // 圆角
     scene.add(container);
-
-    //console.info("原始数据：");
-    //console.info(items);
-    //console.info(typeof items.nodes);
-    //var nodes = JSON.parse(items.nodes);
-    //var nodes = new Map(items.nodes);
-    //console.info("创建" + nodes);
-
-    //nodes.forEach(function(value, index, array){
-    //    console.inf(value);
-    //});
 
     for (var i = 0; i < items.nodes.length; i++) {
         var anode = new JTopo.Node(items.nodes[i].name)
@@ -218,14 +216,14 @@ function drawTopo(items) {
         var toId = items.links[i].end.id;
         console.info(i + ":" + from + '-' + toId);
 
-        //var fromNode = items.nodes.filter(function(value, index, self) {
-        //    return value.id === from;
-        //});
         var fromNode = arrayFind(items.nodes, 'id', from);
         var toNode = arrayFind(items.nodes, 'id', toId);
+
         console.info("发现：" + fromNode.id);
         console.info("发现：" + toNode.id);
+
         var alink = new JTopo.Link(fromNode.tnode, toNode.tnode);
+
         scene.add(alink);
     }
 }
